@@ -1,0 +1,25 @@
+{
+  "best_params": {
+    "n_estimators": 356,
+    "learning_rate": 0.006079206770537143,
+    "num_leaves": 39,
+    "max_depth": 8,
+    "min_child_samples": 87,
+    "subsample": 0.6013229139922185,
+    "colsample_bytree": 0.45237414581431007,
+    "reg_alpha": 3.7655043234024914,
+    "reg_lambda": 17.666713298608002
+  },
+  "val_mae": 10.470060983500657,
+  "ens_weights": {
+    "lgb": 0.6,
+    "ridge": 0.25,
+    "elo": 0.15
+  },
+  "test_mae_lgb": 10.116384634886568,
+  "test_mae_ens": 10.120305390086491,
+  "test_su_lgb": 0.6421194431971262,
+  "test_su_ens": 0.6412213740458015,
+  "test_vegas_mae": 9.828693309384823,
+  "test_vegas_su": 0.6596317916479569
+}

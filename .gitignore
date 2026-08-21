@@ -1,0 +1,9 @@
+data/
+models_store/
+reports/*.parquet
+reports/*.log
+web/preview_*.png
+web/index.html
+__pycache__/
+*.pyc
+.DS_Store

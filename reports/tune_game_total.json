@@ -1,0 +1,19 @@
+{
+  "target": "total",
+  "best_params": {
+    "n_estimators": 345,
+    "learning_rate": 0.006530896256807765,
+    "num_leaves": 46,
+    "max_depth": 7,
+    "min_child_samples": 36,
+    "subsample": 0.66348817045604,
+    "colsample_bytree": 0.42779852562119636,
+    "reg_alpha": 9.258026438677765,
+    "reg_lambda": 2.3073217498545904
+  },
+  "val_mae": 10.655388867750947,
+  "blend_w_lgb": 1.0,
+  "test_mae_lgb": 10.600079111213915,
+  "test_mae_blend": 10.600079111213915,
+  "test_vegas_mae": 10.41692860350247
+}

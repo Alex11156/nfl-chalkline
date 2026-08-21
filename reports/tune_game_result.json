@@ -1,0 +1,22 @@
+{
+  "target": "result",
+  "best_params": {
+    "n_estimators": 290,
+    "learning_rate": 0.010306873367990604,
+    "num_leaves": 53,
+    "max_depth": 3,
+    "min_child_samples": 89,
+    "subsample": 0.6954903782434682,
+    "colsample_bytree": 0.3286712491370688,
+    "reg_alpha": 8.994374412502689,
+    "reg_lambda": 3.2530195718837054
+  },
+  "val_mae": 10.458073634313804,
+  "blend_w_lgb": 1.0,
+  "test_mae_lgb": 10.120256427934066,
+  "test_mae_blend": 10.120256427934066,
+  "test_vegas_mae": 9.828693309384823,
+  "test_su_lgb": 0.6407723394701392,
+  "test_su_blend": 0.6407723394701392,
+  "test_vegas_su": 0.6596317916479569
+}

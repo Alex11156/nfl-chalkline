@@ -1,0 +1,15 @@
+pandas>=2.2
+numpy
+scikit-learn
+scipy
+lightgbm
+xgboost
+duckdb
+streamlit
+plotly
+nflreadpy
+optuna
+joblib
+pyarrow
+matplotlib
+anthropic

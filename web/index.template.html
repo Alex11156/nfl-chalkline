@@ -1,0 +1,577 @@
+<title>Chalkline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F1; --surface:#FFFFFF; --surface2:#E9EEE8;
+  --ink:#16211C; --ink2:#59665E; --line:#D8E0D8;
+  --accent:#177A4B; --accent-ink:#FFFFFF; --gold:#96690F;
+  --pos:#177A4B; --neg:#C23434;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#c98500;
+  --grid:#E4EAE3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1310; --surface:#131D17; --surface2:#1A2820;
+    --ink:#ECF2ED; --ink2:#94A399; --line:#233229;
+    --accent:#37BA7A; --accent-ink:#07130C; --gold:#D9A13B;
+    --pos:#37BA7A; --neg:#E05B5B;
+    --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500;
+    --grid:#1D2B23;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1310; --surface:#131D17; --surface2:#1A2820;
+  --ink:#ECF2ED; --ink2:#94A399; --line:#233229;
+  --accent:#37BA7A; --accent-ink:#07130C; --gold:#D9A13B;
+  --pos:#37BA7A; --neg:#E05B5B;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500;
+  --grid:#1D2B23;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 "Public Sans",system-ui,sans-serif;}
+.wrap{max-width:920px;margin:0 auto;padding:20px 20px 80px}
+header{display:flex;align-items:baseline;gap:14px;margin:6px 0 22px}
+.mark{font:700 30px/1 "Barlow Condensed",sans-serif;letter-spacing:.06em}
+.mark b{color:var(--accent)}
+.sub{color:var(--ink2);font-size:13px}
+.ask{display:flex;gap:10px}
+.ask input{flex:1;padding:15px 18px;font:16px "Public Sans",sans-serif;
+  color:var(--ink);background:var(--surface);border:1.5px solid var(--line);
+  border-radius:10px;outline:none}
+.ask input:focus{border-color:var(--accent)}
+.ask button{padding:0 26px;border:none;border-radius:10px;cursor:pointer;
+  background:var(--accent);color:var(--accent-ink);
+  font:600 17px "Barlow Condensed",sans-serif;letter-spacing:.08em}
+.ask button:focus-visible,.chip:focus-visible,.pill:focus-visible
+  {outline:2px solid var(--accent);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink2);
+  border-radius:999px;padding:6px 13px;font-size:13px;cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--accent)}
+nav{display:flex;gap:8px;margin:26px 0 14px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);background:none;color:var(--ink2);
+  padding:7px 16px;border-radius:8px;cursor:pointer;
+  font:600 15px "Barlow Condensed",sans-serif;letter-spacing:.09em}
+.pill[aria-selected="true"]{background:var(--surface);color:var(--ink);
+  border-color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:12px 0}
+@media (prefers-reduced-motion:no-preference){
+  .card.new{animation:up .25s ease-out}
+  @keyframes up{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+}
+.q{color:var(--ink2);font-size:13px;margin-bottom:8px}
+.q::before{content:"Q · ";color:var(--accent);font-weight:600}
+h2{font:600 22px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.03em;margin:0 0 10px}
+h3{font:600 18px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.04em;
+  margin:18px 0 8px;color:var(--ink2)}
+.score{font:700 44px/1 "Barlow Condensed",sans-serif;letter-spacing:.02em;margin:6px 0}
+.score small{font-size:22px;color:var(--ink2);font-weight:600}
+.num,td.r,.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.big{font:500 34px/1 "IBM Plex Mono",monospace}
+.kv{display:flex;gap:26px;flex-wrap:wrap;margin:10px 0}
+.kv div{min-width:90px}
+.kv .l{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink2)}
+.kv .v{font:500 21px/1.4 "IBM Plex Mono",monospace}
+.note{color:var(--ink2);font-size:13px;margin-top:10px}
+.lean{display:inline-block;padding:3px 11px;border-radius:6px;
+  font:600 14px "Barlow Condensed",sans-serif;letter-spacing:.09em}
+.lean.over{background:var(--pos);color:var(--accent-ink)}
+.lean.under{background:var(--neg);color:#fff}
+.lean.none{background:var(--surface2);color:var(--ink2)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font:600 13px "Barlow Condensed",sans-serif;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink2);text-align:left;padding:7px 10px;
+  border-bottom:1.5px solid var(--line)}
+td{padding:7px 10px;border-bottom:1px solid var(--grid)}
+td.r,th.r{text-align:right}
+.tblwrap{overflow-x:auto}
+.panel{display:none}
+.panel.on{display:block}
+select,input[type=text],input[type=number]{padding:9px 12px;border:1.5px solid var(--line);
+  border-radius:8px;background:var(--surface);color:var(--ink);
+  font:15px "Public Sans",sans-serif}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0}
+button.go{padding:9px 20px;border:none;border-radius:8px;background:var(--accent);
+  color:var(--accent-ink);font:600 15px "Barlow Condensed",sans-serif;
+  letter-spacing:.08em;cursor:pointer}
+svg text{font-family:"Public Sans",sans-serif}
+svg .n{font-family:"IBM Plex Mono",monospace}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--ink2);margin:4px 0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);
+  padding:4px 9px;border-radius:6px;font:12.5px "IBM Plex Mono",monospace;
+  opacity:0;z-index:9}
+footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid var(--line);
+  padding-top:14px}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="mark">CHALK<b>LINE</b></div>
+  <div class="sub" id="subline"></div>
+</header>
+
+<div class="ask" role="search">
+  <input id="qbox" placeholder="Ask about a game, player, prop line, or trend…"
+         aria-label="Ask a question" autocomplete="off">
+  <button id="askbtn">ASK</button>
+</div>
+<div class="chips" id="chips"></div>
+
+<div id="feed"></div>
+
+<nav role="tablist" id="nav"></nav>
+
+<div class="panel" id="p-games">
+  <div class="card"><h2>Game predictions</h2>
+    <div class="row">
+      <label>Away <select id="g-away"></select></label>
+      <label>Home <select id="g-home"></select></label>
+      <button class="go" id="g-go">PREDICT</button>
+    </div>
+    <div id="g-out"></div>
+  </div>
+</div>
+
+<div class="panel" id="p-props">
+  <div class="card"><h2>Prop probabilities</h2>
+    <div class="row">
+      <input type="text" id="pr-name" list="playerlist" placeholder="Player" style="min-width:220px">
+      <select id="pr-stat"></select>
+      <input type="number" id="pr-line" value="250.5" step="0.5" style="width:110px" aria-label="Line">
+      <button class="go" id="pr-go">EVALUATE</button>
+    </div>
+    <div id="pr-out"></div>
+  </div>
+</div>
+
+<div class="panel" id="p-fantasy">
+  <div class="card"><h2>Start / sit</h2>
+    <div class="row">
+      <input type="text" id="f-a" list="playerlist" placeholder="Player A" style="min-width:200px">
+      <input type="text" id="f-b" list="playerlist" placeholder="Player B" style="min-width:200px">
+      <button class="go" id="f-go">COMPARE</button>
+    </div>
+    <div id="f-out"></div>
+  </div>
+  <div class="card"><h2>Projection board</h2>
+    <div class="row">
+      <select id="f-pos"><option>QB</option><option>RB</option><option>WR</option><option>TE</option></select>
+    </div>
+    <div id="f-board"></div>
+  </div>
+</div>
+
+<div class="panel" id="p-rankings">
+  <div class="card"><h2>Power ratings</h2><div id="r-out"></div></div>
+</div>
+
+<div class="panel" id="p-trends">
+  <div class="card"><h2>Situational trends · 2005–<span class="seasonspan"></span></h2>
+    <div class="row" id="t-btns"></div><div id="t-out"></div></div>
+</div>
+
+<div class="panel" id="p-report">
+  <div class="card"><h2>Honest report card</h2>
+    <p class="note" style="margin-top:0">Every number is walk-forward out-of-sample: the model
+    predicting seasons it never trained on (2010–2025, ~4,300 games). Vegas closing lines are
+    the benchmark, and 52.4% is breakeven against the spread at −110.</p>
+    <div id="rep-out"></div></div>
+</div>
+
+<datalist id="playerlist"></datalist>
+<div class="tip" id="tip"></div>
+
+<footer>Model snapshot trained through the <span class="seasonspan"></span> NFL season ·
+projections are opponent-neutral on this site (the local engine adds matchup adjustment) ·
+built from 27 seasons of play-by-play data. No model reliably beats closing lines —
+use probabilities, not certainties.</footer>
+</div>
+
+<script>
+const D = /*__DATA__*/;
+const $ = id => document.getElementById(id);
+document.querySelectorAll('.seasonspan').forEach(e => e.textContent = D.season);
+$('subline').textContent = `NFL prediction engine · through ${D.season} · snapshot ${D.built}`;
+
+/* ---------- math ---------- */
+function erf(x){const s=x<0?-1:1;x=Math.abs(x);
+  const t=1/(1+0.3275911*x);
+  const y=1-((((1.061405429*t-1.453152027)*t+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
+  return s*y;}
+const ncdf = (x,mu,sd) => 0.5*(1+erf((x-mu)/(sd*Math.SQRT2)));
+function poisOver(line, lam){ // P(X > floor(line))
+  const k=Math.floor(line); let p=Math.exp(-lam), cdf=p;
+  for(let i=1;i<=k;i++){p*=lam/i; cdf+=p;}
+  return Math.max(0.001, Math.min(0.999, 1-cdf));}
+function qOver(line, q){ // P(X > line) from quantiles [p10,p25,p50,p75,p90]
+  const ps=[.1,.25,.5,.75,.9], sd=Math.max((q[4]-q[0])/2.563,1e-6);
+  if(line<=q[0]||line>=q[4]) return Math.max(.001,Math.min(.999,1-ncdf(line,q[2],sd)));
+  let i=0; while(q[i+1]<line) i++;
+  const f=ps[i]+(ps[i+1]-ps[i])*(line-q[i])/(q[i+1]-q[i]||1e-9);
+  return Math.max(.001,Math.min(.999,1-f));}
+const pct = p => Math.round(p*100)+'%';
+const r1 = x => Math.round(x*10)/10;
+
+/* ---------- lookups ---------- */
+const NAMES = D.players.map(p=>p.n);
+const byName = Object.fromEntries(D.players.map(p=>[p.n.toLowerCase(),p]));
+const lastIdx = {};
+for(const p of D.players){const l=p.n.split(' ').pop().toLowerCase();
+  (lastIdx[l]=lastIdx[l]||[]).push(p);}
+function findPlayer(txt){
+  const t=txt.toLowerCase();
+  const hit=byName[t]; if(hit) return hit;
+  for(const n of NAMES){if(t.includes(n.toLowerCase())) return byName[n.toLowerCase()];}
+  for(const w of t.match(/[a-z']+/g)||[]){
+    if(w.length>3 && lastIdx[w]) return lastIdx[w][0];}
+  return null;}
+function findPlayers(txt){
+  const t=txt.toLowerCase(); const out=[];
+  for(const n of NAMES){const i=t.indexOf(n.toLowerCase());
+    if(i>=0) out.push([i,byName[n.toLowerCase()]]);}
+  if(!out.length){for(const w of t.match(/[a-z']+/g)||[]){
+    if(w.length>3&&lastIdx[w]&&!out.some(o=>o[1]===lastIdx[w][0])) out.push([t.indexOf(w),lastIdx[w][0]]);}}
+  out.sort((a,b)=>a[0]-b[0]);
+  const seen=new Set(), res=[];
+  for(const [,p] of out){if(!seen.has(p.n)){seen.add(p.n);res.push(p);}}
+  return res;}
+function findTeams(txt){
+  const t=' '+txt.toLowerCase()+' '; const hits=[];
+  for(const [code,aliases] of Object.entries(D.aliases)){
+    for(const a of [...aliases, code.toLowerCase()]){
+      const needle=a.length<=3?` ${a} `:a; const i=t.indexOf(needle);
+      if(i>=0){hits.push([i,code]);break;}}}
+  hits.sort((a,b)=>a[0]-b[0]);
+  const seen=new Set(), res=[];
+  for(const [,c] of hits){if(!seen.has(c)){seen.add(c);res.push(c);}}
+  return res;}
+function matchStat(t){
+  const pats=[[/pass.*yard|passing yds/,'passing_yards'],[/pass.*td/,'passing_tds'],
+   [/\bint/,'passing_interceptions'],[/completion/,'completions'],[/attempt/,'attempts'],
+   [/rush.*yard|rushing yds/,'rushing_yards'],[/carr/,'carries'],[/rush.*td/,'rushing_tds'],
+   [/rec.*yard|receiving yds/,'receiving_yards'],[/recep|catch/,'receptions'],
+   [/target/,'targets'],[/rec.*td|receiving td/,'receiving_tds']];
+  for(const [p,k] of pats) if(p.test(t)) return k; return null;}
+
+/* ---------- svg helpers ---------- */
+const NS='http://www.w3.org/2000/svg';
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function svgEl(w,h){const s=document.createElementNS(NS,'svg');
+  s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.style.width='100%';s.style.maxWidth=w+'px';
+  s.style.height='auto';return s;}
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);
+  for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e;}
+const tip=$('tip');
+function hover(e,txt){tip.textContent=txt;tip.style.opacity=1;
+  tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-28)+'px';}
+function unhover(){tip.style.opacity=0;}
+
+function probBar(home,away,p){
+  const w=560,h=54,s=svgEl(w,h);
+  const hw=Math.max(60,Math.min(w-60,w*p));
+  el('rect',{x:0,y:18,width:hw-1,height:24,rx:4,fill:css('--c1')},s);
+  el('rect',{x:hw+1,y:18,width:w-hw-1,height:24,rx:4,fill:css('--c2')},s);
+  const t1=el('text',{x:10,y:35,fill:'#fff','font-size':14,'font-weight':600},s);
+  t1.textContent=`${home} ${pct(p)}`;
+  const t2=el('text',{x:w-10,y:35,fill:'#fff','font-size':14,'font-weight':600,'text-anchor':'end'},s);
+  t2.textContent=`${away} ${pct(1-p)}`;
+  return s;}
+
+function distChart(prop,line,label){
+  const q=prop.q, w=560,h=230,mx=52,my=24,s=svgEl(w,h);
+  const xs=[q[0]-(q[1]-q[0]),...q,q[4]+(q[4]-q[3])], ys=[3,10,25,50,75,90,97];
+  const xmin=Math.min(xs[0],line-5), xmax=Math.max(xs[6],line+5);
+  const X=v=>mx+(v-xmin)/(xmax-xmin)*(w-mx-14), Y=v=>h-my-(v/100)*(h-my-18);
+  for(const g of [0,25,50,75,100]){
+    el('line',{x1:mx,x2:w-14,y1:Y(g),y2:Y(g),stroke:css('--grid'),'stroke-width':1},s);
+    const t=el('text',{x:mx-8,y:Y(g)+4,'text-anchor':'end','font-size':11,fill:css('--ink2'),class:'n'},s);
+    t.textContent=g;}
+  let dPath='';
+  xs.forEach((x,i)=>{dPath+=(i?'L':'M')+X(x).toFixed(1)+' '+Y(ys[i]).toFixed(1)+' ';});
+  el('path',{d:dPath,fill:'none',stroke:css('--c1'),'stroke-width':2},s);
+  q.forEach((v,i)=>{
+    const c=el('circle',{cx:X(v),cy:Y([10,25,50,75,90][i]),r:4.5,fill:css('--c1')},s);
+    c.addEventListener('mousemove',e=>hover(e,`p${[10,25,50,75,90][i]} = ${v}`));
+    c.addEventListener('mouseleave',unhover);});
+  el('line',{x1:X(line),x2:X(line),y1:Y(100),y2:Y(0),stroke:css('--c2'),'stroke-width':2},s);
+  const lt=el('text',{x:X(line)+6,y:Y(100)+12,'font-size':12,fill:css('--c2'),class:'n'},s);
+  lt.textContent='line '+line;
+  const xt=el('text',{x:(mx+w-14)/2,y:h-2,'font-size':11.5,fill:css('--ink2'),'text-anchor':'middle'},s);
+  xt.textContent=label+' · curve = model percentile';
+  return s;}
+
+function rangeBars(list){ // [{n, arr:[mean,floor,med,ceil]}]
+  const w=560, rh=44, h=list.length*rh+26, mx=150, s=svgEl(w,h);
+  const lo=Math.min(...list.map(p=>p.arr[1]))-2, hi=Math.max(...list.map(p=>p.arr[3]))+2;
+  const X=v=>mx+(v-lo)/(hi-lo)*(w-mx-16);
+  const cols=[css('--c1'),css('--c2'),css('--c3'),css('--c4')];
+  list.forEach((p,i)=>{
+    const y=i*rh+22;
+    const t=el('text',{x:mx-10,y:y+5,'text-anchor':'end','font-size':13.5,fill:css('--ink')},s);
+    t.textContent=p.n;
+    const bar=el('line',{x1:X(p.arr[1]),x2:X(p.arr[3]),y1:y,y2:y,stroke:cols[i%4],
+      'stroke-width':8,'stroke-linecap':'round'},s);
+    bar.addEventListener('mousemove',e=>hover(e,`floor ${p.arr[1]} · ceiling ${p.arr[3]}`));
+    bar.addEventListener('mouseleave',unhover);
+    el('line',{x1:X(p.arr[0]),x2:X(p.arr[0]),y1:y-9,y2:y+9,stroke:css('--ink'),'stroke-width':2.5},s);
+    const m=el('text',{x:X(p.arr[0]),y:y-13,'font-size':11.5,fill:css('--ink2'),
+      'text-anchor':'middle',class:'n'},s);
+    m.textContent=p.arr[0];});
+  const cap=el('text',{x:mx,y:h-2,'font-size':11.5,fill:css('--ink2')},s);
+  cap.textContent='bar = floor→ceiling (p10–p90) · tick = projected mean PPR';
+  return s;}
+
+function seasonLine(){
+  const by=D.report.by_season, w=560,h=200,mx=46,my=22,s=svgEl(w,h);
+  const yrs=Object.keys(by).map(Number).sort(), vals=yrs.map(y=>by[y]);
+  const lo=.55, hi=.75;
+  const X=i=>mx+i/(yrs.length-1)*(w-mx-14), Y=v=>h-my-(v-lo)/(hi-lo)*(h-my-16);
+  for(const g of [.55,.6,.65,.7,.75]){
+    el('line',{x1:mx,x2:w-14,y1:Y(g),y2:Y(g),stroke:css('--grid')},s);
+    const t=el('text',{x:mx-7,y:Y(g)+4,'text-anchor':'end','font-size':11,fill:css('--ink2'),class:'n'},s);
+    t.textContent=Math.round(g*100)+'%';}
+  const vg=D.report.pure.vegas_su;
+  el('line',{x1:mx,x2:w-14,y1:Y(vg),y2:Y(vg),stroke:css('--ink2'),'stroke-dasharray':'4 4'},s);
+  const vt=el('text',{x:w-16,y:Y(vg)-6,'font-size':11.5,fill:css('--ink2'),'text-anchor':'end'},s);
+  vt.textContent='Vegas favorites';
+  let d='';vals.forEach((v,i)=>{d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)+' ';});
+  el('path',{d,fill:'none',stroke:css('--c1'),'stroke-width':2},s);
+  vals.forEach((v,i)=>{const c=el('circle',{cx:X(i),cy:Y(v),r:4,fill:css('--c1')},s);
+    c.addEventListener('mousemove',e=>hover(e,`${yrs[i]}: ${(v*100).toFixed(1)}%`));
+    c.addEventListener('mouseleave',unhover);});
+  [0,yrs.length-1].forEach(i=>{const t=el('text',{x:X(i),y:h-4,'font-size':11,
+    fill:css('--ink2'),'text-anchor':'middle',class:'n'},s);t.textContent=yrs[i];});
+  return s;}
+
+/* ---------- answers ---------- */
+function card(html,q){
+  const c=document.createElement('div');c.className='card new';
+  c.innerHTML=(q?`<div class="q">${q}</div>`:'')+html;
+  return c;}
+function show(node){const f=$('feed');f.prepend(node);
+  node.scrollIntoView({behavior:'smooth',block:'nearest'});}
+
+function gameCard(home,away,q){
+  const pred=D.matchups.preds[`${away}@${home}`];
+  if(!pred) return card(`⚠️ No prediction for ${away} @ ${home}.`,q);
+  const [m,t,p]=pred, hs=r1((t+m)/2), as=r1((t-m)/2);
+  const fav=m>0?home:away;
+  const c=card(`<h2>${away} @ ${home}</h2>
+    <div class="score">${home} ${hs} <small>—</small> ${as} ${away}</div>
+    <div class="kv">
+      <div><div class="l">Favors</div><div class="v">${fav}</div></div>
+      <div><div class="l">Margin</div><div class="v">${m>0?'+':''}${m}</div></div>
+      <div><div class="l">Total</div><div class="v">${t}</div></div>
+    </div>
+    <div class="legend"><span><i style="background:var(--c1)"></i>${home} (home)</span>
+    <span><i style="background:var(--c2)"></i>${away}</span></div>
+    <div class="pb"></div>
+    <p class="note">Margin uncertainty ±${D.matchups.sigma} pts (1σ) — a 60/40 edge is real
+    but far from certain.</p>`,q);
+  c.querySelector('.pb').appendChild(probBar(home,away,p));
+  return c;}
+
+function projCard(p,q){
+  const half=r1((p.ppr[0]+p.std[0])/2);
+  const c=card(`<h2>${p.n} · ${p.p} · ${p.t}</h2>
+    <div class="kv">
+      <div><div class="l">PPR</div><div class="v">${p.ppr[0]}</div></div>
+      <div><div class="l">Half</div><div class="v">${half}</div></div>
+      <div><div class="l">Standard</div><div class="v">${p.std[0]}</div></div>
+      <div><div class="l">Floor p10</div><div class="v">${p.ppr[1]}</div></div>
+      <div><div class="l">Ceiling p90</div><div class="v">${p.ppr[3]}</div></div>
+    </div><div class="rb"></div>`,q);
+  c.querySelector('.rb').appendChild(rangeBars([{n:p.n,arr:p.ppr}]));
+  return c;}
+
+function compareCard(list,q){
+  const best=list.reduce((a,b)=>a.ppr[0]>b.ppr[0]?a:b);
+  const c=card(`<h2>${list.map(p=>p.n).join(' vs ')}</h2><div class="rb"></div>
+    <p><span class="lean over">START ${best.n.toUpperCase()}</span>
+    <span class="note"> higher projected PPR mean (${best.ppr[0]})</span></p>`,q);
+  c.querySelector('.rb').appendChild(rangeBars(list.map(p=>({n:`${p.n} (${p.t})`,arr:p.ppr}))));
+  return c;}
+
+function propCard(p,stat,line,q){
+  const prop=p.props[stat];
+  if(!prop) return card(`⚠️ ${p.n} is a ${p.p} — no ${D.stats[stat]} model applies.`,q);
+  let over, extra='';
+  if(prop.lam!==undefined){over=poisOver(line,prop.lam);
+    extra=`model mean ${prop.lam}`;}
+  else{over=qOver(line,prop.q);
+    extra=`mean ${prop.m} · p10–p90 ${prop.q[0]}–${prop.q[4]}`;}
+  const lean=over>.55?['over','LEAN OVER']:over<.45?['under','LEAN UNDER']:['none','NO STRONG LEAN'];
+  const c=card(`<h2>${p.n} — ${D.stats[stat]} over ${line}</h2>
+    <div class="kv">
+      <div><div class="l">P(over)</div><div class="v" style="color:var(--pos)">${pct(over)}</div></div>
+      <div><div class="l">P(under)</div><div class="v" style="color:var(--neg)">${pct(1-over)}</div></div>
+    </div>
+    <p><span class="lean ${lean[0]}">${lean[1]}</span> <span class="note">${extra}</span></p>
+    ${prop.q?'<div class="dc"></div>':''}
+    <p class="note">An edge only pays if it beats the book's implied odds (≈52.4% at −110).</p>`,q);
+  if(prop.q) c.querySelector('.dc').appendChild(distChart(prop,line,D.stats[stat]));
+  return c;}
+
+function rankTable(){
+  let rows=D.ratings.map((r,i)=>`<tr><td class="r num">${i+1}</td><td><b>${r[0]}</b></td>
+    <td class="r">${r[1]}</td><td class="r">${r[2]>0?'+':''}${r[2].toFixed(3)}</td>
+    <td class="r">${r[3]>0?'+':''}${r[3].toFixed(3)}</td></tr>`).join('');
+  return `<div class="tblwrap"><table><thead><tr><th class="r">#</th><th>Team</th>
+    <th class="r">Elo</th><th class="r">Off EPA</th><th class="r">Def EPA allowed</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>
+    <p class="note">Off EPA higher = better offense · Def EPA allowed lower = better defense.</p>`;}
+
+function h2hCard(a,b,q){
+  const key=D.h2h[`${a}|${b}`]?`${a}|${b}`:`${b}|${a}`;
+  const d=D.h2h[key];
+  if(!d) return card(`⚠️ No head-to-head history for ${a} vs ${b}.`,q);
+  const [t1,t2]=key.split('|');
+  const games=d[3].map(g=>`<tr><td class="num">${g[0]} wk${g[1]}</td>
+    <td>${g[2]} ${g[3]} @ ${g[4]} ${g[5]}</td></tr>`).join('');
+  return card(`<h2>${t1} vs ${t2} — last ${d[0]+d[1]+d[2]} meetings</h2>
+    <div class="kv"><div><div class="l">${t1}</div><div class="v">${d[0]}</div></div>
+    <div><div class="l">${t2}</div><div class="v">${d[1]}</div></div>
+    ${d[2]?`<div><div class="l">Ties</div><div class="v">${d[2]}</div></div>`:''}</div>
+    <h3>Recent</h3><div class="tblwrap"><table><tbody>${games}</tbody></table></div>`,q);}
+
+const TREND_LABEL={new_coach:'First-year head coaches',rest_advantage:'Rest advantage',
+  division_underdogs:'Division underdogs (3+ pt)',wind_totals:'Wind & totals',
+  primetime_favorites:'Primetime favorites'};
+function trendCard(topic,q){
+  const rows=D.trends[topic];
+  const keys=Object.keys(rows[0]);
+  const head=keys.map(k=>`<th${typeof rows[0][k]==='number'?' class="r"':''}>${k.replace(/_/g,' ')}</th>`).join('');
+  const body=rows.map(r=>'<tr>'+keys.map(k=>{
+    let v=r[k]; if(typeof v==='number'&&v<=1&&v>0&&k.includes('pct')) v=(v*100).toFixed(1)+'%';
+    return `<td${typeof r[k]==='number'?' class="r num"':''}>${v}</td>`;}).join('')+'</tr>').join('');
+  return card(`<h2>${TREND_LABEL[topic]}</h2><div class="tblwrap"><table>
+    <thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
+    <p class="note">Historical record since 2005 — markets already price most public trends.</p>`,q);}
+
+/* ---------- parser ---------- */
+function answer(qtext){
+  const t=qtext.toLowerCase();
+  const trendPats={new_coach:/new (head )?coach|first.year coach|coaching change/,
+    rest_advantage:/rest advantage|extra rest|off a bye|short week/,
+    division_underdogs:/division(al)? (under)?dog/,
+    wind_totals:/wind|weather.*(total|under|over)/,
+    primetime_favorites:/prime.?time|night game/};
+  for(const k in trendPats) if(trendPats[k].test(t)) return trendCard(k,qtext);
+  if(/(power )?ranking|best team|elo|ratings/.test(t))
+    return card(`<h2>Power ratings</h2>${rankTable()}`,qtext);
+  const teams=findTeams(qtext);
+  if(teams.length>=2 && /head.to.head|history|record against|meetings/.test(t))
+    return h2hCard(teams[0],teams[1],qtext);
+  const players=findPlayers(qtext);
+  const num=(t.match(/(\d+(?:\.\d+)?)/)||[])[1];
+  const stat=matchStat(t);
+  if(players.length&&stat&&num&&/over|under|prop|line|hit|o\/u/.test(t))
+    return propCard(players[0],stat,parseFloat(num),qtext);
+  if(players.length>=2&&/ or |compare|vs\.?|versus|start|sit|better/.test(t))
+    return compareCard(players.slice(0,4),qtext);
+  if(players.length) return projCard(players[0],qtext);
+  if(teams.length>=2){
+    let home=teams[0],away=teams[1];
+    if(/\bat\b|@/.test(t)){home=teams[1];away=teams[0];}
+    return gameCard(home,away,qtext);}
+  return card(`I couldn't match that. Try:<br>
+    · <i>Chiefs vs Bills, who wins?</i><br>
+    · <i>Josh Allen over 250.5 passing yards?</i><br>
+    · <i>Start Puka Nacua or CeeDee Lamb?</i><br>
+    · <i>How do new head coaches do against the spread?</i>`,qtext);}
+
+function ask(){const v=$('qbox').value.trim();if(!v)return;
+  $('qbox').value='';show(answer(v));}
+$('askbtn').addEventListener('click',ask);
+$('qbox').addEventListener('keydown',e=>{if(e.key==='Enter')ask();});
+const EXAMPLES=['Chiefs vs Bills, who wins?','Josh Allen over 250.5 passing yards?',
+  'Start Puka Nacua or CeeDee Lamb?','New head coaches against the spread',
+  'Power rankings','Cowboys Eagles head to head'];
+for(const ex of EXAMPLES){const b=document.createElement('button');b.className='chip';
+  b.textContent=ex;b.addEventListener('click',()=>{$('qbox').value=ex;ask();});
+  $('chips').appendChild(b);}
+
+/* ---------- panels ---------- */
+const PANELS=[['games','Games'],['props','Props'],['fantasy','Fantasy'],
+  ['rankings','Rankings'],['trends','Trends'],['report','Report card']];
+for(const [id,label] of PANELS){
+  const b=document.createElement('button');b.className='pill';b.textContent=label;
+  b.setAttribute('role','tab');b.setAttribute('aria-selected','false');
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.pill').forEach(x=>x.setAttribute('aria-selected','false'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
+    b.setAttribute('aria-selected','true');$('p-'+id).classList.add('on');});
+  $('nav').appendChild(b);}
+
+for(const t of D.teams){for(const sel of ['g-away','g-home']){
+  const o=document.createElement('option');o.textContent=t;$(sel).appendChild(o.cloneNode(true));}}
+$('g-away').value='KC';$('g-home').value='BUF';
+$('g-go').addEventListener('click',()=>{
+  const h=$('g-home').value,a=$('g-away').value;
+  $('g-out').innerHTML='';
+  $('g-out').appendChild(h===a?card('Pick two different teams.'):gameCard(h,a));});
+
+for(const [k,v] of Object.entries(D.stats)){
+  const o=document.createElement('option');o.value=k;o.textContent=v;$('pr-stat').appendChild(o);}
+for(const n of NAMES.slice(0,400)){
+  const o=document.createElement('option');o.value=n;$('playerlist').appendChild(o);}
+$('pr-name').value='Josh Allen';
+$('pr-go').addEventListener('click',()=>{
+  const p=findPlayer($('pr-name').value);
+  $('pr-out').innerHTML='';
+  $('pr-out').appendChild(p?propCard(p,$('pr-stat').value,parseFloat($('pr-line').value)||0.5)
+    :card('Player not found.'));});
+
+$('f-go').addEventListener('click',()=>{
+  const a=findPlayer($('f-a').value),b=findPlayer($('f-b').value);
+  $('f-out').innerHTML='';
+  $('f-out').appendChild(a&&b?compareCard([a,b]):card('Enter two players from the list.'));});
+function board(){
+  const pos=$('f-pos').value;
+  const rows=D.players.filter(p=>p.p===pos).sort((a,b)=>b.ppr[0]-a.ppr[0]).slice(0,20)
+    .map((p,i)=>`<tr><td class="r num">${i+1}</td><td><b>${p.n}</b></td><td>${p.t}</td>
+     <td class="r">${p.ppr[0]}</td><td class="r">${p.ppr[1]}</td><td class="r">${p.ppr[3]}</td>
+     <td class="r">${p.std[0]}</td></tr>`).join('');
+  $('f-board').innerHTML=`<div class="tblwrap"><table><thead><tr><th class="r">#</th>
+    <th>Player</th><th>Team</th><th class="r">PPR</th><th class="r">Floor</th>
+    <th class="r">Ceiling</th><th class="r">Std</th></tr></thead><tbody>${rows}</tbody></table></div>`;}
+$('f-pos').addEventListener('change',board);board();
+
+$('r-out').innerHTML=rankTable();
+
+for(const k in TREND_LABEL){const b=document.createElement('button');b.className='chip';
+  b.textContent=TREND_LABEL[k];
+  b.addEventListener('click',()=>{$('t-out').innerHTML='';$('t-out').appendChild(trendCard(k));});
+  $('t-btns').appendChild(b);}
+$('t-out').appendChild(trendCard('new_coach'));
+
+(function report(){
+  const P=D.report.pure,M=D.report.mkt;
+  const f=(x,d=1)=>x==null?'—':(x*100).toFixed(d)+'%';
+  $('rep-out').innerHTML=`<div class="tblwrap"><table><thead>
+    <tr><th>Model</th><th class="r">Straight-up</th><th class="r">Margin MAE</th>
+    <th class="r">ATS</th><th class="r">O/U</th><th class="r">Brier</th></tr></thead><tbody>
+    <tr><td>Engine (no market info)</td><td class="r">${f(P.su_acc)}</td>
+      <td class="r">${P.mae.toFixed(2)}</td><td class="r">${f(P.ats_pct)}</td>
+      <td class="r">${f(P.ou_pct)}</td><td class="r">${P.brier.toFixed(4)}</td></tr>
+    <tr><td>Engine (with market)</td><td class="r">${f(M.su_acc)}</td>
+      <td class="r">${M.mae.toFixed(2)}</td><td class="r">${f(M.ats_pct)}</td>
+      <td class="r">${f(M.ou_pct)}</td><td class="r">${M.brier.toFixed(4)}</td></tr>
+    <tr><td>Elo baseline</td><td class="r">${f(P.elo_su)}</td><td class="r">—</td>
+      <td class="r">—</td><td class="r">—</td><td class="r">${P.brier_elo.toFixed(4)}</td></tr>
+    <tr><td>Vegas closing line</td><td class="r">${f(P.vegas_su)}</td>
+      <td class="r">${P.vegas_mae.toFixed(2)}</td><td class="r">50% by definition</td>
+      <td class="r">—</td><td class="r">—</td></tr></tbody></table></div>
+    <h3>Straight-up accuracy by season</h3><div id="rep-chart"></div>
+    <h3>Player models vs naive rolling average (2016–2025)</h3>
+    <div class="tblwrap"><table><thead><tr><th>Stat</th><th class="r">Model MAE</th>
+    <th class="r">Naive MAE</th><th class="r">Correlation</th></tr></thead><tbody>${
+    Object.entries(D.report.players).map(([k,v])=>`<tr><td>${(D.stats[k]||k).replace(/_/g,' ')}</td>
+      <td class="r">${v.mae}</td><td class="r">${v.naive}</td><td class="r">${v.corr}</td></tr>`).join('')
+    }</tbody></table></div>`;
+  $('rep-chart').appendChild(seasonLine());})();
+</script>
