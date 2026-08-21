@@ -40,22 +40,37 @@ Claude-powered free-form question mode (the local parser works without it).
 No model reliably beats closing lines. Use it for calibrated probabilities,
 matchup magnitude, and floors/ceilings — not guaranteed edges.
 
-## Website
+## Public website (Chalkline)
 
-The engine is also deployed as a static website ("Chalkline") with all model
-outputs precomputed — every matchup, every player's projection and prop
-distributions — so it runs entirely in the browser. To rebuild after a
-retrain: `python scripts/export_web.py`, inline `web/data.json` into
-`web/index.template.html` → `web/index.html`, and republish.
+The engine deploys as a static site — all model outputs precomputed, all
+probability math client-side — served from `docs/` via GitHub Pages.
 
-## Maintenance
+One-time setup:
+```bash
+/opt/anaconda3/envs/nfl/bin/gh auth login     # browser login, ~1 min
+bash scripts/deploy_github.sh                  # creates repo + enables Pages
+# → https://<your-username>.github.io/nfl-chalkline/
+```
+
+## In-season weekly refresh
+
+Run after each week's games (Tuesday morning is ideal — stats are final):
 
 ```bash
-# during the season: refresh data + retrain (~20 min)
-/opt/anaconda3/envs/nfl/bin/python scripts/refresh_data.py
-# re-run the question test suite
-/opt/anaconda3/envs/nfl/bin/python scripts/test_questions.py
+# pulls new data, rebuilds features, retrains + recalibrates all models,
+# rebuilds the site, and pushes it live (~25 min)
+/opt/anaconda3/envs/nfl/bin/python scripts/refresh_data.py --publish
 ```
+
+Season boundaries are automatic: the current season is derived from the
+date (`nfl_engine/config.py`), new-season play-by-play starts downloading
+as soon as games are played, completed seasons stay cached, and the
+walk-forward evaluation extends itself. Recency weighting (4-season
+halflife) means new games immediately carry the most training influence.
+
+Occasionally (once or twice a season) re-run the hyperparameter searches —
+`scripts/tune_game.py` and `scripts/tune_player.py` — and update the
+params in the model files if validation clearly improves.
 
 ## Layout
 
