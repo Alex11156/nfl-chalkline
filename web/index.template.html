@@ -104,6 +104,10 @@ svg .n{font-family:"IBM Plex Mono",monospace}
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);
   padding:4px 9px;border-radius:6px;font:12.5px "IBM Plex Mono",monospace;
   opacity:0;z-index:9}
+.tip.def{font:13px/1.45 "Public Sans",sans-serif;max-width:290px;padding:8px 12px}
+.dfn{border-bottom:1.5px dotted var(--accent);cursor:help;text-decoration:none;color:inherit}
+.gloss dt{font:600 17px "Barlow Condensed",sans-serif;letter-spacing:.05em;margin-top:14px}
+.gloss dd{margin:2px 0 0;color:var(--ink2);font-size:14.5px;max-width:640px}
 footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid var(--line);
   padding-top:14px}
 </style>
@@ -174,11 +178,21 @@ footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid v
     <div class="row" id="t-btns"></div><div id="t-out"></div></div>
 </div>
 
+<div class="panel" id="p-glossary">
+  <div class="card"><h2>Glossary</h2>
+    <p class="note" style="margin-top:0">Every stat and acronym used on this site,
+    in plain English. Dotted-underlined terms anywhere on the page show these
+    definitions on hover.</p>
+    <dl class="gloss" id="gloss-list"></dl></div>
+</div>
+
 <div class="panel" id="p-report">
   <div class="card"><h2>Honest report card</h2>
-    <p class="note" style="margin-top:0">Every number is walk-forward out-of-sample: the model
+    <p class="note" style="margin-top:0">Every number is
+    <span class="dfn" tabindex="0" data-g="wf">walk-forward out-of-sample</span>: the model
     predicting seasons it never trained on (2010–2025, ~4,300 games). Vegas closing lines are
-    the benchmark, and 52.4% is breakeven against the spread at −110.</p>
+    the benchmark, and <span class="dfn" tabindex="0" data-g="vig">52.4% is breakeven</span>
+    against the spread at −110.</p>
     <div id="rep-out"></div></div>
 </div>
 
@@ -256,6 +270,45 @@ function matchStat(t){
    [/rec.*yard|receiving yds/,'receiving_yards'],[/recep|catch/,'receptions'],
    [/target/,'targets'],[/rec.*td|receiving td/,'receiving_tds']];
   for(const [p,k] of pats) if(p.test(t)) return k; return null;}
+
+/* ---------- glossary ---------- */
+const GLOSS={
+ elo:['Elo rating','A power rating borrowed from chess. Every team starts near 1500; the winner of each game takes points from the loser, with bigger transfers for upsets and blowouts. A 25-point Elo gap is worth about 1 point of scoring margin, and ratings persist across seasons (regressed toward average each offseason).'],
+ epa:['EPA — Expected Points Added','The gold-standard play value stat. Before every snap, down/distance/field position imply an expected number of points for the drive; EPA is how much a play moved that expectation. Averaged per play, it measures true offensive or defensive quality better than yards.'],
+ offepa:['Off EPA — Offensive Expected Points Added per play','Average EPA the offense generates per play, adjusted for opponent strength and weighted toward recent games. Higher is better; +0.10 is elite, −0.10 is bad.'],
+ defepa:['Def EPA allowed','Average EPA per play the defense gives up (opponent-adjusted, recency-weighted). Lower (more negative) is better — a negative number means opposing offenses lose expected points against this defense.'],
+ su:['Straight-up','Simply picking the winner of the game, ignoring point spreads.'],
+ ats:['ATS — Against The Spread','Betting the point spread: the favorite must win by more than the spread ("cover"), or the underdog must stay within it. Because sportsbooks charge −110 odds, you need to win 52.4% of spread bets just to break even.'],
+ ou:['O/U — Over/Under (the total)','A bet on the combined points scored by both teams versus the sportsbook’s posted total line. Same 52.4% breakeven at standard odds.'],
+ mae:['MAE — Mean Absolute Error','Average size of the prediction miss, in the stat’s own units. A margin MAE of 10.3 means the model’s predicted victory margin is off by about 10.3 points on a typical game (NFL games are genuinely that unpredictable — Vegas itself is off by ~10).'],
+ brier:['Brier score','Accuracy of probability forecasts: the average squared gap between the stated probability and what happened (0 = perfect, 0.25 = coin-flip guessing). Lower is better; it rewards honest confidence, punishing both overconfidence and cowardice.'],
+ ppr:['PPR — Point Per Reception','Fantasy scoring where each catch is worth 1 point on top of yardage/TD points. "Half-PPR" gives 0.5 per catch; "Standard" gives 0.'],
+ floorceil:['Floor / Ceiling (p10 / p90)','Percentiles of the projected outcome range. The floor (p10) is a bad-but-realistic week — actual results land below it only 10% of the time. The ceiling (p90) is a great week — exceeded only 10% of the time. The gap between them shows how boom-or-bust a player is.'],
+ pover:['P(over)','The model’s probability that the player finishes above the line, computed from the full projected distribution. To profit at −110 odds you need the true probability above 52.4% — a 55% edge is meaningful, a 51% edge is noise.'],
+ sigma:['σ — sigma (standard deviation)','Statistical spread of outcomes. "±13 pts (1σ)" means about two-thirds of final margins land within 13 points of the prediction — single NFL games are wildly variable, so treat every pick as a probability, not a promise.'],
+ margin:['Margin','Projected home-team score minus away-team score. Positive = home team favored.'],
+ total:['Total','Projected combined points scored by both teams.'],
+ wf:['Walk-forward out-of-sample','The honest way to test a model: train only on past seasons, predict the next one, repeat. Every accuracy number here comes from games the model had never seen when it predicted them.'],
+ vig:['−110 odds / the vig','Standard sportsbook pricing: bet $110 to win $100. The built-in fee is why 50% accuracy loses money and 52.4% is the breakeven line.'],
+};
+const dfn=(key,label)=>`<span class="dfn" tabindex="0" data-g="${key}">${label}</span>`;
+document.addEventListener('mouseover',e=>{
+  const d=e.target.closest('.dfn'); if(!d) return;
+  tip.className='tip def'; tip.innerHTML=`<b>${GLOSS[d.dataset.g][0]}</b><br>${GLOSS[d.dataset.g][1]}`;
+  tip.style.opacity=1;
+  const r=d.getBoundingClientRect();
+  tip.style.left=Math.min(r.left, innerWidth-310)+'px';
+  tip.style.top=(r.bottom+8)+'px';});
+document.addEventListener('mouseout',e=>{
+  if(e.target.closest('.dfn')){tip.style.opacity=0;tip.className='tip';}});
+document.addEventListener('focusin',e=>{
+  const d=e.target.closest('.dfn'); if(!d) return;
+  tip.className='tip def'; tip.innerHTML=`<b>${GLOSS[d.dataset.g][0]}</b><br>${GLOSS[d.dataset.g][1]}`;
+  tip.style.opacity=1;
+  const r=d.getBoundingClientRect();
+  tip.style.left=Math.min(r.left, innerWidth-310)+'px';
+  tip.style.top=(r.bottom+8)+'px';});
+document.addEventListener('focusout',()=>{tip.style.opacity=0;tip.className='tip';});
 
 /* ---------- svg helpers ---------- */
 const NS='http://www.w3.org/2000/svg';
@@ -364,14 +417,14 @@ function gameCard(home,away,q){
     <div class="score">${home} ${hs} <small>—</small> ${as} ${away}</div>
     <div class="kv">
       <div><div class="l">Favors</div><div class="v">${fav}</div></div>
-      <div><div class="l">Margin</div><div class="v">${m>0?'+':''}${m}</div></div>
-      <div><div class="l">Total</div><div class="v">${t}</div></div>
+      <div><div class="l">${dfn('margin','Margin')}</div><div class="v">${m>0?'+':''}${m}</div></div>
+      <div><div class="l">${dfn('total','Total')}</div><div class="v">${t}</div></div>
     </div>
     <div class="legend"><span><i style="background:var(--c1)"></i>${home} (home)</span>
     <span><i style="background:var(--c2)"></i>${away}</span></div>
     <div class="pb"></div>
-    <p class="note">Margin uncertainty ±${D.matchups.sigma} pts (1σ) — a 60/40 edge is real
-    but far from certain.</p>`,q);
+    <p class="note">Margin uncertainty ${dfn('sigma',`±${D.matchups.sigma} pts (1σ)`)} —
+    a 60/40 edge is real but far from certain.</p>`,q);
   c.querySelector('.pb').appendChild(probBar(home,away,p));
   return c;}
 
@@ -379,11 +432,11 @@ function projCard(p,q){
   const half=r1((p.ppr[0]+p.std[0])/2);
   const c=card(`<h2>${p.n} · ${p.p} · ${p.t}</h2>
     <div class="kv">
-      <div><div class="l">PPR</div><div class="v">${p.ppr[0]}</div></div>
-      <div><div class="l">Half</div><div class="v">${half}</div></div>
-      <div><div class="l">Standard</div><div class="v">${p.std[0]}</div></div>
-      <div><div class="l">Floor p10</div><div class="v">${p.ppr[1]}</div></div>
-      <div><div class="l">Ceiling p90</div><div class="v">${p.ppr[3]}</div></div>
+      <div><div class="l">${dfn('ppr','PPR')}</div><div class="v">${p.ppr[0]}</div></div>
+      <div><div class="l">${dfn('ppr','Half')}</div><div class="v">${half}</div></div>
+      <div><div class="l">${dfn('ppr','Standard')}</div><div class="v">${p.std[0]}</div></div>
+      <div><div class="l">${dfn('floorceil','Floor p10')}</div><div class="v">${p.ppr[1]}</div></div>
+      <div><div class="l">${dfn('floorceil','Ceiling p90')}</div><div class="v">${p.ppr[3]}</div></div>
     </div><div class="rb"></div>`,q);
   c.querySelector('.rb').appendChild(rangeBars([{n:p.n,arr:p.ppr}]));
   return c;}
@@ -407,12 +460,13 @@ function propCard(p,stat,line,q){
   const lean=over>.55?['over','LEAN OVER']:over<.45?['under','LEAN UNDER']:['none','NO STRONG LEAN'];
   const c=card(`<h2>${p.n} — ${D.stats[stat]} over ${line}</h2>
     <div class="kv">
-      <div><div class="l">P(over)</div><div class="v" style="color:var(--pos)">${pct(over)}</div></div>
-      <div><div class="l">P(under)</div><div class="v" style="color:var(--neg)">${pct(1-over)}</div></div>
+      <div><div class="l">${dfn('pover','P(over)')}</div><div class="v" style="color:var(--pos)">${pct(over)}</div></div>
+      <div><div class="l">${dfn('pover','P(under)')}</div><div class="v" style="color:var(--neg)">${pct(1-over)}</div></div>
     </div>
     <p><span class="lean ${lean[0]}">${lean[1]}</span> <span class="note">${extra}</span></p>
     ${prop.q?'<div class="dc"></div>':''}
-    <p class="note">An edge only pays if it beats the book's implied odds (≈52.4% at −110).</p>`,q);
+    <p class="note">An edge only pays if it beats the book's implied odds
+    (${dfn('vig','≈52.4% at −110')}).</p>`,q);
   if(prop.q) c.querySelector('.dc').appendChild(distChart(prop,line,D.stats[stat]));
   return c;}
 
@@ -421,9 +475,11 @@ function rankTable(){
     <td class="r">${r[1]}</td><td class="r">${r[2]>0?'+':''}${r[2].toFixed(3)}</td>
     <td class="r">${r[3]>0?'+':''}${r[3].toFixed(3)}</td></tr>`).join('');
   return `<div class="tblwrap"><table><thead><tr><th class="r">#</th><th>Team</th>
-    <th class="r">Elo</th><th class="r">Off EPA</th><th class="r">Def EPA allowed</th></tr></thead>
+    <th class="r">${dfn('elo','Elo')}</th><th class="r">${dfn('offepa','Off EPA')}</th>
+    <th class="r">${dfn('defepa','Def EPA allowed')}</th></tr></thead>
     <tbody>${rows}</tbody></table></div>
-    <p class="note">Off EPA higher = better offense · Def EPA allowed lower = better defense.</p>`;}
+    <p class="note">Hover any dotted term for a plain-English definition ·
+    Off EPA higher = better offense · Def EPA allowed lower = better defense.</p>`;}
 
 function h2hCard(a,b,q){
   const key=D.h2h[`${a}|${b}`]?`${a}|${b}`:`${b}|${a}`;
@@ -497,7 +553,10 @@ for(const ex of EXAMPLES){const b=document.createElement('button');b.className='
 
 /* ---------- panels ---------- */
 const PANELS=[['games','Games'],['props','Props'],['fantasy','Fantasy'],
-  ['rankings','Rankings'],['trends','Trends'],['report','Report card']];
+  ['rankings','Rankings'],['trends','Trends'],['report','Report card'],
+  ['glossary','Glossary']];
+$('gloss-list').innerHTML=Object.values(GLOSS)
+  .map(([term,def])=>`<dt>${term}</dt><dd>${def}</dd>`).join('');
 for(const [id,label] of PANELS){
   const b=document.createElement('button');b.className='pill';b.textContent=label;
   b.setAttribute('role','tab');b.setAttribute('aria-selected','false');
@@ -537,8 +596,10 @@ function board(){
      <td class="r">${p.ppr[0]}</td><td class="r">${p.ppr[1]}</td><td class="r">${p.ppr[3]}</td>
      <td class="r">${p.std[0]}</td></tr>`).join('');
   $('f-board').innerHTML=`<div class="tblwrap"><table><thead><tr><th class="r">#</th>
-    <th>Player</th><th>Team</th><th class="r">PPR</th><th class="r">Floor</th>
-    <th class="r">Ceiling</th><th class="r">Std</th></tr></thead><tbody>${rows}</tbody></table></div>`;}
+    <th>Player</th><th>Team</th><th class="r">${dfn('ppr','PPR')}</th>
+    <th class="r">${dfn('floorceil','Floor')}</th>
+    <th class="r">${dfn('floorceil','Ceiling')}</th>
+    <th class="r">${dfn('ppr','Std')}</th></tr></thead><tbody>${rows}</tbody></table></div>`;}
 $('f-pos').addEventListener('change',board);board();
 
 $('r-out').innerHTML=rankTable();
@@ -553,8 +614,10 @@ $('t-out').appendChild(trendCard('new_coach'));
   const P=D.report.pure,M=D.report.mkt;
   const f=(x,d=1)=>x==null?'—':(x*100).toFixed(d)+'%';
   $('rep-out').innerHTML=`<div class="tblwrap"><table><thead>
-    <tr><th>Model</th><th class="r">Straight-up</th><th class="r">Margin MAE</th>
-    <th class="r">ATS</th><th class="r">O/U</th><th class="r">Brier</th></tr></thead><tbody>
+    <tr><th>Model</th><th class="r">${dfn('su','Straight-up')}</th>
+    <th class="r">${dfn('mae','Margin MAE')}</th>
+    <th class="r">${dfn('ats','ATS')}</th><th class="r">${dfn('ou','O/U')}</th>
+    <th class="r">${dfn('brier','Brier')}</th></tr></thead><tbody>
     <tr><td>Engine (no market info)</td><td class="r">${f(P.su_acc)}</td>
       <td class="r">${P.mae.toFixed(2)}</td><td class="r">${f(P.ats_pct)}</td>
       <td class="r">${f(P.ou_pct)}</td><td class="r">${P.brier.toFixed(4)}</td></tr>
@@ -568,8 +631,9 @@ $('t-out').appendChild(trendCard('new_coach'));
       <td class="r">—</td><td class="r">—</td></tr></tbody></table></div>
     <h3>Straight-up accuracy by season</h3><div id="rep-chart"></div>
     <h3>Player models vs naive rolling average (2016–2025)</h3>
-    <div class="tblwrap"><table><thead><tr><th>Stat</th><th class="r">Model MAE</th>
-    <th class="r">Naive MAE</th><th class="r">Correlation</th></tr></thead><tbody>${
+    <div class="tblwrap"><table><thead><tr><th>Stat</th>
+    <th class="r">${dfn('mae','Model MAE')}</th>
+    <th class="r">${dfn('mae','Naive MAE')}</th><th class="r">Correlation</th></tr></thead><tbody>${
     Object.entries(D.report.players).map(([k,v])=>`<tr><td>${(D.stats[k]||k).replace(/_/g,' ')}</td>
       <td class="r">${v.mae}</td><td class="r">${v.naive}</td><td class="r">${v.corr}</td></tr>`).join('')
     }</tbody></table></div>`;
