@@ -72,6 +72,12 @@ Occasionally (once or twice a season) re-run the hyperparameter searches —
 `scripts/tune_game.py` and `scripts/tune_player.py` — and update the
 params in the model files if validation clearly improves.
 
+## How the model works
+
+See **[MODEL.md](MODEL.md)** — the full reference on architecture, features,
+math, validation methodology, current measured performance, and the change log.
+That file is kept up to date with every model change.
+
 ## Layout
 
 - `nfl_engine/data` — nflverse download + DuckDB store (`data/nfl.duckdb`)
