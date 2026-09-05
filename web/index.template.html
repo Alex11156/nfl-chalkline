@@ -81,6 +81,9 @@ h3{font:600 18px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.04em;
 .lean.over{background:var(--pos);color:var(--accent-ink)}
 .lean.under{background:var(--neg);color:#fff}
 .lean.none{background:var(--surface2);color:var(--ink2)}
+.opp{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:6px;
+  background:var(--surface2);color:var(--ink2);vertical-align:middle;
+  font:600 12.5px "Barlow Condensed",sans-serif;letter-spacing:.07em}
 .moved{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:6px;
   background:var(--gold);color:var(--accent-ink);vertical-align:middle;
   font:600 12px "Barlow Condensed",sans-serif;letter-spacing:.09em}
@@ -183,6 +186,7 @@ footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid v
       <input type="text" id="pr-name" list="playerlist" placeholder="Player" style="min-width:220px">
       <select id="pr-stat"></select>
       <input type="number" id="pr-line" value="250.5" step="0.5" style="width:110px" aria-label="Line">
+      <label>Week <select id="pr-week"></select></label>
       <button class="go" id="pr-go">EVALUATE</button>
     </div>
     <div id="pr-out"></div>
@@ -191,6 +195,8 @@ footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid v
 
 <div class="panel" id="p-fantasy">
   <div class="card"><h2>Start / sit</h2>
+    <div class="row"><label>Week <select id="f-week"></select></label>
+      <span class="note" id="f-wknote"></span></div>
     <div class="row">
       <input type="text" id="f-a" list="playerlist" placeholder="Player A" style="min-width:200px">
       <input type="text" id="f-b" list="playerlist" placeholder="Player B" style="min-width:200px">
@@ -443,6 +449,42 @@ function seasonLine(){
     fill:css('--ink2'),'text-anchor':'middle',class:'n'},s);t.textContent=yrs[i];});
   return s;}
 
+
+/* ---------- week-aware projections ---------- */
+const W = D.weekly;
+function defaultWeek(){
+  const today = new Date().toISOString().slice(0,10);
+  const fut = (D.slate?D.slate.games:[]).filter(g=>g.d>=today).map(g=>g.wk);
+  return fut.length ? Math.min(...fut) : (W.weeks[0]||1);
+}
+let WEEK = defaultWeek();
+function weekRow(name, wk){
+  const rows = W.players[name]; if(!rows) return null;
+  return rows.find(r=>r[0]===wk) || null;
+}
+function isBye(name, wk){
+  const rows = W.players[name];
+  return !!rows && !rows.some(r=>r[0]===wk);
+}
+/* projection for a player in a week: falls back to the season-average week
+   if that player is on bye, flagged so the UI can say so */
+function projFor(p, wk){
+  const r = weekRow(p.n, wk);
+  if(r) return {ppr:[r[3],r[4],r[5],r[6]], std:r[7], opp:r[1], home:!!r[2], bye:false};
+  return {ppr:p.ppr, std:p.std[0], opp:null, home:null, bye:true};
+}
+function propFor(name, stat, wk){
+  const stats = W.propStats[name]; if(!stats) return null;
+  const k = stats.indexOf(stat); if(k<0) return null;
+  const r = weekRow(name, wk); if(!r) return null;
+  const mean = r[8+k];
+  const shape = (W.propShape[name]||{})[stat];
+  if(!shape) return {lam: mean, opp:r[1], home:!!r[2]};           // count stat
+  return {q: shape.map(o=>+(mean+o).toFixed(1)), m: mean, opp:r[1], home:!!r[2]};
+}
+const oppLabel = pr => pr.bye ? '<span class="moved">BYE</span>'
+  : `<span class="opp">${pr.home?'vs':'@'} ${pr.opp}</span>`;
+
 /* ---------- answers ---------- */
 function card(html,q){
   const c=document.createElement('div');c.className='card new';
@@ -471,31 +513,54 @@ function gameCard(home,away,q){
   c.querySelector('.pb').appendChild(probBar(home,away,p));
   return c;}
 
-function projCard(p,q){
-  const half=r1((p.ppr[0]+p.std[0])/2);
+function projCard(p,q,wk){
+  wk = wk || WEEK;
+  const pr = projFor(p, wk);
+  const half=r1((pr.ppr[0]+pr.std)/2);
   const badge=p.moved?`<span class="moved">NEW TEAM · WAS ${p.moved}</span>`:'';
-  const c=card(`<h2>${p.n} · ${p.p} · ${p.t}${badge}</h2>
+  const c=card(`<h2>${p.n} · ${p.p} · ${p.t}${badge}${oppLabel(pr)}</h2>
+    <div class="note" style="margin:0 0 8px">Week ${wk}${pr.bye?
+      ' — on bye, showing a typical week instead':''}</div>
     <div class="kv">
-      <div><div class="l">${dfn('ppr','PPR')}</div><div class="v">${p.ppr[0]}</div></div>
+      <div><div class="l">${dfn('ppr','PPR')}</div><div class="v">${pr.ppr[0]}</div></div>
       <div><div class="l">${dfn('ppr','Half')}</div><div class="v">${half}</div></div>
-      <div><div class="l">${dfn('ppr','Standard')}</div><div class="v">${p.std[0]}</div></div>
-      <div><div class="l">${dfn('floorceil','Floor p10')}</div><div class="v">${p.ppr[1]}</div></div>
-      <div><div class="l">${dfn('floorceil','Ceiling p90')}</div><div class="v">${p.ppr[3]}</div></div>
+      <div><div class="l">${dfn('ppr','Standard')}</div><div class="v">${pr.std}</div></div>
+      <div><div class="l">${dfn('floorceil','Floor p10')}</div><div class="v">${pr.ppr[1]}</div></div>
+      <div><div class="l">${dfn('floorceil','Ceiling p90')}</div><div class="v">${pr.ppr[3]}</div></div>
     </div><div class="rb"></div>`,q);
-  c.querySelector('.rb').appendChild(rangeBars([{n:p.n,arr:p.ppr}]));
+  c.querySelector('.rb').appendChild(rangeBars([{n:p.n,arr:pr.ppr}]));
   return c;}
 
-function compareCard(list,q){
-  const best=list.reduce((a,b)=>a.ppr[0]>b.ppr[0]?a:b);
-  const c=card(`<h2>${list.map(p=>p.n).join(' vs ')}</h2><div class="rb"></div>
-    <p><span class="lean over">START ${best.n.toUpperCase()}</span>
-    <span class="note"> higher projected PPR mean (${best.ppr[0]})</span></p>`,q);
-  c.querySelector('.rb').appendChild(rangeBars(list.map(
-    p=>({n:`${p.n} (${p.t}${p.moved?' ←'+p.moved:''})`,arr:p.ppr}))));
+function compareCard(list,q,wk){
+  wk = wk || WEEK;
+  const en = list.map(p=>({p, pr:projFor(p, wk)}));
+  const live = en.filter(e=>!e.pr.bye);
+  const pool = live.length ? live : en;
+  const best = pool.reduce((a,b)=>a.pr.ppr[0]>b.pr.ppr[0]?a:b);
+  const byeNote = en.some(e=>e.pr.bye)
+    ? `<p class="note">${en.filter(e=>e.pr.bye).map(e=>e.p.n).join(', ')} on bye in week ${wk}.</p>` : '';
+  const c=card(`<h2>${list.map(p=>p.n).join(' vs ')} · week ${wk}</h2>
+    <div class="tblwrap"><table><thead><tr><th>Player</th><th>Matchup</th>
+      <th class="r">PPR</th><th class="r">Floor</th><th class="r">Ceiling</th></tr></thead>
+      <tbody>${en.map(e=>`<tr><td><b>${e.p.n}</b> <span class="note">${e.p.t}</span></td>
+        <td>${e.pr.bye?'BYE':(e.pr.home?'vs ':'@ ')+e.pr.opp}</td>
+        <td class="r num">${e.pr.bye?'—':e.pr.ppr[0]}</td>
+        <td class="r num">${e.pr.bye?'—':e.pr.ppr[1]}</td>
+        <td class="r num">${e.pr.bye?'—':e.pr.ppr[3]}</td></tr>`).join('')}</tbody></table></div>
+    <div class="rb"></div>${byeNote}
+    <p><span class="lean over">START ${best.p.n.toUpperCase()}</span>
+    <span class="note"> higher projected PPR mean (${best.pr.ppr[0]}) ${
+      best.pr.bye?'':(best.pr.home?'vs ':'@ ')+best.pr.opp}</span></p>`,q);
+  c.querySelector('.rb').appendChild(rangeBars(pool.map(
+    e=>({n:`${e.p.n} ${e.pr.bye?'(BYE)':(e.pr.home?'vs ':'@ ')+e.pr.opp}`,arr:e.pr.ppr}))));
   return c;}
 
-function propCard(p,stat,line,q){
-  const prop=p.props[stat];
+function propCard(p,stat,line,q,wk){
+  wk = wk || WEEK;
+  const wp = propFor(p.n, stat, wk);
+  const prop = wp || p.props[stat];
+  const oppTxt = wp ? ` · week ${wk} ${wp.home?'vs':'@'} ${wp.opp}`
+    : (isBye(p.n,wk) ? ` · <b>BYE week ${wk}</b>` : '');
   if(!prop) return card(`⚠️ ${p.n} is a ${p.p} — no ${D.stats[stat]} model applies.`,q);
   let over, extra='';
   if(prop.lam!==undefined){over=poisOver(line,prop.lam);
@@ -503,7 +568,7 @@ function propCard(p,stat,line,q){
   else{over=qOver(line,prop.q);
     extra=`mean ${prop.m} · p10–p90 ${prop.q[0]}–${prop.q[4]}`;}
   const lean=over>.55?['over','LEAN OVER']:over<.45?['under','LEAN UNDER']:['none','NO STRONG LEAN'];
-  const c=card(`<h2>${p.n} — ${D.stats[stat]} over ${line}</h2>
+  const c=card(`<h2>${p.n} — ${D.stats[stat]} over ${line}<span class="note" style="font-size:13px">${oppTxt}</span></h2>
     <div class="kv">
       <div><div class="l">${dfn('pover','P(over)')}</div><div class="v" style="color:var(--pos)">${pct(over)}</div></div>
       <div><div class="l">${dfn('pover','P(under)')}</div><div class="v" style="color:var(--neg)">${pct(1-over)}</div></div>
@@ -556,6 +621,8 @@ function trendCard(topic,q){
 /* ---------- parser ---------- */
 function answer(qtext){
   const t=qtext.toLowerCase();
+  const wkm = t.match(/week\s*(\d{1,2})|\bwk\s*(\d{1,2})/);
+  const wk = wkm ? parseInt(wkm[1]||wkm[2],10) : WEEK;
   const trendPats={new_coach:/new (head )?coach|first.year coach|coaching change/,
     rest_advantage:/rest advantage|extra rest|off a bye|short week/,
     division_underdogs:/division(al)? (under)?dog/,
@@ -571,10 +638,10 @@ function answer(qtext){
   const num=(t.match(/(\d+(?:\.\d+)?)/)||[])[1];
   const stat=matchStat(t);
   if(players.length&&stat&&num&&/over|under|prop|line|hit|o\/u/.test(t))
-    return propCard(players[0],stat,parseFloat(num),qtext);
+    return propCard(players[0],stat,parseFloat(num),qtext,wk);
   if(players.length>=2&&/ or |compare|vs\.?|versus|start|sit|better/.test(t))
-    return compareCard(players.slice(0,4),qtext);
-  if(players.length) return projCard(players[0],qtext);
+    return compareCard(players.slice(0,4),qtext,wk);
+  if(players.length) return projCard(players[0],qtext,wk);
   if(teams.length>=2){
     let home=teams[0],away=teams[1];
     if(/\bat\b|@/.test(t)){home=teams[1];away=teams[0];}
@@ -628,25 +695,45 @@ $('pr-name').value='Josh Allen';
 $('pr-go').addEventListener('click',()=>{
   const p=findPlayer($('pr-name').value);
   $('pr-out').innerHTML='';
-  $('pr-out').appendChild(p?propCard(p,$('pr-stat').value,parseFloat($('pr-line').value)||0.5)
+  $('pr-out').appendChild(p?propCard(p,$('pr-stat').value,
+      parseFloat($('pr-line').value)||0.5,null,+$('pr-week').value)
     :card('Player not found.'));});
 
+for(const sel of ['f-week','pr-week']){
+  for(const w of W.weeks){
+    const o=document.createElement('option'); o.value=w; o.textContent='Week '+w;
+    $(sel).appendChild(o);}
+  $(sel).value=WEEK;}
+$('f-week').addEventListener('change',()=>{WEEK=+$('f-week').value;
+  $('pr-week').value=WEEK; board();});
+$('pr-week').addEventListener('change',()=>{WEEK=+$('pr-week').value;
+  $('f-week').value=WEEK; board();});
+$('f-wknote').textContent='Projections use each player\u2019s actual opponent that week.';
 $('f-go').addEventListener('click',()=>{
   const a=findPlayer($('f-a').value),b=findPlayer($('f-b').value);
   $('f-out').innerHTML='';
-  $('f-out').appendChild(a&&b?compareCard([a,b]):card('Enter two players from the list.'));});
+  $('f-out').appendChild(a&&b?compareCard([a,b],null,+$('f-week').value)
+    :card('Enter two players from the list.'));});
 function board(){
-  const pos=$('f-pos').value;
-  const rows=D.players.filter(p=>p.p===pos).sort((a,b)=>b.ppr[0]-a.ppr[0]).slice(0,20)
-    .map((p,i)=>`<tr><td class="r num">${i+1}</td><td><b>${p.n}</b></td>
-     <td>${p.t}${p.moved?` <span class="moved">NEW</span>`:''}</td>
-     <td class="r">${p.ppr[0]}</td><td class="r">${p.ppr[1]}</td><td class="r">${p.ppr[3]}</td>
-     <td class="r">${p.std[0]}</td></tr>`).join('');
+  const pos=$('f-pos').value, wk=+($('f-week').value||WEEK);
+  const list=D.players.filter(p=>p.p===pos)
+    .map(p=>({p, pr:projFor(p, wk)}))
+    .sort((a,b)=>(a.pr.bye?-1:a.pr.ppr[0])<(b.pr.bye?-1:b.pr.ppr[0])?1:-1)
+    .slice(0,20);
+  const rows=list.map((e,i)=>`<tr><td class="r num">${i+1}</td>
+     <td><b>${e.p.n}</b></td>
+     <td>${e.p.t}${e.p.moved?` <span class="moved">NEW</span>`:''}</td>
+     <td>${e.pr.bye?'<b>BYE</b>':(e.pr.home?'vs ':'@ ')+e.pr.opp}</td>
+     <td class="r num">${e.pr.bye?'—':e.pr.ppr[0]}</td>
+     <td class="r num">${e.pr.bye?'—':e.pr.ppr[1]}</td>
+     <td class="r num">${e.pr.bye?'—':e.pr.ppr[3]}</td>
+     <td class="r num">${e.pr.bye?'—':e.pr.std}</td></tr>`).join('');
   $('f-board').innerHTML=`<div class="tblwrap"><table><thead><tr><th class="r">#</th>
-    <th>Player</th><th>Team</th><th class="r">${dfn('ppr','PPR')}</th>
+    <th>Player</th><th>Team</th><th>Week ${wk}</th><th class="r">${dfn('ppr','PPR')}</th>
     <th class="r">${dfn('floorceil','Floor')}</th>
     <th class="r">${dfn('floorceil','Ceiling')}</th>
-    <th class="r">${dfn('ppr','Std')}</th></tr></thead><tbody>${rows}</tbody></table></div>`;}
+    <th class="r">${dfn('ppr','Std')}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="note">Ranked for week ${wk} against each player\u2019s actual opponent.</p>`;}
 $('f-pos').addEventListener('change',board);board();
 
 $('r-out').innerHTML=rankTable();

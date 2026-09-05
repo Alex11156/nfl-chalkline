@@ -22,6 +22,7 @@ from nfl_engine.models.player_models import BLEND_W_DIRECT, PPR_WEIGHTS, QUANTIL
 from nfl_engine.query.serving import ENGINE
 from nfl_engine.query.tools import situational_query
 from nfl_engine.picks import build_picks, load_schedule
+from nfl_engine.schedule_map import bye_weeks, opponent_map
 
 OUT = Path(__file__).resolve().parent.parent / "web"
 OUT.mkdir(exist_ok=True)
@@ -109,7 +110,8 @@ def export_players():
                                "m": r1(preds[stat]["mean"][i])}
         entry["props"] = props
         players.append(entry)
-    return players
+    neutral_ppr = {e["n"]: e["ppr"][0] for e in players}
+    return players, cur, neutral_ppr
 
 
 def export_h2h():
@@ -129,6 +131,85 @@ def export_h2h():
                       for r in m.tail(3).itertuples()]
             out[f"{a}|{b}"] = [a_w, len(m) - a_w - ties, ties, recent]
     return out
+
+
+def export_weekly(cur):
+    """Per-player, per-week projections against the actual scheduled opponent.
+
+    The matchup effect is player-specific (within-position spread exceeds the
+    average positional effect), so every player-week is a real model run rather
+    than a positional lookup.
+
+    Opponent-neutral projections are NOT used: with no opponent the game-context
+    features (implied team total, spread, opposing defence) are all missing and
+    the model systematically under-projects — Josh Allen reads 13.2 PPR neutral
+    versus 20-24 against a real opponent.
+
+    Props: the distribution's *shape* is stable across opponents (~8% relative
+    variation), so the per-week mean is stored per stat and combined client-side
+    with one reference set of quantile offsets per player-stat.
+    """
+    from nfl_engine.models.player_models import BLEND_W_DIRECT, PPR_WEIGHTS, QUANTILES
+    pm = ENGINE.player_models
+    feats = pm["meta"]["features"]
+    tmeta = pm["meta"]["targets"]
+    sched = load_schedule()
+    omap, weeks = opponent_map(sched)
+
+    rows, idx = [], []
+    for _, pl in cur.iterrows():
+        team_sched = omap.get(pl.team, {})
+        for w in weeks:
+            if w not in team_sched:
+                continue
+            opp, home = team_sched[w]
+            rows.append(ENGINE.player_feature_row(pl, opp, week=w))
+            idx.append((pl.player_name, pl.position, w, opp, home))
+    X = pd.DataFrame([{f: r.get(f, np.nan) for f in feats} for r in rows])
+
+    targets = ["fantasy_points_ppr", "fantasy_points"] + list(PROP_STATS)
+    preds = {}
+    for target in dict.fromkeys(targets):
+        m = pm["models"][target]
+        if tmeta[target]["kind"] == "count":
+            preds[target] = {"mean": np.maximum(m["poisson"].predict(X), 1e-4)}
+        else:
+            preds[target] = {"mean": m["mean"].predict(X),
+                             "q": np.maximum.accumulate(np.column_stack(
+                                 [m[f"q{int(q*100)}"].predict(X) for q in QUANTILES]),
+                                 axis=1)}
+
+    prop_stats, prop_shape, players = {}, {}, {}
+    shape_acc = {}
+    for i, (name, pos, w, opp, home) in enumerate(idx):
+        if name not in prop_stats:
+            prop_stats[name] = [s for s in PROP_STATS if pos in tmeta[s]["positions"]]
+        comp = {t: preds[t]["mean"][i] for t in PPR_WEIGHTS
+                if pos in tmeta[t]["positions"]}
+        vals = {}
+        for target, key in (("fantasy_points_ppr", "ppr"), ("fantasy_points", "std")):
+            wt = dict(PPR_WEIGHTS)
+            if target == "fantasy_points":
+                wt["receptions"] = 0.0
+            csum = sum(v * comp.get(t, 0.0) for t, v in wt.items())
+            vals[key] = (BLEND_W_DIRECT * preds[target]["mean"][i]
+                         + (1 - BLEND_W_DIRECT) * csum)
+        q = preds["fantasy_points_ppr"]["q"][i]
+        row = [w, opp, int(home), r1(vals["ppr"]), r1(q[0]), r1(q[2]), r1(q[4]),
+               r1(vals["std"])]
+        for s in prop_stats[name]:
+            row.append(r1(preds[s]["mean"][i]) if tmeta[s]["kind"] != "count"
+                       else r3(preds[s]["mean"][i]))
+            if tmeta[s]["kind"] != "count":
+                off = preds[s]["q"][i] - preds[s]["mean"][i]
+                shape_acc.setdefault((name, s), []).append(off)
+        players.setdefault(name, []).append(row)
+
+    for (name, s), offs in shape_acc.items():
+        prop_shape.setdefault(name, {})[s] = [r1(v) for v in np.mean(offs, axis=0)]
+
+    return {"weeks": weeks, "byes": bye_weeks(omap, weeks), "players": players,
+            "propStats": prop_stats, "propShape": prop_shape}
 
 
 def export_slate():
@@ -165,6 +246,9 @@ def main():
     ratings = ratings[["team", "elo", "off_epa_play_ewm", "allowed_epa_play_ewm"]]
     ratings = ratings.sort_values("elo", ascending=False)
 
+    players, cur, _ = export_players()
+    weekly = export_weekly(cur)
+
     ev_pure = json.loads((REPORTS / "game_eval_pure.json").read_text())
     ev_mkt = json.loads((REPORTS / "game_eval_mkt.json").read_text())
     pl_eval = json.loads((REPORTS / "player_eval.json").read_text())
@@ -176,8 +260,9 @@ def main():
         "aliases": TEAM_NAMES,
         "stats": PROP_STATS,
         "matchups": export_matchups(),
+        "players": players,
+        "weekly": weekly,
         "slate": export_slate(),
-        "players": export_players(),
         "ratings": [[r.team, round(r.elo), r3(r.off_epa_play_ewm), r3(r.allowed_epa_play_ewm)]
                     for r in ratings.itertuples()],
         "h2h": export_h2h(),

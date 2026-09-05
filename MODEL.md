@@ -328,9 +328,26 @@ Three consumers share one tool registry (`nfl_engine/query/tools.py`):
    the same registry, active when `ANTHROPIC_API_KEY` is set
 
 The **public website** is a static export: `scripts/export_web.py` precomputes all
-992 matchups and every active player's projections + prop quantiles into
-`web/data.json`, inlined into `docs/index.html`. Site projections are
-opponent-neutral; the local app applies matchup adjustment.
+992 matchups and, for every rostered player, a projection for **each week of the
+schedule against that week's actual opponent** (7,446 player-weeks) into
+`web/data.json`, inlined into `docs/index.html`.
+
+**Opponent-neutral projections are not used anywhere.** With no opponent set, the
+game-context features (implied team total, spread, opposing defence, defence-vs-
+position) are all missing and the model systematically under-projects — Josh Allen
+reads 13.2 PPR neutral versus 20-24 against a real opponent. The site previously
+showed those neutral numbers, which were biased low across the board.
+
+Two measurements shaped the storage design:
+- The matchup effect is **player-specific**: within a (position, opponent) cell the
+  spread across players (1.20 PPR) exceeds the average effect itself (0.75), so a
+  positional lookup table would be wrong. Every player-week is a real model run.
+- A prop distribution's **shape is stable** across opponents (~8% relative
+  variation) while its location moves, so per-week prop *means* are stored per stat
+  and combined client-side with one reference set of quantile offsets per
+  player-stat — roughly a fifth the payload of storing every quantile per week.
+
+Bye weeks are carried explicitly; a player on bye shows BYE rather than a number.
 
 ---
 
@@ -383,6 +400,10 @@ the full walk-forward and did not help.
 
 ### 2026-09-05
 - Created this document.
+- **Schedule-aware projections.** Every player now has a projection per week
+  against their real opponent, with byes handled; start/sit, the projection board,
+  props and the chat all take a week and show the matchup. This also corrected a
+  systematic low bias in the old opponent-neutral numbers (see §9).
 - **Weekly betting card** (`nfl_engine/picks.py`) with de-vigged market
   probabilities, EV, Sharpe, quarter-Kelly staking, and per-pick historical track
   records. 2026 schedule (272 games, 112 priced) exported to the site, which now
