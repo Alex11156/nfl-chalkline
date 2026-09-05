@@ -123,6 +123,9 @@ sports modeling and the reason amateur models report inflated accuracy.
 - Depth-chart rank
 - **Vacated usage**: rolling targets/carries of teammates who played the previous
   team game but are absent from this one (the "WR1 is out" signal)
+- **`team_changed`**: whether the player's team differs from their previous game —
+  true historically for in-season moves, and true at serving time for every
+  offseason mover
 - Team context: offensive/defensive EPA splits, pace, starting-QB quality
 - Opponent context: defensive EPA splits, plus defense-vs-position rollups for
   fantasy points, rushing yards, receiving yards, receptions, passing yards allowed
@@ -273,6 +276,20 @@ system reliably beats closing lines.
 "current snapshot" tables (`data/processed/*_current.parquet`) written by the
 feature pipelines, then runs the persisted models from `models_store/`.
 
+**Roster sync (important).** A player's team in the snapshot comes from the
+latest published roster (`rosters.parquet`, status ACT/RES), **not** from their
+last game log. Without this, every player who moved in the offseason kept their
+old team until they played a game — attaching the wrong team context (pace,
+offensive quality, starting QB, implied total) to every projection. At the 2026
+sync, **105 of 459 rostered players (23%) were on a stale team**. The snapshot
+also carries `on_roster`, and the website shows only rostered players, so
+retired and unsigned players no longer receive projections.
+
+Note what does *not* change: a mover's **usage history travels with the player**
+(target share, snap share, efficiency), while **team context comes from the new
+club**. The `team_changed` flag tells the model this is a first game with a new
+team.
+
 Three consumers share one tool registry (`nfl_engine/query/tools.py`):
 1. **Streamlit app** (`app/app.py`) — full engine, matchup-adjusted projections
 2. **Local NL parser** (`nfl_engine/query/parser.py`) — regex/entity-dictionary
@@ -306,10 +323,12 @@ the full walk-forward and did not help.
 
 - **Touchdown props are not better than naive.** Documented above; the honest
   framing is that these outputs are distributional, not edge-generating.
-- **Intermittent filesystem timeouts.** `TimeoutError: [Errno 60]` occasionally
-  surfaces on parquet reads (the project lives under an iCloud-synced Desktop).
-  Transient — retrying succeeds, raw reads are instant — but a long refresh run
-  could abort partway. Not yet hardened with retries.
+- **Intermittent filesystem timeouts** (mitigated). `TimeoutError: [Errno 60]`
+  surfaces on parquet reads under iCloud sync contention. All pipeline reads and
+  writes now go through `nfl_engine/io_utils.py`, which retries with exponential
+  backoff. Network drops during `download_data.py` are also survivable: completed
+  seasons are immutable and cached, so a failed re-download of a historical season
+  loses nothing.
 - **Site is a snapshot.** Public site predictions are only as fresh as the last
   `scripts/refresh_data.py` run and push.
 
@@ -319,6 +338,16 @@ the full walk-forward and did not help.
 
 ### 2026-09-05
 - Created this document.
+- **Roster sync** — player teams in the serving snapshot now come from the current
+  published roster rather than the last game log. 105 of 459 rostered players
+  (23%) had been carrying their previous team, which attached the wrong team
+  context to their projections. Site now shows only rostered players and flags
+  movers with a NEW TEAM badge.
+- **New feature `team_changed`** in the player pipeline.
+- **Resilient parquet IO** (`nfl_engine/io_utils.py`) with retry/backoff.
+- `download_data.py` treats an unpublished upcoming season as a skip, not a
+  failure (the date-derived `CURRENT_SEASON` reaches the new season before
+  nflverse publishes any data for it).
 
 ### 2026-08-22
 - Site: hover definitions for every stat/acronym + full Glossary panel.
