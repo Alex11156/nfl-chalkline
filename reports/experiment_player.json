@@ -1,0 +1,48 @@
+{
+  "lightgbm (current)": {
+    "mae": 4.5318,
+    "corr": 0.6536
+  },
+  "xgboost": {
+    "mae": 4.5391,
+    "corr": 0.6527
+  },
+  "catboost": {
+    "mae": 4.54,
+    "corr": 0.6536
+  },
+  "hist_gbr": {
+    "mae": 4.5578,
+    "corr": 0.6508
+  },
+  "ridge": {
+    "mae": 4.6379,
+    "corr": 0.6409
+  },
+  "mlp": {
+    "mae": 4.5749,
+    "corr": 0.6446
+  },
+  "naive_baseline": {
+    "mae": 4.6884
+  },
+  "ensemble_top2": {
+    "mae": 4.5328,
+    "members": [
+      "lightgbm (current)",
+      "xgboost"
+    ]
+  },
+  "ensemble_top3": {
+    "mae": 4.5313,
+    "members": [
+      "lightgbm (current)",
+      "xgboost",
+      "catboost"
+    ]
+  },
+  "ablation_team_changed": {
+    "without": 4.5337,
+    "with_": 4.5318
+  }
+}

@@ -12,6 +12,7 @@ import pandas as pd
 import xgboost as xgb
 from catboost import CatBoostRegressor
 from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.feature_selection import VarianceThreshold
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import Ridge
 from sklearn.neural_network import MLPRegressor
@@ -36,9 +37,14 @@ def candidates():
         "catboost": lambda: CatBoostRegressor(
             iterations=900, learning_rate=0.03, depth=7, l2_leaf_reg=3,
             random_seed=SEED, verbose=0, allow_writing_files=False),
-        "hist_gbr": lambda: HistGradientBoostingRegressor(
-            max_iter=500, learning_rate=0.03, max_depth=6,
-            min_samples_leaf=60, l2_regularization=1.0, random_state=SEED),
+        # sklearn's binner cannot handle a column that is constant or all-NaN
+        # in a fold (NextGen features do not exist before 2016), so impute and
+        # drop zero-variance columns first.
+        "hist_gbr": lambda: make_pipeline(
+            SimpleImputer(strategy="median"), VarianceThreshold(0.0),
+            HistGradientBoostingRegressor(
+                max_iter=500, learning_rate=0.03, max_depth=6,
+                min_samples_leaf=60, l2_regularization=1.0, random_state=SEED)),
         "ridge": lambda: make_pipeline(
             SimpleImputer(strategy="median"), StandardScaler(), Ridge(alpha=10.0)),
         "mlp": lambda: make_pipeline(

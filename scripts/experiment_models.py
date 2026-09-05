@@ -21,6 +21,7 @@ import xgboost as xgb
 from catboost import CatBoostRegressor
 from sklearn.ensemble import (ExtraTreesRegressor, HistGradientBoostingRegressor,
                               RandomForestRegressor)
+from sklearn.feature_selection import VarianceThreshold
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import ElasticNet, Ridge
 from sklearn.neural_network import MLPRegressor
@@ -53,9 +54,12 @@ def game_candidates():
         "catboost": lambda: CatBoostRegressor(
             iterations=600, learning_rate=0.02, depth=4, l2_leaf_reg=12,
             random_seed=SEED, verbose=0, allow_writing_files=False),
-        "hist_gbr": lambda: HistGradientBoostingRegressor(
-            max_iter=300, learning_rate=0.03, max_depth=3,
-            min_samples_leaf=60, l2_regularization=5.0, random_state=SEED),
+        # see note in experiment_player.py: guard against constant/all-NaN cols
+        "hist_gbr": lambda: make_pipeline(
+            SimpleImputer(strategy="median"), VarianceThreshold(0.0),
+            HistGradientBoostingRegressor(
+                max_iter=300, learning_rate=0.03, max_depth=3,
+                min_samples_leaf=60, l2_regularization=5.0, random_state=SEED)),
         "random_forest": lambda: make_pipeline(
             *dense(), RandomForestRegressor(
                 n_estimators=400, min_samples_leaf=20, max_features=0.3,

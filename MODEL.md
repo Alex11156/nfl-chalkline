@@ -246,20 +246,20 @@ Breakeven against the spread at −110 odds is **52.4%**.
 ### Player models (2016–2025, vs naive rolling average)
 | Target | Model MAE | Naive MAE | Improvement | r |
 |---|---|---|---|---|
-| Fantasy points (PPR) | 4.534 | 4.688 | +3.3% | 0.653 |
-| Fantasy points (std) | 3.731 | 3.853 | +3.2% | 0.674 |
-| Passing yards | 61.59 | 68.51 | +10.1% | 0.667 |
-| Pass attempts | 7.49 | 8.47 | +11.6% | 0.683 |
-| Completions | 5.11 | 5.73 | +10.8% | 0.680 |
-| Passing TDs | 0.846 | 0.875 | +3.3% | 0.430 |
-| Interceptions | 0.675 | 0.703 | +4.0% | 0.197 |
+| Fantasy points (PPR) | 4.532 | 4.688 | +3.3% | 0.654 |
+| Fantasy points (std) | 3.732 | 3.853 | +3.1% | 0.673 |
+| Passing yards | 61.67 | 68.51 | +10.0% | 0.666 |
+| Pass attempts | 7.478 | 8.473 | +11.7% | 0.683 |
+| Completions | 5.116 | 5.728 | +10.7% | 0.678 |
+| Passing TDs | 0.846 | 0.875 | +3.3% | 0.433 |
+| Interceptions | 0.674 | 0.703 | +4.1% | 0.201 |
 | Carries | 1.501 | 1.572 | +4.5% | 0.859 |
-| Rushing yards | 8.955 | 9.183 | +2.5% | 0.764 |
-| Targets | 1.668 | 1.723 | +3.2% | 0.725 |
-| Receptions | 1.295 | 1.330 | +2.7% | 0.661 |
-| Receiving yards | 17.13 | 17.48 | +2.0% | 0.635 |
-| Rushing TDs | 0.151 | 0.150 | −0.9% | 0.438 |
-| Receiving TDs | 0.248 | 0.247 | −0.3% | 0.303 |
+| Rushing yards | 8.945 | 9.183 | +2.6% | 0.764 |
+| Targets | 1.667 | 1.723 | +3.3% | 0.725 |
+| Receptions | 1.294 | 1.330 | +2.7% | 0.661 |
+| Receiving yards | 17.12 | 17.48 | +2.0% | 0.635 |
+| Rushing TDs | 0.151 | 0.150 | −1.0% | 0.439 |
+| Receiving TDs | 0.248 | 0.247 | −0.3% | 0.302 |
 
 **Honest reading:** the market-aware model matches Vegas straight-up and is ~0.2pt
 from breakeven on totals. Volume-based passing props are the strongest asset
@@ -311,6 +311,11 @@ the full walk-forward and did not help.
 
 | Idea | Result |
 |---|---|
+| **Model-family bake-off (2026-09-05)**: XGBoost, CatBoost, HistGradientBoosting, RandomForest, ExtraTrees, Ridge, ElasticNet, MLP neural net, LightGBM-DART | LightGBM wins both targets. Game margin: LGB 10.293 MAE vs next-best ExtraTrees 10.317, XGB 10.339, CatBoost 10.374, MLP 10.363, Ridge 10.542. Fantasy: LGB 4.532 vs XGB 4.539, CatBoost 4.540, MLP 4.575, Ridge 4.638. This is now measured, not assumed — the MLP result confirms neural nets do not beat GBDTs at this data scale |
+| Averaged ensembles of the top 2–4 learners (both targets) | No gain over LightGBM alone (game 10.294 vs 10.293; fantasy 4.5313 vs 4.5318 — both inside noise) |
+| Feature selection to top-25/50/80/120 by gain | No reliable gain. Top-50 looked best (MAE 10.283, ATS 51.5%) but the spread across 50–159 features is ~0.1% of MAE and the ATS spread is inside one standard error (±0.8pp). Selecting on it would be fitting the backtest |
+| Recency halflife sweep (2, 3, 4, 6, 10, none) | 4 seasons is already the argmin; the full spread is 0.015 MAE (noise). Confirms the current setting without justifying a change |
+| Two-score target formulation (predict home_score and away_score, derive margin/total) | Margin: paired bootstrap P=0.53 — a coin flip. Total: P=0.93 favouring derived, below the 0.95 bar and selected after inspecting ~10 comparisons, so not adopted |
 | 5-seed ensemble (game margin) | No gain; shallow trees are already stable |
 | XGBoost blend with LightGBM | Weight search drove XGB weight to 0 |
 | Dedicated hyperparameters for the totals model | Won its validation window, **lost** the 16-season backtest — textbook overfit. Totals deliberately reuse the margin params |
@@ -323,6 +328,10 @@ the full walk-forward and did not help.
 
 - **Touchdown props are not better than naive.** Documented above; the honest
   framing is that these outputs are distributional, not edge-generating.
+- **No betting hit rate clears breakeven at 95% confidence.** Measured on ~3,600
+  decided bets each: ATS 50.9% ±1.6, O/U 51.9% ±1.6, against a 52.4% breakeven.
+  The confidence intervals include both profit and loss. The model's value is
+  calibrated probability, not a demonstrated edge.
 - **Intermittent filesystem timeouts** (mitigated). `TimeoutError: [Errno 60]`
   surfaces on parquet reads under iCloud sync contention. All pipeline reads and
   writes now go through `nfl_engine/io_utils.py`, which retries with exponential
@@ -338,6 +347,17 @@ the full walk-forward and did not help.
 
 ### 2026-09-05
 - Created this document.
+- **Model-family bake-off**: nine alternative learners and four ensembles tested
+  on both targets — LightGBM wins everywhere (see "Tested and rejected").
+- **Round-2 levers**: feature selection, recency halflife, and target
+  formulation all tested; none produced a change that survives a significance
+  test. `scripts/significance_test.py` runs the paired bootstrap.
+- **Conclusion: the game model is at its ceiling for this feature set.** Further
+  gains need new information (real-time injury designations, line movement,
+  game-time weather), not better math on the same inputs.
+- **`team_changed` kept**: +0.0019 MAE averaged over all player-weeks, but
+  **+0.0786 (2.0%) on the 1,576 player-weeks where a team change actually
+  occurred** — and 23% of currently rostered players are in that state.
 - **Roster sync** — player teams in the serving snapshot now come from the current
   published roster rather than the last game log. 105 of 459 rostered players
   (23%) had been carrying their previous team, which attached the wrong team

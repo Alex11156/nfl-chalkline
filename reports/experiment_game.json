@@ -1,0 +1,82 @@
+{
+  "lightgbm (current)": {
+    "mae": 10.2929,
+    "su": 0.6537,
+    "ats": 0.5085
+  },
+  "lightgbm_dart": {
+    "mae": 10.4192,
+    "su": 0.6438,
+    "ats": 0.5089
+  },
+  "xgboost": {
+    "mae": 10.3389,
+    "su": 0.6557,
+    "ats": 0.5042
+  },
+  "catboost": {
+    "mae": 10.3739,
+    "su": 0.6532,
+    "ats": 0.5073
+  },
+  "hist_gbr": {
+    "mae": 10.4715,
+    "su": 0.6521,
+    "ats": 0.5068
+  },
+  "random_forest": {
+    "mae": 10.3267,
+    "su": 0.6461,
+    "ats": 0.5037
+  },
+  "extra_trees": {
+    "mae": 10.3167,
+    "su": 0.6461,
+    "ats": 0.5025
+  },
+  "ridge": {
+    "mae": 10.5421,
+    "su": 0.636,
+    "ats": 0.4965
+  },
+  "elasticnet": {
+    "mae": 10.4769,
+    "su": 0.6386,
+    "ats": 0.4946
+  },
+  "mlp": {
+    "mae": 10.3629,
+    "su": 0.6518,
+    "ats": 0.5065
+  },
+  "ensemble_top2": {
+    "mae": 10.2945,
+    "su": 0.6502,
+    "ats": 0.5051,
+    "members": [
+      "lightgbm (current)",
+      "extra_trees"
+    ]
+  },
+  "ensemble_top3": {
+    "mae": 10.3007,
+    "su": 0.6475,
+    "ats": 0.504,
+    "members": [
+      "lightgbm (current)",
+      "extra_trees",
+      "random_forest"
+    ]
+  },
+  "ensemble_top4": {
+    "mae": 10.2986,
+    "su": 0.6505,
+    "ats": 0.5061,
+    "members": [
+      "lightgbm (current)",
+      "extra_trees",
+      "random_forest",
+      "xgboost"
+    ]
+  }
+}
