@@ -36,6 +36,11 @@ def download_pbp(refresh=False):
                 save(df, out)
                 break
             except Exception as e:
+                # A season the upstream source has no data for yet (e.g. the
+                # upcoming season before Week 1) is not a failure.
+                if "must be between" in str(e).lower():
+                    print(f"pbp {season}: not published yet, skipping", flush=True)
+                    break
                 print(f"  error: {e}", flush=True)
                 time.sleep(5)
         else:

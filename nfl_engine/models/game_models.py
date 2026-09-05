@@ -17,6 +17,7 @@ from sklearn.linear_model import Ridge
 from nfl_engine.config import MODELS_STORE, PROCESSED, REPORTS
 
 from nfl_engine.config import CURRENT_SEASON
+from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
 
 TRAIN_FROM = 2003
 # extends automatically as new seasons complete (empty test years are skipped)
@@ -61,7 +62,7 @@ def season_weights(train_seasons: pd.Series, asof_season: int) -> np.ndarray:
 
 
 def load_features() -> pd.DataFrame:
-    df = pd.read_parquet(PROCESSED / "game_features.parquet")
+    df = safe_read_parquet(PROCESSED / "game_features.parquet")
     return df[df["season"] >= TRAIN_FROM].reset_index(drop=True)
 
 
@@ -182,7 +183,7 @@ if __name__ == "__main__":
         tag = "mkt" if market else "pure"
         REPORTS.mkdir(exist_ok=True)
         (REPORTS / f"game_eval_{tag}.json").write_text(json.dumps(res, indent=2))
-        pm.to_parquet(REPORTS / f"game_preds_margin_{tag}.parquet")
-        pt.to_parquet(REPORTS / f"game_preds_total_{tag}.parquet")
+        safe_to_parquet(pm, REPORTS / f"game_preds_margin_{tag}.parquet")
+        safe_to_parquet(pt, REPORTS / f"game_preds_total_{tag}.parquet")
         print(tag, json.dumps({k: res[k] for k in ("margin", "total")}, indent=2))
         train_final(market)

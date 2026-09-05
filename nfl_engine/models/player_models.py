@@ -18,6 +18,7 @@ from scipy.stats import norm, poisson
 from nfl_engine.config import MODELS_STORE, PROCESSED, REPORTS
 
 from nfl_engine.config import CURRENT_SEASON
+from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
 
 TRAIN_FROM = 2006
 # extends automatically as new seasons complete (empty test years are skipped)
@@ -66,7 +67,7 @@ RAW_STATS = set(TARGETS) | {"target_share", "air_yards_share", "wopr",
 
 
 def load() -> tuple[pd.DataFrame, list[str]]:
-    df = pd.read_parquet(PROCESSED / "player_features.parquet")
+    df = safe_read_parquet(PROCESSED / "player_features.parquet")
     df = df[df.season >= TRAIN_FROM].reset_index(drop=True)
     for p in ["QB", "RB", "WR", "TE"]:
         df[f"pos_{p}"] = (df.position == p).astype(int)

@@ -13,6 +13,7 @@ from nfl_engine.config import MODELS_STORE, PROCESSED, norm_team
 from nfl_engine.data.store import connect
 from nfl_engine.features.elo import compute_elo, elo_win_prob
 from nfl_engine.features.stadiums import travel_km, tz_diff, CURRENT as STADIUMS
+from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
 
 DOME_TEAMS = {"ATL", "DET", "MIN", "NO", "LV", "ARI", "DAL", "HOU", "IND", "LA", "LAC"}
 
@@ -30,23 +31,23 @@ class Engine:
 
     @cached_property
     def team_current(self) -> pd.DataFrame:
-        return pd.read_parquet(PROCESSED / "team_current.parquet").set_index("team")
+        return safe_read_parquet(PROCESSED / "team_current.parquet").set_index("team")
 
     @cached_property
     def qb_current(self) -> pd.DataFrame:
-        return pd.read_parquet(PROCESSED / "qb_current.parquet")
+        return safe_read_parquet(PROCESSED / "qb_current.parquet")
 
     @cached_property
     def player_current(self) -> pd.DataFrame:
-        return pd.read_parquet(PROCESSED / "player_current.parquet")
+        return safe_read_parquet(PROCESSED / "player_current.parquet")
 
     @cached_property
     def dvp_current(self) -> pd.DataFrame:
-        return pd.read_parquet(PROCESSED / "dvp_current.parquet")
+        return safe_read_parquet(PROCESSED / "dvp_current.parquet")
 
     @cached_property
     def vacated_current(self) -> pd.DataFrame:
-        return pd.read_parquet(PROCESSED / "team_vacated_current.parquet").set_index("team")
+        return safe_read_parquet(PROCESSED / "team_vacated_current.parquet").set_index("team")
 
     @cached_property
     def elo_ratings(self) -> dict:

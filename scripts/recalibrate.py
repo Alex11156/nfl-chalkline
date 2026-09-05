@@ -13,9 +13,10 @@ from scipy.stats import norm
 from sklearn.isotonic import IsotonicRegression
 
 from nfl_engine.config import MODELS_STORE, REPORTS
+from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
 
 for tag in ["pure", "mkt"]:
-    p = pd.read_parquet(REPORTS / f"game_preds_margin_{tag}.parquet").dropna(subset=["home_win"])
+    p = safe_read_parquet(REPORTS / f"game_preds_margin_{tag}.parquet").dropna(subset=["home_win"])
     meta = json.loads((MODELS_STORE / f"game_meta_{tag}.json").read_text())
     raw = norm.cdf(p.pred_result / meta["sigma_margin"])
     iso = IsotonicRegression(out_of_bounds="clip", y_min=0.02, y_max=0.98)

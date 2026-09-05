@@ -55,12 +55,18 @@ def export_players():
     pm = ENGINE.player_models
     feats = pm["meta"]["features"]
     pc = ENGINE.player_current
-    cur = pc[(pc.season == pc.season.max()) & (pc.career_games >= 3)].copy()
+    # Only players on a current NFL roster: a projection for someone who
+    # retired or is unsigned is noise, and after an offseason move the team
+    # shown must be the new one (player_current carries the roster sync).
+    cur = pc[(pc.on_roster == 1) & (pc.career_games >= 3)].copy()
     cur = cur.sort_values("r_fantasy_points_ppr", ascending=False)
     rows, meta_rows = [], []
+    moved_flags, prior_teams = [], []
     for _, p in cur.iterrows():
         rows.append(ENGINE.player_feature_row(p, None))
         meta_rows.append((p.player_name, p.position, p.team))
+        moved_flags.append(int(p.get("team_changed", 0) or 0))
+        prior_teams.append(p.get("prior_team"))
     X = pd.DataFrame([{f: r.get(f, np.nan) for f in feats} for r in rows])
 
     preds = {}
@@ -76,6 +82,8 @@ def export_players():
     players = []
     for i, (name, pos, team) in enumerate(meta_rows):
         entry = {"n": name, "p": pos, "t": team}
+        if moved_flags[i]:
+            entry["moved"] = prior_teams[i]
         # blended fantasy means
         comp = {t: preds[t]["mean"][i] for t in PPR_WEIGHTS
                 if pos in pm["meta"]["targets"][t]["positions"]}

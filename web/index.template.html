@@ -81,6 +81,9 @@ h3{font:600 18px/1.1 "Barlow Condensed",sans-serif;letter-spacing:.04em;
 .lean.over{background:var(--pos);color:var(--accent-ink)}
 .lean.under{background:var(--neg);color:#fff}
 .lean.none{background:var(--surface2);color:var(--ink2)}
+.moved{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:6px;
+  background:var(--gold);color:var(--accent-ink);vertical-align:middle;
+  font:600 12px "Barlow Condensed",sans-serif;letter-spacing:.09em}
 table{border-collapse:collapse;width:100%;font-size:14px}
 th{font:600 13px "Barlow Condensed",sans-serif;letter-spacing:.1em;
   text-transform:uppercase;color:var(--ink2);text-align:left;padding:7px 10px;
@@ -289,6 +292,7 @@ const GLOSS={
  margin:['Margin','Projected home-team score minus away-team score. Positive = home team favored.'],
  total:['Total','Projected combined points scored by both teams.'],
  wf:['Walk-forward out-of-sample','The honest way to test a model: train only on past seasons, predict the next one, repeat. Every accuracy number here comes from games the model had never seen when it predicted them.'],
+ newteam:['NEW TEAM badge','This player changed teams since his last game. Projections use his own production history (which travels with him) but his new team\'s context — offensive quality, pace, quarterback, and implied point total.'],
  vig:['−110 odds / the vig','Standard sportsbook pricing: bet $110 to win $100. The built-in fee is why 50% accuracy loses money and 52.4% is the breakeven line.'],
 };
 const dfn=(key,label)=>`<span class="dfn" tabindex="0" data-g="${key}">${label}</span>`;
@@ -430,7 +434,8 @@ function gameCard(home,away,q){
 
 function projCard(p,q){
   const half=r1((p.ppr[0]+p.std[0])/2);
-  const c=card(`<h2>${p.n} · ${p.p} · ${p.t}</h2>
+  const badge=p.moved?`<span class="moved">NEW TEAM · WAS ${p.moved}</span>`:'';
+  const c=card(`<h2>${p.n} · ${p.p} · ${p.t}${badge}</h2>
     <div class="kv">
       <div><div class="l">${dfn('ppr','PPR')}</div><div class="v">${p.ppr[0]}</div></div>
       <div><div class="l">${dfn('ppr','Half')}</div><div class="v">${half}</div></div>
@@ -446,7 +451,8 @@ function compareCard(list,q){
   const c=card(`<h2>${list.map(p=>p.n).join(' vs ')}</h2><div class="rb"></div>
     <p><span class="lean over">START ${best.n.toUpperCase()}</span>
     <span class="note"> higher projected PPR mean (${best.ppr[0]})</span></p>`,q);
-  c.querySelector('.rb').appendChild(rangeBars(list.map(p=>({n:`${p.n} (${p.t})`,arr:p.ppr}))));
+  c.querySelector('.rb').appendChild(rangeBars(list.map(
+    p=>({n:`${p.n} (${p.t}${p.moved?' ←'+p.moved:''})`,arr:p.ppr}))));
   return c;}
 
 function propCard(p,stat,line,q){
@@ -592,7 +598,8 @@ $('f-go').addEventListener('click',()=>{
 function board(){
   const pos=$('f-pos').value;
   const rows=D.players.filter(p=>p.p===pos).sort((a,b)=>b.ppr[0]-a.ppr[0]).slice(0,20)
-    .map((p,i)=>`<tr><td class="r num">${i+1}</td><td><b>${p.n}</b></td><td>${p.t}</td>
+    .map((p,i)=>`<tr><td class="r num">${i+1}</td><td><b>${p.n}</b></td>
+     <td>${p.t}${p.moved?` <span class="moved">NEW</span>`:''}</td>
      <td class="r">${p.ppr[0]}</td><td class="r">${p.ppr[1]}</td><td class="r">${p.ppr[3]}</td>
      <td class="r">${p.std[0]}</td></tr>`).join('');
   $('f-board').innerHTML=`<div class="tblwrap"><table><thead><tr><th class="r">#</th>

@@ -18,6 +18,7 @@ from nfl_engine.config import PROCESSED
 from nfl_engine.data.store import connect
 from nfl_engine.features.elo import compute_elo
 from nfl_engine.features.stadiums import travel_km, tz_diff
+from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
 
 EWM_HALFLIFE = 6      # games; recency decay for team form
 QB_HALFLIFE = 8       # games; QB profiles are stabler
@@ -284,20 +285,20 @@ def build(save: bool = True):
 
     if save:
         PROCESSED.mkdir(parents=True, exist_ok=True)
-        out.to_parquet(PROCESSED / "game_features.parquet")
+        safe_to_parquet(out, PROCESSED / "game_features.parquet")
         # Current snapshots for predicting future matchups
         cur_cols = [c for c in rows.columns if c.endswith("_cur")]
         snap = (rows.sort_values("gameday").groupby("team")
                 .tail(1)[["team", "season", "gameday"] + cur_cols])
         snap.columns = [c.replace("_cur", "") if c.endswith("_cur") else c
                         for c in snap.columns]
-        snap.to_parquet(PROCESSED / "team_current.parquet")
+        safe_to_parquet(snap, PROCESSED / "team_current.parquet")
         qsnap_cols = ["qb_id", "qb_name", "team", "gameday", "dropbacks"] + \
                      [f"qb_{m}_ewm_cur" for m in QB_METRICS]
         qsnap = (qbp.sort_values("gameday").groupby("qb_id").tail(1)[qsnap_cols])
         qsnap["career_dropbacks"] = qbp.groupby("qb_id")["dropbacks"].sum().reindex(qsnap.qb_id).values
         qsnap.columns = [c.replace("_ewm_cur", "") for c in qsnap.columns]
-        qsnap.to_parquet(PROCESSED / "qb_current.parquet")
+        safe_to_parquet(qsnap, PROCESSED / "qb_current.parquet")
         print(f"game_features: {out.shape}, team_current: {snap.shape}, qb_current: {qsnap.shape}")
     return out
 

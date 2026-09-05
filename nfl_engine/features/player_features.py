@@ -10,6 +10,7 @@ import pandas as pd
 
 from nfl_engine.config import PROCESSED, RAW
 from nfl_engine.data.store import connect
+from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
 
 HALFLIFE = 5
 STAT_COLS = [
@@ -46,6 +47,25 @@ def _team_long(gf: pd.DataFrame) -> pd.DataFrame:
         d["implied_total"] = (d["total_line"] + sign * d["spread_line"]) / 2.0
         outs.append(d)
     return pd.concat(outs, ignore_index=True)
+
+
+
+def current_roster() -> pd.DataFrame:
+    """player_id -> team/status from the most recent published roster.
+
+    A player's last *played game* is with their old team after an offseason
+    move, so the serving snapshot must come from the roster, not game logs.
+    """
+    from nfl_engine.config import norm_team
+    r = safe_read_parquet(RAW / "rosters.parquet")
+    r = r[r.season == r.season.max()]
+    r = r[r.status.isin(["ACT", "RES"])]
+    out = (r[["gsis_id", "team", "status", "season"]]
+           .rename(columns={"gsis_id": "player_id", "team": "roster_team",
+                            "status": "roster_status", "season": "roster_season"})
+           .dropna(subset=["player_id"]).drop_duplicates("player_id"))
+    out["roster_team"] = out["roster_team"].map(norm_team)
+    return out
 
 
 def build(save: bool = True):
@@ -86,7 +106,7 @@ def build(save: bool = True):
         ("rushing", {"percent_attempts_gte_eight_defenders": "ng_box8",
                      "rush_yards_over_expected_per_att": "ng_ryoe"}),
     ]:
-        f = pd.read_parquet(RAW / f"nextgen_{st}.parquet")
+        f = safe_read_parquet(RAW / f"nextgen_{st}.parquet")
         f = f[f.week > 0][["player_gsis_id", "season", "week"] + list(cols)]
         f = f.rename(columns={"player_gsis_id": "player_id", **cols})
         ng_frames.append(f)
@@ -94,7 +114,7 @@ def build(save: bool = True):
     for f in ng_frames[1:]:
         ng = ng.merge(f, on=["player_id", "season", "week"], how="outer")
 
-    gf = pd.read_parquet(PROCESSED / "game_features.parquet")
+    gf = safe_read_parquet(PROCESSED / "game_features.parquet")
     tl = _team_long(gf)
 
     from nfl_engine.config import norm_team
@@ -141,6 +161,12 @@ def build(save: bool = True):
         ps[f + "_cur"] = g[c].transform(lambda s: s.ewm(halflife=8, min_periods=1).mean())
         roll_cols.append(f)
     roll_cols.append("depth_rank")
+    # Did the player change teams since their previous game? Learnable
+    # historically, and true at serving time for offseason movers.
+    ps["prev_team"] = g["team"].shift(1)
+    ps["team_changed"] = ((ps["team"] != ps["prev_team"])
+                          & ps["prev_team"].notna()).astype(int)
+    roll_cols.append("team_changed")
     ps["fp_ppr_sd"] = g["fantasy_points_ppr"].transform(
         lambda s: s.shift(1).ewm(halflife=8, min_periods=3).std())
     ps["career_games"] = g.cumcount()
@@ -205,7 +231,7 @@ def build(save: bool = True):
             ["player_id", "player_name", "position", "season", "week",
              "season_type", "game_id", "team", "opponent_team", "gameday"]
             + feature_cols + STAT_COLS))
-        ps[keep].to_parquet(PROCESSED / "player_features.parquet")
+        safe_to_parquet(ps[keep], PROCESSED / "player_features.parquet")
 
         cur = (ps.sort_values("gameday").groupby("player_id").tail(1))
         cur_cols = {f"r_{c}_cur": f"r_{c}" for c in STAT_COLS}
@@ -216,13 +242,26 @@ def build(save: bool = True):
         snap = cur[["player_id", "player_name", "position", "team", "season",
                     "gameday", "career_games", "fp_ppr_sd", "depth_rank"]
                    + list(cur_cols)].rename(columns=cur_cols)
-        snap.to_parquet(PROCESSED / "player_current.parquet")
-        vac_next.to_parquet(PROCESSED / "team_vacated_current.parquet")
+        # Apply current-roster teams: after an offseason move the player's last
+        # game log still shows the old team, which would attach the wrong team
+        # context (pace, QB quality, implied total) to every projection.
+        roster = current_roster()
+        snap = snap.merge(roster, on="player_id", how="left")
+        snap["prior_team"] = snap["team"]
+        moved = snap["roster_team"].notna() & (snap["roster_team"] != snap["team"])
+        snap.loc[snap["roster_team"].notna(), "team"] = snap.loc[
+            snap["roster_team"].notna(), "roster_team"]
+        snap["team_changed"] = moved.astype(int)
+        snap["on_roster"] = snap["roster_team"].notna().astype(int)
+        print(f"  roster sync: {int(moved.sum())} players moved teams, "
+              f"{int(snap.on_roster.sum())} on a current roster")
+        safe_to_parquet(snap, PROCESSED / "player_current.parquet")
+        safe_to_parquet(vac_next, PROCESSED / "team_vacated_current.parquet")
 
         dsnap = (dvp.sort_values(["season", "week"]).groupby(["defense", "position"]).tail(1)
                  [["defense", "position"] + [f + "_cur" for f in dvp_feats]]
                  .rename(columns={f + "_cur": f for f in dvp_feats}))
-        dsnap.to_parquet(PROCESSED / "dvp_current.parquet")
+        safe_to_parquet(dsnap, PROCESSED / "dvp_current.parquet")
         print(f"player_features: {ps.shape}, snapshot: {snap.shape}")
     return ps, feature_cols
 
