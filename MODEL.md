@@ -190,9 +190,16 @@ component sum applies PPR scoring weights to the individual stat models
 1. Margin prediction → win probability via the **normal CDF**: `Φ(margin / σ)`
 2. **σ = 13.31 points**, the *empirically measured* out-of-sample residual standard
    deviation — measured, not assumed
-3. **Isotonic regression** calibration (`scripts/recalibrate.py`): a monotonic,
-   non-parametric map from stated probability to observed frequency, so games
-   called 70% happen ~70% of the time. Improved Brier 0.2191 → 0.2159.
+3. **Platt scaling** (`nfl_engine/calibration.py`, applied by
+   `scripts/recalibrate.py`): a logistic fit mapping raw probability to observed
+   frequency. Brier 0.2181 → 0.2177 (pure), 0.2146 → 0.2140 (market).
+
+   *Isotonic regression was used until 2026-09-05 and was replaced because it
+   overfits.* In-sample it scored better (0.2157), but on a 2020+ holdout it was
+   **worse than no calibration at all** (0.2195 vs 0.2186 raw) while Platt improved
+   on both (0.2178). Isotonic also quantised output to ~30 plateaus, which flattened
+   real differences between games — unacceptable once probabilities are ranked
+   against market prices.
 
 ### Props (`player_models.prob_over`)
 The five quantile models give five (value, percentile) points on the CDF:
@@ -270,7 +277,30 @@ system reliably beats closing lines.
 
 ---
 
-## 8. Serving path
+## 8. Betting card (weekly picks)
+
+`nfl_engine/picks.py` builds a ranked card from every scheduled game with posted
+odds. For each side of each market (spread, total, moneyline):
+
+- **Model probability** — spread and total from the margin/total predictions
+  through their residual σ; moneyline from the calibrated win probability.
+- **Market probability** — the posted American odds converted to decimal, with
+  the bookmaker's margin removed proportionally across both sides ("de-vigging").
+  Both sides of a real market sum to >100%; that excess is the fee.
+- **EV** per unit staked = `p·(d−1) − (1−p)`.
+- **Sharpe ratio** = EV ÷ standard deviation of the bet's return. For single
+  binary bets this tracks the edge closely (variance is ~1 for any near-coin-flip),
+  and becomes genuinely discriminating when comparing bets at very different odds.
+- **Stake** = **quarter-Kelly, capped at 2% of bankroll**. Full Kelly assumes the
+  stated probability is correct; ours is not demonstrably better than the market,
+  and full Kelly on an overestimated edge is the classic route to ruin.
+- **Historical track record** — every pick carries the backtested hit rate (and
+  for moneylines the ROI) of picks in *its own edge bucket*, so the honest record
+  sits next to the pick rather than in a footnote.
+
+The site opens on this card, defaulting to the next week with posted odds.
+
+## 9. Serving path
 
 `nfl_engine/query/serving.py` assembles feature rows for *future* games from
 "current snapshot" tables (`data/processed/*_current.parquet`) written by the
@@ -304,7 +334,7 @@ opponent-neutral; the local app applies matchup adjustment.
 
 ---
 
-## 9. Tested and rejected
+## 10. Tested and rejected
 
 Do not re-attempt these without genuinely new information — each was measured on
 the full walk-forward and did not help.
@@ -324,14 +354,20 @@ the full walk-forward and did not help.
 
 ---
 
-## 10. Known issues
+## 11. Known issues
 
 - **Touchdown props are not better than naive.** Documented above; the honest
   framing is that these outputs are distributional, not edge-generating.
-- **No betting hit rate clears breakeven at 95% confidence.** Measured on ~3,600
-  decided bets each: ATS 50.9% ±1.6, O/U 51.9% ±1.6, against a 52.4% breakeven.
-  The confidence intervals include both profit and loss. The model's value is
-  calibrated probability, not a demonstrated edge.
+- **No betting edge is statistically established, and it does not concentrate.**
+  Measured over 2010–2025 (`scripts/edge_analysis.py`, `moneyline_history.py`):
+  ATS 50.9% (n=3,642, p=0.97 vs breakeven), O/U 51.9% (n=3,654, p=0.74), and
+  4,361 positive-edge moneyline bets returned **+0.20% ROI, p=0.92**. Betting only
+  the largest model-vs-market disagreements does **not** help — the 6–9 point
+  disagreement bucket hit 44.4%. The model's value is calibrated probability and
+  projection quality, not a demonstrated betting edge.
+- **Proving a small edge is infeasible.** At 80% power, confirming a true 53% ATS
+  rate would take ~40,000 bets — about 147 NFL seasons. Even a 55% edge needs
+  ~8 seasons. No backtest of this length can settle the question.
 - **Intermittent filesystem timeouts** (mitigated). `TimeoutError: [Errno 60]`
   surfaces on parquet reads under iCloud sync contention. All pipeline reads and
   writes now go through `nfl_engine/io_utils.py`, which retries with exponential
@@ -343,10 +379,19 @@ the full walk-forward and did not help.
 
 ---
 
-## 11. Change log
+## 12. Change log
 
 ### 2026-09-05
 - Created this document.
+- **Weekly betting card** (`nfl_engine/picks.py`) with de-vigged market
+  probabilities, EV, Sharpe, quarter-Kelly staking, and per-pick historical track
+  records. 2026 schedule (272 games, 112 priced) exported to the site, which now
+  opens on this card.
+- **Calibration switched from isotonic to Platt** after the holdout test showed
+  isotonic overfitting (see §5).
+- **Significance established**: projection quality is significantly better than
+  the Elo baseline (McNemar p=0.018); betting edges are not distinguishable from
+  breakeven on any market (see §11).
 - **Model-family bake-off**: nine alternative learners and four ensembles tested
   on both targets — LightGBM wins everywhere (see "Tested and rejected").
 - **Round-2 levers**: feature selection, recency halflife, and target

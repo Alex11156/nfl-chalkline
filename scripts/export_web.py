@@ -21,6 +21,7 @@ from nfl_engine.config import REPORTS, TEAMS, TEAM_NAMES, PROP_STATS
 from nfl_engine.models.player_models import BLEND_W_DIRECT, PPR_WEIGHTS, QUANTILES
 from nfl_engine.query.serving import ENGINE
 from nfl_engine.query.tools import situational_query
+from nfl_engine.picks import build_picks, load_schedule
 
 OUT = Path(__file__).resolve().parent.parent / "web"
 OUT.mkdir(exist_ok=True)
@@ -130,6 +131,34 @@ def export_h2h():
     return out
 
 
+def export_slate():
+    """Upcoming schedule + ranked betting card per week."""
+    s = load_schedule()
+    season = int(s.season.iloc[0])
+    games = []
+    for g in s.itertuples():
+        games.append({
+            "id": g.game_id, "wk": int(g.week), "d": str(g.gameday)[:10],
+            "t": (g.gametime or ""), "a": g.away_team, "h": g.home_team,
+            "sp": None if pd.isna(g.spread_line) else float(g.spread_line),
+            "tl": None if pd.isna(g.total_line) else float(g.total_line),
+        })
+    priced = s[s.spread_line.notna()]
+    picks = build_picks(priced)
+    slim = []
+    for k in picks:
+        h = k.get("history") or {}
+        slim.append({
+            "wk": k["week"], "g": k["game_id"], "m": k["market"],
+            "l": k["label"], "o": k["odds"],
+            "pm": k["p_model"], "pk": k["p_market"], "e": k["edge_prob"],
+            "ev": k["ev"], "s": k["sharpe"], "st": k["stake"],
+            "hr": h.get("rate"), "hn": h.get("n"), "hroi": h.get("roi"),
+        })
+    return {"season": season, "games": games, "picks": slim,
+            "weeks": sorted({g["wk"] for g in games})}
+
+
 def main():
     ratings = ENGINE.team_current.reset_index()
     ratings["elo"] = ratings.team.map(ENGINE.elo_ratings)
@@ -147,6 +176,7 @@ def main():
         "aliases": TEAM_NAMES,
         "stats": PROP_STATS,
         "matchups": export_matchups(),
+        "slate": export_slate(),
         "players": export_players(),
         "ratings": [[r.team, round(r.elo), r3(r.off_epa_play_ewm), r3(r.allowed_epa_play_ewm)]
                     for r in ratings.itertuples()],

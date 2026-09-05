@@ -111,6 +111,29 @@ svg .n{font-family:"IBM Plex Mono",monospace}
 .dfn{border-bottom:1.5px dotted var(--accent);cursor:help;text-decoration:none;color:inherit}
 .gloss dt{font:600 17px "Barlow Condensed",sans-serif;letter-spacing:.05em;margin-top:14px}
 .gloss dd{margin:2px 0 0;color:var(--ink2);font-size:14.5px;max-width:640px}
+.warn{border-left:3px solid var(--gold);background:var(--surface2);
+  padding:11px 15px;border-radius:0 8px 8px 0;margin:0 0 14px;font-size:13.5px;
+  color:var(--ink2)}
+.warn b{color:var(--ink)}
+.pickrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+  padding:11px 0;border-bottom:1px solid var(--grid)}
+.pickrow:last-child{border-bottom:none}
+.pickname{font:600 17px "Barlow Condensed",sans-serif;letter-spacing:.03em}
+.pickmeta{color:var(--ink2);font-size:12.5px;margin-top:2px}
+.pickmeta b{color:var(--ink);font-weight:600}
+.sh{font:500 20px "IBM Plex Mono",monospace;text-align:right}
+.shl{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink2);
+  text-align:right}
+.tag{display:inline-block;padding:1px 7px;border-radius:4px;margin-left:6px;
+  font:600 11px "Barlow Condensed",sans-serif;letter-spacing:.07em}
+.tag.spread{background:var(--c1);color:#fff}
+.tag.total{background:var(--c3);color:#fff}
+.tag.moneyline{background:var(--c4);color:#1a1a19}
+.wkbar{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 16px}
+.wk{border:1px solid var(--line);background:none;color:var(--ink2);cursor:pointer;
+  padding:5px 12px;border-radius:7px;font:600 14px "Barlow Condensed",sans-serif}
+.wk[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);
+  border-color:var(--accent)}
 footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid var(--line);
   padding-top:14px}
 </style>
@@ -131,6 +154,17 @@ footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid v
 <div id="feed"></div>
 
 <nav role="tablist" id="nav"></nav>
+
+<div class="panel on" id="p-slate">
+  <div class="card">
+    <h2>This week's card</h2>
+    <div class="warn" id="slate-warn"></div>
+    <div class="wkbar" id="wkbar"></div>
+    <h3>Ranked by <span class="dfn" tabindex="0" data-g="sharpe">Sharpe ratio</span></h3>
+    <div id="picks-out"></div>
+  </div>
+  <div class="card"><h2>Full slate</h2><div id="slate-out"></div></div>
+</div>
 
 <div class="panel" id="p-games">
   <div class="card"><h2>Game predictions</h2>
@@ -292,6 +326,11 @@ const GLOSS={
  margin:['Margin','Projected home-team score minus away-team score. Positive = home team favored.'],
  total:['Total','Projected combined points scored by both teams.'],
  wf:['Walk-forward out-of-sample','The honest way to test a model: train only on past seasons, predict the next one, repeat. Every accuracy number here comes from games the model had never seen when it predicted them.'],
+ sharpe:['Sharpe ratio','Expected profit divided by the standard deviation of that profit — return per unit of risk. Higher means a better reward-to-volatility trade-off. For single game bets the ranking tracks the size of the edge closely, because every bet has roughly the same variance; it becomes more useful when comparing bets at very different odds.'],
+ ev:['EV — Expected Value','Average profit per 1 unit staked if the model\'s probability were exactly right. +0.05 means five cents expected profit per dollar. It is only as good as the probability behind it.'],
+ kelly:['Kelly / suggested stake','The Kelly criterion gives the bankroll fraction that maximises long-run growth — but only if your probability is correct. Because this model\'s edge is not statistically established, the site shows a QUARTER-Kelly stake capped at 2% of bankroll. Full Kelly on an overestimated edge is how bankrolls die.'],
+ devig:['Market probability (de-vigged)','The sportsbook\'s implied probability with its built-in margin removed. Both sides of a market add up to more than 100% — that excess is the book\'s fee. Removing it proportionally gives the market\'s true estimate, which is what the model is measured against.'],
+ hist:['Historical hit rate','How picks in this same edge range actually performed across the 2010-2025 backtest. This is the honest track record for this kind of pick — not a projection for this specific game.'],
  newteam:['NEW TEAM badge','This player changed teams since his last game. Projections use his own production history (which travels with him) but his new team\'s context — offensive quality, pace, quarterback, and implied point total.'],
  vig:['−110 odds / the vig','Standard sportsbook pricing: bet $110 to win $100. The built-in fee is why 50% accuracy loses money and 52.4% is the breakeven line.'],
 };
@@ -558,14 +597,15 @@ for(const ex of EXAMPLES){const b=document.createElement('button');b.className='
   $('chips').appendChild(b);}
 
 /* ---------- panels ---------- */
-const PANELS=[['games','Games'],['props','Props'],['fantasy','Fantasy'],
-  ['rankings','Rankings'],['trends','Trends'],['report','Report card'],
-  ['glossary','Glossary']];
+const PANELS=[['slate','This week'],['games','Games'],['props','Props'],
+  ['fantasy','Fantasy'],['rankings','Rankings'],['trends','Trends'],
+  ['report','Report card'],['glossary','Glossary']];
 $('gloss-list').innerHTML=Object.values(GLOSS)
   .map(([term,def])=>`<dt>${term}</dt><dd>${def}</dd>`).join('');
 for(const [id,label] of PANELS){
   const b=document.createElement('button');b.className='pill';b.textContent=label;
-  b.setAttribute('role','tab');b.setAttribute('aria-selected','false');
+  b.setAttribute('role','tab');
+  b.setAttribute('aria-selected', id==='slate' ? 'true' : 'false');
   b.addEventListener('click',()=>{
     document.querySelectorAll('.pill').forEach(x=>x.setAttribute('aria-selected','false'));
     document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
@@ -616,6 +656,100 @@ for(const k in TREND_LABEL){const b=document.createElement('button');b.className
   b.addEventListener('click',()=>{$('t-out').innerHTML='';$('t-out').appendChild(trendCard(k));});
   $('t-btns').appendChild(b);}
 $('t-out').appendChild(trendCard('new_coach'));
+
+/* ---------- weekly card ---------- */
+(function slate(){
+  const S = D.slate;
+  if(!S || !S.games.length){ return; }
+  const today = new Date().toISOString().slice(0,10);
+  const priced = new Set(S.picks.map(k=>k.wk));
+  // default to the earliest week that still has a game today or later
+  const future = S.games.filter(g=>g.d >= today).map(g=>g.wk);
+  let cur = future.length ? Math.min(...future) : Math.min(...S.weeks);
+  if(priced.size && !priced.has(cur)){
+    const nxt = [...priced].filter(w=>w>=cur);
+    cur = nxt.length ? Math.min(...nxt) : Math.max(...priced);
+  }
+
+  $('slate-warn').innerHTML =
+    `<b>Read this before betting anything.</b> Across 2010–2025 these picks hit
+     <b>50.9% against the spread</b> and <b>51.9% on totals</b> — both below the
+     <span class="dfn" tabindex="0" data-g="vig">52.4% breakeven</span> — and
+     positive-edge moneylines returned <b>+0.2% ROI (p=0.92)</b>, statistically
+     indistinguishable from zero. Bigger disagreements did <b>not</b> hit better.
+     Treat this as analysis of where the model and the market differ, not as a
+     system with a proven edge. Stakes shown are
+     <span class="dfn" tabindex="0" data-g="kelly">quarter-Kelly, capped at 2%</span>.`;
+
+  function weekBar(){
+    $('wkbar').innerHTML='';
+    for(const w of S.weeks){
+      const b=document.createElement('button');
+      b.className='wk'; b.textContent='Wk '+w;
+      b.setAttribute('aria-pressed', String(w===cur));
+      if(!priced.has(w)) b.style.opacity=.45;
+      b.addEventListener('click',()=>{cur=w;render();});
+      $('wkbar').appendChild(b);
+    }
+  }
+
+  function render(){
+    weekBar();
+    const picks = S.picks.filter(k=>k.wk===cur && k.ev>0)
+                         .sort((a,b)=>b.s-a.s).slice(0,12);
+    const box=$('picks-out'); box.innerHTML='';
+    if(!picks.length){
+      box.innerHTML='<p class="note">No odds posted for this week yet — '
+        +'picks appear once the market opens. The full slate is below.</p>';
+    }
+    for(const k of picks){
+      const hist = k.hn ? (k.hroi!=null
+          ? `similar picks: <b>${(k.hr*100).toFixed(1)}%</b> hit, <b>${k.hroi>0?'+':''}${(k.hroi*100).toFixed(1)}%</b> ROI (n=${k.hn})`
+          : `similar picks: <b>${(k.hr*100).toFixed(1)}%</b> hit (n=${k.hn})`)
+        : 'no comparable history';
+      const g = S.games.find(x=>x.id===k.g);
+      const row=document.createElement('div'); row.className='pickrow';
+      row.innerHTML=`<div>
+          <div class="pickname">${k.l}
+            <span class="tag ${k.m}">${k.m==='moneyline'?'ML':k.m.toUpperCase()}</span>
+            <span class="note" style="font-size:12.5px">${g?g.a+' @ '+g.h:''}</span></div>
+          <div class="pickmeta">
+            odds <b>${k.o>0?'+':''}${k.o}</b> ·
+            model <b>${(k.pm*100).toFixed(1)}%</b> vs
+            <span class="dfn" tabindex="0" data-g="devig">market</span>
+            <b>${(k.pk*100).toFixed(1)}%</b> ·
+            <span class="dfn" tabindex="0" data-g="ev">EV</span> <b>${k.ev>0?'+':''}${(k.ev*100).toFixed(1)}%</b> ·
+            stake <b>${(k.st*100).toFixed(1)}%</b></div>
+          <div class="pickmeta"><span class="dfn" tabindex="0" data-g="hist">${hist}</span></div>
+        </div>
+        <div><div class="sh">${k.s.toFixed(2)}</div><div class="shl">sharpe</div></div>`;
+      box.appendChild(row);
+    }
+
+    const gs = S.games.filter(g=>g.wk===cur);
+    const rows = gs.map(g=>{
+      const mk = D.matchups.preds[`${g.a}@${g.h}`];
+      const mLine = mk ? (-mk[0]).toFixed(1) : '—';
+      const mTot  = mk ? mk[1].toFixed(1) : '—';
+      const p = mk ? (mk[2]*100).toFixed(0)+'%' : '—';
+      return `<tr><td class="num">${g.d.slice(5)}</td>
+        <td><b>${g.a}</b> @ <b>${g.h}</b></td>
+        <td class="r num">${g.sp==null?'—':(g.sp>0?'+':'')+g.sp}</td>
+        <td class="r num">${mLine}</td>
+        <td class="r num">${g.tl==null?'—':g.tl}</td>
+        <td class="r num">${mTot}</td>
+        <td class="r num">${p}</td></tr>`;}).join('');
+    $('slate-out').innerHTML=`<div class="tblwrap"><table><thead><tr>
+      <th>Date</th><th>Matchup</th><th class="r">Mkt spread</th>
+      <th class="r">Model spread</th><th class="r">Mkt total</th>
+      <th class="r">Model total</th><th class="r">Home win</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+      <p class="note">Spreads are quoted from the home team's side. "Model spread"
+      is what the model would post; a gap versus the market spread is the
+      disagreement the picks above are built on.</p>`;
+  }
+  render();
+})();
 
 (function report(){
   const P=D.report.pure,M=D.report.mkt;
