@@ -1,21 +1,30 @@
 """Is there a statistically significant edge, and does it concentrate?
 
-Answers two questions the picks feature depends on:
+Answers the questions the betting card depends on:
   1. Are the model's win rates significantly better than breakeven?
   2. Does accuracy improve when the model disagrees with the line more —
      i.e. is selective betting justified?
+  3. Is the projection quality itself significant (vs Elo)?
+  4. Is the model-market blend the card prices on better than the market
+     alone, on seasons the blend weight was not fitted on?
+     -> reports/research/market_blend_holdout.json
 """
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import json
+
 import numpy as np
 import pandas as pd
 from scipy import stats
+from scipy.stats import norm
 
-from nfl_engine.config import REPORTS
+from nfl_engine import calibration as C
+from nfl_engine.config import MODELS_STORE, RAW, REPORTS, RESEARCH
 from nfl_engine.io_utils import read_parquet
+from nfl_engine.odds import fair_prob
 
 BREAKEVEN = 0.5238  # -110 odds
 
@@ -40,6 +49,47 @@ def report(label, hits, n):
     verdict = "BEATS breakeven (p<.05)" if pv < 0.05 else "not distinguishable from breakeven"
     print(f"{label:26s} {p:6.2%}  n={n:5d}  95% CI [{lo:.2%}, {hi:.2%}]  "
           f"p={pv:.3f}  {verdict}")
+
+
+def blend_holdout(pm: pd.DataFrame, pt: pd.DataFrame, split: int = 2020) -> dict:
+    """Fit every calibration on seasons before `split`, then score the
+    market's, the model's and the blend's probability on the seasons from
+    `split` on (mean log-likelihood per decided bet; higher is better)."""
+    meta = json.loads((MODELS_STORE / "game_meta_pure.json").read_text())
+    sm, st = meta["sigma_margin"], meta["sigma_total"]
+
+    def loglik(y, p):
+        p = np.clip(np.asarray(p, float), 1e-6, 1 - 1e-6)
+        return float(np.mean(np.where(y, np.log(p), np.log(1 - p))))
+
+    def one(d, y, p_model, p_market):
+        tr, te = (d.season < split).to_numpy(), (d.season >= split).to_numpy()
+        y, p_model, p_market = np.asarray(y, bool), np.asarray(p_model, float), np.broadcast_to(p_market, len(d))
+        k = C.fit_market_weight(y[tr], p_model[tr], p_market[tr])
+        return dict(k=round(k, 4), n=int(te.sum()), market=loglik(y[te], p_market[te]), model=loglik(y[te], p_model[te]),
+                    blend=loglik(y[te], C.blend_with_market(p_model[te], p_market[te], k)))
+
+    out = {"split": split}
+    d = pm.dropna(subset=["spread_line", "result"])
+    d = d[d.result != d.spread_line]
+    early = d[d.season < split]
+    factors = C.fit_key_factors(early.pred_result, early.result, sm)
+    cover, _, lose = C.cover_probs(d.pred_result, d.spread_line, sm, factors)
+    out["spread"] = one(d, d.result > d.spread_line, cover / (cover + lose), 0.5)
+
+    d = pt.dropna(subset=["total_line", "total"])
+    d = d[d.total != d.total_line]
+    over, _, under = C.total_probs(d.pred_total, d.total_line, st)
+    out["total"] = one(d, d.total > d.total_line, over / (over + under), 0.5)
+
+    odds = read_parquet(RAW / "schedules.parquet")[["game_id", "home_moneyline", "away_moneyline"]]
+    d = pm.merge(odds, on="game_id").dropna(subset=["home_moneyline", "away_moneyline", "result"])
+    d = d[d.result != 0]
+    raw = norm.cdf(d.pred_result / sm)
+    early = (d.season < split).to_numpy()
+    cal = C.PlattCalibrator().fit(raw[early], (d.result > 0)[early])
+    out["moneyline"] = one(d, d.result > 0, cal.predict(raw), fair_prob(d.home_moneyline, d.away_moneyline))
+    return out
 
 
 if __name__ == "__main__":
@@ -103,3 +153,14 @@ if __name__ == "__main__":
         n_needed = num / (p1 - p0) ** 2
         print(f"  if true rate were {true_rate:.1%}: need {n_needed:,.0f} bets "
               f"(~{n_needed/272:.0f} NFL seasons)")
+
+    print()
+    print("=" * 100)
+    print("4. IS THE BLEND BETTER THAN THE MARKET ON SEASONS IT WAS NOT FITTED ON?  (log-likelihood, higher is better)")
+    print("=" * 100)
+    hold = blend_holdout(pm, pt)
+    for bet in ("spread", "total", "moneyline"):
+        r = hold[bet]
+        print(f"  {bet:10s} k={r['k']:.3f} (fit < {hold['split']})  {hold['split']}+ n={r['n']}:  market {r['market']:.4f}  "
+              f"model {r['model']:.4f}  blend {r['blend']:.4f}")
+    (RESEARCH / "market_blend_holdout.json").write_text(json.dumps(hold, indent=1))

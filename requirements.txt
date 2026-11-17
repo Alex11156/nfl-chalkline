@@ -3,6 +3,7 @@ numpy
 scikit-learn
 scipy
 lightgbm
+interpret-core
 xgboost
 duckdb
 streamlit
@@ -13,3 +14,10 @@ joblib
 pyarrow
 matplotlib
 anthropic
+reportlab
+pypdfium2
+
+# research/ only (model-type bake-offs); the pipeline runs without them
+catboost
+quantile-forest
+torch

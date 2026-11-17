@@ -20,6 +20,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from nfl_engine.config import REPORTS
+from nfl_engine.config import RESEARCH
 from nfl_engine.models.player_models import (PARAMS, TEST_SEASONS, load, subset)
 
 TARGET = "fantasy_points_ppr"
@@ -107,5 +108,5 @@ if __name__ == "__main__":
               f"with: {res['lightgbm (current)']['mae']:.4f}", flush=True)
         res["ablation_team_changed"] = dict(
             without=round(mae_wo, 4), with_=res["lightgbm (current)"]["mae"])
-    (REPORTS / "experiment_player.json").write_text(json.dumps(res, indent=2))
+    (RESEARCH / "experiment_player.json").write_text(json.dumps(res, indent=2))
     print(f"\nelapsed {time.time()-t0:.0f}s", flush=True)

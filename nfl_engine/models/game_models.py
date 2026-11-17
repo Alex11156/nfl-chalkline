@@ -1,9 +1,21 @@
-"""Game outcome models: home margin, win probability, total points.
+"""Game outcome models: home margin, total points, win probability.
 
-Walk-forward evaluation: for each test season Y in TEST_SEASONS, train on
-all seasons < Y (from TRAIN_FROM). Reports straight-up accuracy, margin MAE,
-Brier score, and record against Vegas closing lines. Elo and the closing
-line itself are the baselines every model must face.
+Two variants are trained:
+  pure   no Vegas lines among the inputs: the engine's independent view,
+         served on the site and priced against the market on the betting card
+  mkt    the closing spread and total as inputs: the most accurate version
+
+Model. LightGBM regression (boosted depth-3 trees, heavily regularised) on the
+margin and on the total. For the pure variant its prediction is averaged with
+an Explainable Boosting Machine: a purely additive model, the only model type
+tested that beat LightGBM on games (research/model_types_game.py). With the
+lines as inputs the additive model is worse, so `mkt` is LightGBM alone.
+
+Validation. Walk-forward: for each test season Y, train on all seasons < Y.
+Elo and the Vegas closing line are the baselines every model must face.
+
+Running this module backtests both variants, fits the final models on all
+played games, and refits every calibration (nfl_engine/calibration.py).
 """
 import json
 
@@ -12,12 +24,11 @@ import lightgbm as lgb
 import numpy as np
 import pandas as pd
 from scipy.stats import norm
-from sklearn.linear_model import Ridge
 
-from nfl_engine.config import MODELS_STORE, PROCESSED, REPORTS
-
-from nfl_engine.config import CURRENT_SEASON
-from nfl_engine.io_utils import read_parquet as safe_read_parquet, to_parquet as safe_to_parquet
+from nfl_engine import calibration
+from nfl_engine.config import CURRENT_SEASON, MODELS_STORE, PROCESSED, REPORTS
+from nfl_engine.io_utils import read_parquet, to_parquet
+from nfl_engine.models import folds
 
 TRAIN_FROM = 2003
 # extends automatically as new seasons complete (empty test years are skipped)
@@ -33,28 +44,38 @@ EXCLUDE = {
     "home_gameday", "away_gameday",
 }
 MARKET = {"spread_line", "total_line"}
+# Built for the player models only. Tested on the game models 2026-11-09:
+# margin MAE 10.272 -> 10.280, total 10.648 -> 10.657 (P(better) = 0.16).
+PLAYER_ONLY = ("pass_rate",)
 
-# Optuna-tuned per target on walk-forward MAE over 2010-2017
-# (see scripts/tune_game.py)
+# Optuna-tuned on walk-forward margin MAE over 2010-2017, confirmed on 2018+
+# (research/tune_game.py). A dedicated search for totals won its tuning window
+# and lost the full backtest, so totals use the same settings.
 PARAMS_MARGIN = dict(
     n_estimators=290, learning_rate=0.0103, num_leaves=53, max_depth=3,
     min_child_samples=89, subsample=0.695, subsample_freq=1,
     colsample_bytree=0.329, reg_alpha=8.99, reg_lambda=3.25,
     random_state=7, verbosity=-1, n_jobs=-1,
 )
-# The dedicated total-tune overfit its validation window; the margin params
-# generalize better across the full walk-forward for totals as well.
 PARAMS_TOTAL = dict(PARAMS_MARGIN)
-LGB_PARAMS = PARAMS_MARGIN  # back-compat alias
 
-
-def params_for(target: str) -> dict:
-    return PARAMS_TOTAL if target == "total" else PARAMS_MARGIN
-
+# The additive model. Library defaults apart from fewer bags (speed) and no
+# pairwise terms: adding 10 pairs made it clearly worse (margin MAE +0.12).
+EBM_PARAMS = dict(interactions=0, outer_bags=4, max_bins=64, learning_rate=0.01,
+                  min_samples_leaf=40, random_state=7, n_jobs=-1)
+# Weight of the additive model in the served prediction, by variant. Not
+# tuned: 50/50 for pure (walk-forward 2010-2026: margin MAE 10.277 -> 10.250,
+# total 10.643 -> 10.608; better in 14 and 13 of 17 seasons, pooled P = 0.997
+# and 0.9998), none for mkt (it makes the margin worse there, 10.171 -> 10.184).
+EBM_WEIGHT = {"pure": 0.5, "mkt": 0.0}
 
 # Exponential recency weighting of training seasons (halflife in seasons);
 # lifted straight-up accuracy ~0.8pt at equal MAE in walk-forward tests.
 WEIGHT_HALFLIFE = 4.0
+
+
+def params_for(target: str) -> dict:
+    return PARAMS_TOTAL if target == "total" else PARAMS_MARGIN
 
 
 def season_weights(train_seasons: pd.Series, asof_season: int) -> np.ndarray:
@@ -62,37 +83,58 @@ def season_weights(train_seasons: pd.Series, asof_season: int) -> np.ndarray:
 
 
 def load_features() -> pd.DataFrame:
-    df = safe_read_parquet(PROCESSED / "game_features.parquet")
+    df = read_parquet(PROCESSED / "game_features.parquet")
     return df[df["season"] >= TRAIN_FROM].reset_index(drop=True)
 
 
 def feature_cols(df: pd.DataFrame, market: bool) -> list[str]:
     cols = [c for c in df.columns
             if c not in EXCLUDE and (market or c not in MARKET)
+            and not any(k in c for k in PLAYER_ONLY)
             and df[c].dtype.kind in "fib"]
     return sorted(cols)
 
 
-def walk_forward(df: pd.DataFrame, cols: list[str], target: str,
-                 params: dict | None = None) -> pd.DataFrame:
-    """Returns test-set predictions for every season in TEST_SEASONS."""
-    params = params or params_for(target)
+class Blend:
+    """Weighted average of fitted models, with the usual .predict()."""
+
+    def __init__(self, models: list, weights: list[float]):
+        self.models, self.weights = models, weights
+
+    def predict(self, X):
+        return sum(w * m.predict(X) for m, w in zip(self.models, self.weights))
+
+
+def fit(train: pd.DataFrame, cols: list[str], target: str, asof_season: int,
+        ebm_weight: float = 0.0, params: dict | None = None):
+    """Fit on `train`, weighting recent seasons more. Returns a model with
+    .predict(): LightGBM, or its blend with the additive model."""
+    w = season_weights(train.season, asof_season)
+    gbm = lgb.LGBMRegressor(**(params or params_for(target))).fit(train[cols], train[target], sample_weight=w)
+    if not ebm_weight:
+        return gbm
+    from interpret.glassbox import ExplainableBoostingRegressor
+    ebm = ExplainableBoostingRegressor(**EBM_PARAMS).fit(train[cols], train[target], sample_weight=w)
+    return Blend([gbm, ebm], [1 - ebm_weight, ebm_weight])
+
+
+def walk_forward(df: pd.DataFrame, cols: list[str], target: str, params: dict | None = None,
+                 ebm_weight: float = 0.0, cache: str | None = None) -> pd.DataFrame:
+    """Out-of-sample predictions for every season in TEST_SEASONS. `cache`
+    names a fold cache to reuse finished seasons from (see models/folds.py)."""
     played = df.dropna(subset=[target])
-    preds = []
-    for y in TEST_SEASONS:
-        tr = played[played.season < y]
-        te = played[played.season == y]
-        if te.empty:
-            continue
-        model = lgb.LGBMRegressor(**params)
-        model.fit(tr[cols], tr[target],
-                  sample_weight=season_weights(tr.season, y - 1))
-        out = te[["game_id", "season", "week", "home_team", "away_team",
-                  "result", "total", "home_win", "spread_line", "total_line",
-                  "elo_prob_home", "elo_diff"]].copy()
-        out[f"pred_{target}"] = model.predict(te[cols])
-        preds.append(out)
-    return pd.concat(preds, ignore_index=True)
+    if cache:
+        import interpret
+        cache = (cache, (params or params_for(target), WEIGHT_HALFLIFE, ebm_weight,
+                         (EBM_PARAMS, interpret.__version__) if ebm_weight else None, lgb.__version__))
+    pred = folds.walk_forward(
+        played, cols, target, TEST_SEASONS,
+        lambda train, test, season: fit(train, cols, target, season - 1, ebm_weight, params).predict(test[cols]),
+        cache=cache)
+    out = played[["game_id", "season", "week", "home_team", "away_team", "result", "total", "home_win",
+                  "spread_line", "total_line", "elo_prob_home", "elo_diff"]].copy()
+    out[f"pred_{target}"] = pred
+    return out.dropna(subset=[f"pred_{target}"]).reset_index(drop=True)
 
 
 def margin_metrics(p: pd.DataFrame) -> dict:
@@ -108,9 +150,8 @@ def margin_metrics(p: pd.DataFrame) -> dict:
     cover = m["result"] - m["spread_line"]  # >0 home covers
     decided = (edge.abs() > 0.5) & (cover != 0)
     ats_wins = (np.sign(edge[decided]) == np.sign(cover[decided])).mean()
-    # calibrated win prob from margin via residual sigma
+    # win probability from the margin via its out-of-sample residual spread
     sigma = float((p["pred_result"] - p["result"]).std())
-    prob = norm.cdf(p["pred_result"] / sigma)
     played = p.dropna(subset=["home_win"])
     brier = float(np.mean((norm.cdf(played["pred_result"] / sigma) - played["home_win"]) ** 2))
     brier_elo = float(np.mean((played["elo_prob_home"] - played["home_win"]) ** 2))
@@ -134,56 +175,44 @@ def total_metrics(p: pd.DataFrame) -> dict:
                 sigma=float((pred - p["total"]).std()))
 
 
-def evaluate(market: bool = False) -> dict:
+def run(tag: str) -> dict:
+    """Backtest one variant, then fit and save its final models."""
+    market = tag == "mkt"
     df = load_features()
     cols = feature_cols(df, market)
-    pm = walk_forward(df, cols, "result")
-    pt = walk_forward(df, cols, "total")
-    res = {"market": market, "n_features": len(cols),
+    w = EBM_WEIGHT[tag]
+    pm = walk_forward(df, cols, "result", ebm_weight=w, cache=f"game_{tag}_result")
+    pt = walk_forward(df, cols, "total", ebm_weight=w, cache=f"game_{tag}_total")
+    res = {"market": market, "n_features": len(cols), "ebm_weight": w,
            "margin": margin_metrics(pm), "total": total_metrics(pt)}
-    per_season = (pm.assign(correct=np.sign(pm.pred_result) == np.sign(pm.result))
-                  .groupby("season")["correct"].mean())
-    res["su_by_season"] = per_season.round(4).to_dict()
-    return res, pm, pt, cols
+    res["su_by_season"] = (pm.assign(correct=np.sign(pm.pred_result) == np.sign(pm.result))
+                           .groupby("season")["correct"].mean().round(4).to_dict())
+    REPORTS.mkdir(exist_ok=True)
+    (REPORTS / f"game_eval_{tag}.json").write_text(json.dumps(res, indent=2))
+    to_parquet(pm, REPORTS / f"game_preds_margin_{tag}.parquet")
+    to_parquet(pt, REPORTS / f"game_preds_total_{tag}.parquet")
 
-
-def train_final(market: bool = False) -> None:
-    """Fit on all data and persist artifacts for serving."""
-    df = load_features()
-    cols = feature_cols(df, market)
+    # final models: every played game, with the backtest's honest error spread
     played = df.dropna(subset=["result"])
-    tag = "mkt" if market else "pure"
-
-    w = season_weights(played.season, int(played.season.max()))
-    m_margin = lgb.LGBMRegressor(**PARAMS_MARGIN).fit(
-        played[cols], played["result"], sample_weight=w)
-    m_total = lgb.LGBMRegressor(**PARAMS_TOTAL).fit(
-        played[cols], played["total"], sample_weight=w)
-
-    # residual sigmas from walk-forward (honest out-of-sample spread)
-    pm = walk_forward(df, cols, "result")
-    pt = walk_forward(df, cols, "total")
-    sigma_margin = float((pm["pred_result"] - pm["result"]).std())
-    sigma_total = float((pt["pred_total"] - pt["total"]).std())
-
+    last = int(played.season.max())
     MODELS_STORE.mkdir(exist_ok=True)
-    joblib.dump(m_margin, MODELS_STORE / f"game_margin_{tag}.joblib")
-    joblib.dump(m_total, MODELS_STORE / f"game_total_{tag}.joblib")
-    meta = dict(features=cols, sigma_margin=sigma_margin,
-                sigma_total=sigma_total, market=market,
-                train_through=int(played.season.max()))
+    joblib.dump(fit(played, cols, "result", last, w), MODELS_STORE / f"game_margin_{tag}.joblib")
+    joblib.dump(fit(played, cols, "total", last, w), MODELS_STORE / f"game_total_{tag}.joblib")
+    meta = dict(features=cols, sigma_margin=res["margin"]["sigma"],
+                sigma_total=res["total"]["sigma"], market=market, train_through=last)
     (MODELS_STORE / f"game_meta_{tag}.json").write_text(json.dumps(meta, indent=2))
-    print(f"saved game models [{tag}]  sigma_margin={sigma_margin:.2f} "
-          f"sigma_total={sigma_total:.2f}")
+    print(tag, json.dumps({k: res[k] for k in ("margin", "total")}, indent=2))
+    return res
+
+
+def main() -> None:
+    for tag in ("pure", "mkt"):
+        run(tag)
+    calibration.fit_all()
 
 
 if __name__ == "__main__":
-    for market in (False, True):
-        res, pm, pt, cols = evaluate(market)
-        tag = "mkt" if market else "pure"
-        REPORTS.mkdir(exist_ok=True)
-        (REPORTS / f"game_eval_{tag}.json").write_text(json.dumps(res, indent=2))
-        safe_to_parquet(pm, REPORTS / f"game_preds_margin_{tag}.parquet")
-        safe_to_parquet(pt, REPORTS / f"game_preds_total_{tag}.parquet")
-        print(tag, json.dumps({k: res[k] for k in ("margin", "total")}, indent=2))
-        train_final(market)
+    # Run through the importable module rather than __main__, so the saved
+    # Blend objects load as nfl_engine.models.game_models.Blend.
+    from nfl_engine.models import game_models
+    game_models.main()

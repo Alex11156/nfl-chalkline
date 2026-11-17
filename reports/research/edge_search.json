@@ -1,0 +1,1284 @@
+{
+ "dev_seasons": [
+  2010,
+  2019
+ ],
+ "holdout_from": 2020,
+ "strategies_tried": 72,
+ "frozen": 3,
+ "alpha_bonferroni": 0.016666666666666666,
+ "favourite_dev": {
+  "n": 2669,
+  "roi": -0.028302787609610466,
+  "units": -75.54014013005033
+ },
+ "favourite_hold": {
+  "n": 1786,
+  "roi": -0.032530279933680406,
+  "units": -58.09907996155321
+ },
+ "grid": [
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1127.0,
+   "losses": 1534.0,
+   "units": -57.24769149667195,
+   "roi": -0.02144911633445933,
+   "p_value": 0.799,
+   "roi_ci": [
+    -0.07155949312948633,
+    0.02966449884268538
+   ],
+   "avg_dec": 2.90323887613569
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.0,
+   "dogs_only": true,
+   "n": 1797,
+   "wins": 580.0,
+   "losses": 1214.0,
+   "units": -46.66,
+   "roi": -0.025965498052309403,
+   "p_value": 0.7635,
+   "roi_ci": [
+    -0.09720659432387313,
+    0.045248469671675
+   ],
+   "avg_dec": 3.537167501391207
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 2144,
+   "wins": 859.0,
+   "losses": 1278.0,
+   "units": -61.23229835602513,
+   "roi": -0.028559840651131124,
+   "p_value": 0.8341,
+   "roi_ci": [
+    -0.08623060172097742,
+    0.03046688050080068
+   ],
+   "avg_dec": 3.034027158255523
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.02,
+   "dogs_only": true,
+   "n": 1530,
+   "wins": 480.0,
+   "losses": 1047.0,
+   "units": -55.970000000000006,
+   "roi": -0.03658169934640523,
+   "p_value": 0.8221,
+   "roi_ci": [
+    -0.11260833333333335,
+    0.041784803921568615
+   ],
+   "avg_dec": 3.5984379084967317
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 1681,
+   "wins": 662.0,
+   "losses": 1015.0,
+   "units": -11.426817845319768,
+   "roi": -0.00679763107990468,
+   "p_value": 0.5893,
+   "roi_ci": [
+    -0.07263643433055404,
+    0.06038005945923947
+   ],
+   "avg_dec": 3.1494474987933563
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.04,
+   "dogs_only": true,
+   "n": 1261,
+   "wins": 408.0,
+   "losses": 851.0,
+   "units": -5.890000000000008,
+   "roi": -0.004670896114195089,
+   "p_value": 0.5406,
+   "roi_ci": [
+    -0.08977160983346551,
+    0.08421213322759714
+   ],
+   "avg_dec": 3.6456304520222043
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 1248,
+   "wins": 473.0,
+   "losses": 773.0,
+   "units": -15.178272326645569,
+   "roi": -0.012162077184812155,
+   "p_value": 0.6127,
+   "roi_ci": [
+    -0.08985424420940578,
+    0.06851716109213567
+   ],
+   "avg_dec": 3.226343113182055
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.06,
+   "dogs_only": true,
+   "n": 985,
+   "wins": 322.0,
+   "losses": 662.0,
+   "units": -5.210000000000006,
+   "roi": -0.005289340101522849,
+   "p_value": 0.5407,
+   "roi_ci": [
+    -0.10170634517766497,
+    0.09329263959390859
+   ],
+   "avg_dec": 3.634406091370558
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 858,
+   "wins": 316.0,
+   "losses": 541.0,
+   "units": -2.813611038525533,
+   "roi": -0.003279266944668453,
+   "p_value": 0.5301,
+   "roi_ci": [
+    -0.10216884951639309,
+    0.09749280199110819
+   ],
+   "avg_dec": 3.3270044884313634
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.08,
+   "dogs_only": true,
+   "n": 712,
+   "wins": 234.0,
+   "losses": 478.0,
+   "units": 3.5999999999999908,
+   "roi": 0.0050561797752808856,
+   "p_value": 0.4673,
+   "roi_ci": [
+    -0.10803967696629213,
+    0.12464957865168538
+   ],
+   "avg_dec": 3.6546488764044938
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 572,
+   "wins": 208.0,
+   "losses": 363.0,
+   "units": 11.198553902724315,
+   "roi": 0.019577891438329224,
+   "p_value": 0.3894,
+   "roi_ci": [
+    -0.10396601977597647,
+    0.149097356142956
+   ],
+   "avg_dec": 3.2601810917220595
+  },
+  {
+   "market": "ml",
+   "signal": "pure_ml",
+   "thr": 0.1,
+   "dogs_only": true,
+   "n": 492,
+   "wins": 166.0,
+   "losses": 326.0,
+   "units": 17.899999999999995,
+   "roi": 0.0363821138211382,
+   "p_value": 0.3238,
+   "roi_ci": [
+    -0.1072383130081301,
+    0.18329573170731703
+   ],
+   "avg_dec": 3.504126016260162
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1268.0,
+   "losses": 1393.0,
+   "units": 64.02168234224075,
+   "roi": 0.023987142128977425,
+   "p_value": 0.1677,
+   "roi_ci": [
+    -0.024065668314284604,
+    0.07163526684108032
+   ],
+   "avg_dec": 2.6346956642663772
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.0,
+   "dogs_only": true,
+   "n": 1550,
+   "wins": 527.0,
+   "losses": 1021.0,
+   "units": 46.36,
+   "roi": 0.029909677419354838,
+   "p_value": 0.2226,
+   "roi_ci": [
+    -0.044265000000000006,
+    0.10594209677419356
+   ],
+   "avg_dec": 3.401903225806452
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 1182,
+   "wins": 517.0,
+   "losses": 661.0,
+   "units": 16.513578832934975,
+   "roi": 0.013970878877271553,
+   "p_value": 0.3608,
+   "roi_ci": [
+    -0.059621753744387475,
+    0.08872579534601904
+   ],
+   "avg_dec": 2.745408710668784
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.02,
+   "dogs_only": true,
+   "n": 761,
+   "wins": 253.0,
+   "losses": 507.0,
+   "units": 7.47999999999999,
+   "roi": 0.009829172141918514,
+   "p_value": 0.4328,
+   "roi_ci": [
+    -0.09500657030223392,
+    0.11836333771353473
+   ],
+   "avg_dec": 3.3471222076215503
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 342,
+   "wins": 149.0,
+   "losses": 192.0,
+   "units": 25.997340752986325,
+   "roi": 0.07601561623680211,
+   "p_value": 0.1383,
+   "roi_ci": [
+    -0.061941170382072204,
+    0.21723799008173067
+   ],
+   "avg_dec": 2.777178337224837
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.04,
+   "dogs_only": true,
+   "n": 237,
+   "wins": 85.0,
+   "losses": 152.0,
+   "units": 15.41,
+   "roi": 0.0650210970464135,
+   "p_value": 0.2492,
+   "roi_ci": [
+    -0.11810443037974684,
+    0.2573449367088607
+   ],
+   "avg_dec": 3.21337552742616
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 55,
+   "wins": 24.0,
+   "losses": 31.0,
+   "units": -0.596533521205731,
+   "roi": -0.010846064021922381,
+   "p_value": 0.5261,
+   "roi_ci": [
+    -0.3102849226500775,
+    0.30504600464089643
+   ],
+   "avg_dec": 2.6706655921725138
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.06,
+   "dogs_only": true,
+   "n": 37,
+   "wins": 12.0,
+   "losses": 25.0,
+   "units": -4.759999999999998,
+   "roi": -0.12864864864864858,
+   "p_value": 0.736,
+   "roi_ci": [
+    -0.5189256756756757,
+    0.2929864864864864
+   ],
+   "avg_dec": 3.0716216216216217
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 3,
+   "wins": 2.0,
+   "losses": 1.0,
+   "units": 2.5000000000000004,
+   "roi": 0.8333333333333335,
+   "p_value": 0.1535,
+   "roi_ci": [
+    -1.0,
+    2.14
+   ],
+   "avg_dec": 2.84
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.08,
+   "dogs_only": true,
+   "n": 3,
+   "wins": 2.0,
+   "losses": 1.0,
+   "units": 2.5000000000000004,
+   "roi": 0.8333333333333335,
+   "p_value": 0.1535,
+   "roi_ci": [
+    -1.0,
+    2.14
+   ],
+   "avg_dec": 2.84
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 1,
+   "wins": 0.0,
+   "losses": 1.0,
+   "units": -1.0,
+   "roi": -1.0,
+   "p_value": 1.0,
+   "roi_ci": [
+    -1.0,
+    -1.0
+   ],
+   "avg_dec": 3.02
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.1,
+   "dogs_only": true,
+   "n": 1,
+   "wins": 0.0,
+   "losses": 1.0,
+   "units": -1.0,
+   "roi": -1.0,
+   "p_value": 1.0,
+   "roi_ci": [
+    -1.0,
+    -1.0
+   ],
+   "avg_dec": 3.02
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1000.0,
+   "losses": 1661.0,
+   "units": -74.7777956880274,
+   "roi": -0.028017158369437016,
+   "p_value": 0.855,
+   "roi_ci": [
+    -0.08084983527139142,
+    0.024177477398884886
+   ],
+   "avg_dec": 3.080029530953861
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.0,
+   "dogs_only": true,
+   "n": 2000,
+   "wins": 615.0,
+   "losses": 1380.0,
+   "units": -65.26,
+   "roi": -0.03263,
+   "p_value": 0.8322,
+   "roi_ci": [
+    -0.10012399999999999,
+    0.034025749999999994
+   ],
+   "avg_dec": 3.529205
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 1439,
+   "wins": 473.0,
+   "losses": 963.0,
+   "units": -40.76990146622987,
+   "roi": -0.028332106647831735,
+   "p_value": 0.7594,
+   "roi_ci": [
+    -0.10453403852238086,
+    0.05068801664666773
+   ],
+   "avg_dec": 3.398714560155729
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.02,
+   "dogs_only": true,
+   "n": 1268,
+   "wins": 379.0,
+   "losses": 887.0,
+   "units": -40.61,
+   "roi": -0.03202681388012618,
+   "p_value": 0.7693,
+   "roi_ci": [
+    -0.11671175078864351,
+    0.05386514195583595
+   ],
+   "avg_dec": 3.612216088328075
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 230,
+   "wins": 65.0,
+   "losses": 165.0,
+   "units": -1.1435537190082616,
+   "roi": -0.004971972691340268,
+   "p_value": 0.518,
+   "roi_ci": [
+    -0.21643734279554433,
+    0.21136078871721165
+   ],
+   "avg_dec": 3.88896150928562
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.04,
+   "dogs_only": true,
+   "n": 228,
+   "wins": 64.0,
+   "losses": 164.0,
+   "units": -0.9699999999999989,
+   "roi": -0.004254385964912275,
+   "p_value": 0.5173,
+   "roi_ci": [
+    -0.21224122807017548,
+    0.2182467105263158
+   ],
+   "avg_dec": 3.9069298245614035
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 9,
+   "wins": 3.0,
+   "losses": 6.0,
+   "units": 4.97,
+   "roi": 0.5522222222222222,
+   "p_value": 0.1428,
+   "roi_ci": [
+    -0.4955555555555555,
+    2.106666666666667
+   ],
+   "avg_dec": 4.162222222222223
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.06,
+   "dogs_only": true,
+   "n": 9,
+   "wins": 3.0,
+   "losses": 6.0,
+   "units": 4.97,
+   "roi": 0.5522222222222222,
+   "p_value": 0.1428,
+   "roi_ci": [
+    -0.4955555555555555,
+    2.106666666666667
+   ],
+   "avg_dec": 4.162222222222223
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.08,
+   "dogs_only": true,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ml",
+   "signal": "a_vcons_ml",
+   "thr": 0.1,
+   "dogs_only": true,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ats",
+   "signal": "pure_ats",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1334.0,
+   "losses": 1259.0,
+   "units": 29.279981049859025,
+   "roi": 0.010970393799122902,
+   "p_value": 0.2763,
+   "roi_ci": [
+    -0.025423868061153702,
+    0.047947312689640295
+   ],
+   "avg_dec": 1.9646167798274974
+  },
+  {
+   "market": "ats",
+   "signal": "pure_ats",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 2169,
+   "wins": 1090.0,
+   "losses": 1019.0,
+   "units": 33.38761729558287,
+   "roi": 0.015393092344667068,
+   "p_value": 0.224,
+   "roi_ci": [
+    -0.024952547767177462,
+    0.055615979504715446
+   ],
+   "avg_dec": 1.9658209133084479
+  },
+  {
+   "market": "ats",
+   "signal": "pure_ats",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 1681,
+   "wins": 850.0,
+   "losses": 787.0,
+   "units": 34.658501826461396,
+   "roi": 0.02061778811806151,
+   "p_value": 0.1992,
+   "roi_ci": [
+    -0.025847523765414555,
+    0.06750506680740476
+   ],
+   "avg_dec": 1.966966648788316
+  },
+  {
+   "market": "ats",
+   "signal": "pure_ats",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 1224,
+   "wins": 619.0,
+   "losses": 572.0,
+   "units": 27.364711208307533,
+   "roi": 0.022356790202865632,
+   "p_value": 0.2127,
+   "roi_ci": [
+    -0.03213412333316938,
+    0.07569004592377546
+   ],
+   "avg_dec": 1.968874645995629
+  },
+  {
+   "market": "ats",
+   "signal": "pure_ats",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 889,
+   "wins": 448.0,
+   "losses": 418.0,
+   "units": 17.525268568422113,
+   "roi": 0.019713462956605303,
+   "p_value": 0.2784,
+   "roi_ci": [
+    -0.044503000498851836,
+    0.0841777574364803
+   ],
+   "avg_dec": 1.9706100508367714
+  },
+  {
+   "market": "ats",
+   "signal": "pure_ats",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 592,
+   "wins": 305.0,
+   "losses": 272.0,
+   "units": 25.406253221174353,
+   "roi": 0.04291596827901073,
+   "p_value": 0.1382,
+   "roi_ci": [
+    -0.032358078993598605,
+    0.12290305425292188
+   ],
+   "avg_dec": 1.9741076437917706
+  },
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1325.0,
+   "losses": 1268.0,
+   "units": 42.443465439522306,
+   "roi": 0.015902384952987,
+   "p_value": 0.2048,
+   "roi_ci": [
+    -0.021835477553495426,
+    0.05380084755564643
+   ],
+   "avg_dec": 1.9878602851378513
+  },
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 1352,
+   "wins": 682.0,
+   "losses": 626.0,
+   "units": 63.541268694281186,
+   "roi": 0.04699797980346242,
+   "p_value": 0.0384,
+   "roi_ci": [
+    -0.00531468337625181,
+    0.0997057443558772
+   ],
+   "avg_dec": 2.008856916054789
+  },
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 448,
+   "wins": 241.0,
+   "losses": 196.0,
+   "units": 54.7557487801036,
+   "roi": 0.12222265352701697,
+   "p_value": 0.0056,
+   "roi_ci": [
+    0.02806570715725861,
+    0.21613983836243847
+   ],
+   "avg_dec": 2.038415476815087
+  },
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 109,
+   "wins": 59.0,
+   "losses": 45.0,
+   "units": 18.94222556705099,
+   "roi": 0.1737818859362476,
+   "p_value": 0.0368,
+   "roi_ci": [
+    -0.01535706891460188,
+    0.3659602196343966
+   ],
+   "avg_dec": 2.0794102817677254
+  },
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 13,
+   "wins": 8.0,
+   "losses": 5.0,
+   "units": 4.130000000000001,
+   "roi": 0.3176923076923078,
+   "p_value": 0.1837,
+   "roi_ci": [
+    -0.32999999999999996,
+    0.8253846153846154
+   ],
+   "avg_dec": 2.129230769230769
+  },
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1304.0,
+   "losses": 1289.0,
+   "units": 26.364329503719766,
+   "roi": 0.009877980331105195,
+   "p_value": 0.3069,
+   "roi_ci": [
+    -0.0287791975886333,
+    0.04730145922876387
+   ],
+   "avg_dec": 2.0073512479651288
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 724,
+   "wins": 369.0,
+   "losses": 331.0,
+   "units": 62.64019801980201,
+   "roi": 0.08651961052458841,
+   "p_value": 0.0112,
+   "roi_ci": [
+    0.012844746594825254,
+    0.16058721486789557
+   ],
+   "avg_dec": 2.0655408381985008
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 94,
+   "wins": 59.0,
+   "losses": 30.0,
+   "units": 37.279999999999994,
+   "roi": 0.396595744680851,
+   "p_value": 0.0,
+   "roi_ci": [
+    0.19052659574468084,
+    0.5931941489361703
+   ],
+   "avg_dec": 2.1395744680851068
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 7,
+   "wins": 5.0,
+   "losses": 2.0,
+   "units": 4.0600000000000005,
+   "roi": 0.5800000000000001,
+   "p_value": 0.1154,
+   "roi_ci": [
+    -0.3457142857142857,
+    1.2214285714285715
+   ],
+   "avg_dec": 2.2071428571428573
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ou",
+   "signal": "pure_ou",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1354.0,
+   "losses": 1288.0,
+   "units": 9.432805214601732,
+   "roi": 0.003534209522143774,
+   "p_value": 0.4201,
+   "roi_ci": [
+    -0.033580902940022514,
+    0.039668993980207776
+   ],
+   "avg_dec": 1.9584552808226818
+  },
+  {
+   "market": "ou",
+   "signal": "pure_ou",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 2126,
+   "wins": 1093.0,
+   "losses": 1014.0,
+   "units": 34.321953245249325,
+   "roi": 0.016143910275281902,
+   "p_value": 0.2214,
+   "roi_ci": [
+    -0.025568226828033634,
+    0.05757556197033933
+   ],
+   "avg_dec": 1.9594867598590575
+  },
+  {
+   "market": "ou",
+   "signal": "pure_ou",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 1621,
+   "wins": 843.0,
+   "losses": 763.0,
+   "units": 46.97185942727272,
+   "roi": 0.028977087863832646,
+   "p_value": 0.1181,
+   "roi_ci": [
+    -0.01915055847789724,
+    0.07599934422446908
+   ],
+   "avg_dec": 1.9609146281470107
+  },
+  {
+   "market": "ou",
+   "signal": "pure_ou",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 1187,
+   "wins": 600.0,
+   "losses": 575.0,
+   "units": 2.6669534711177505,
+   "roi": 0.0022468015763418285,
+   "p_value": 0.4729,
+   "roi_ci": [
+    -0.05368605173404425,
+    0.05919474538746312
+   ],
+   "avg_dec": 1.9627947451447603
+  },
+  {
+   "market": "ou",
+   "signal": "pure_ou",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 821,
+   "wins": 420.0,
+   "losses": 393.0,
+   "units": 11.897475379463557,
+   "roi": 0.01449144382395074,
+   "p_value": 0.3446,
+   "roi_ci": [
+    -0.05120470058914605,
+    0.08243125460986439
+   ],
+   "avg_dec": 1.9639764091636691
+  },
+  {
+   "market": "ou",
+   "signal": "pure_ou",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 538,
+   "wins": 269.0,
+   "losses": 263.0,
+   "units": -3.1486508526229695,
+   "roi": -0.005852510878481356,
+   "p_value": 0.5487,
+   "roi_ci": [
+    -0.08559310678946082,
+    0.07730362017034219
+   ],
+   "avg_dec": 1.9656642217567595
+  },
+  {
+   "market": "ou",
+   "signal": "a_cons_ou",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1341.0,
+   "losses": 1301.0,
+   "units": -2.098480762416708,
+   "roi": -0.0007862423238728767,
+   "p_value": 0.5203,
+   "roi_ci": [
+    -0.0379951597423922,
+    0.03620799050013221
+   ],
+   "avg_dec": 1.9689968162158296
+  },
+  {
+   "market": "ou",
+   "signal": "a_cons_ou",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 1011,
+   "wins": 517.0,
+   "losses": 479.0,
+   "units": 27.182609694187875,
+   "roi": 0.026886854296921735,
+   "p_value": 0.1931,
+   "roi_ci": [
+    -0.0339321463985262,
+    0.08834944970108514
+   ],
+   "avg_dec": 1.981293986634985
+  },
+  {
+   "market": "ou",
+   "signal": "a_cons_ou",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 183,
+   "wins": 88.0,
+   "losses": 92.0,
+   "units": -3.865303587710094,
+   "roi": -0.02112187752847046,
+   "p_value": 0.6122,
+   "roi_ci": [
+    -0.16638073683245333,
+    0.12293398243906119
+   ],
+   "avg_dec": 2.000124172878317
+  },
+  {
+   "market": "ou",
+   "signal": "a_cons_ou",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 12,
+   "wins": 2.0,
+   "losses": 9.0,
+   "units": -6.91,
+   "roi": -0.5758333333333333,
+   "p_value": 0.9844,
+   "roi_ci": [
+    -1.0,
+    -0.06666666666666661
+   ],
+   "avg_dec": 2.0154965492365307
+  },
+  {
+   "market": "ou",
+   "signal": "a_cons_ou",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 1,
+   "wins": 0.0,
+   "losses": 1.0,
+   "units": -1.0,
+   "roi": -1.0,
+   "p_value": 1.0,
+   "roi_ci": [
+    -1.0,
+    -1.0
+   ],
+   "avg_dec": 2.1100000000000003
+  },
+  {
+   "market": "ou",
+   "signal": "a_cons_ou",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ou",
+   "signal": "a_vcons_ou",
+   "thr": 0.0,
+   "dogs_only": false,
+   "n": 2669,
+   "wins": 1323.0,
+   "losses": 1319.0,
+   "units": -14.872934002588407,
+   "roi": -0.005572474335926717,
+   "p_value": 0.6204,
+   "roi_ci": [
+    -0.04337627350950872,
+    0.031277174354954425
+   ],
+   "avg_dec": 1.985892963756908
+  },
+  {
+   "market": "ou",
+   "signal": "a_vcons_ou",
+   "thr": 0.02,
+   "dogs_only": false,
+   "n": 199,
+   "wins": 96.0,
+   "losses": 102.0,
+   "units": -1.1699999999999946,
+   "roi": -0.005879396984924596,
+   "p_value": 0.5352,
+   "roi_ci": [
+    -0.1450753768844221,
+    0.13427261306532662
+   ],
+   "avg_dec": 2.048090452261307
+  },
+  {
+   "market": "ou",
+   "signal": "a_vcons_ou",
+   "thr": 0.04,
+   "dogs_only": false,
+   "n": 3,
+   "wins": 0.0,
+   "losses": 3.0,
+   "units": -3.0,
+   "roi": -1.0,
+   "p_value": 1.0,
+   "roi_ci": [
+    -1.0,
+    -1.0
+   ],
+   "avg_dec": 2.1166666666666667
+  },
+  {
+   "market": "ou",
+   "signal": "a_vcons_ou",
+   "thr": 0.06,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ou",
+   "signal": "a_vcons_ou",
+   "thr": 0.08,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  },
+  {
+   "market": "ou",
+   "signal": "a_vcons_ou",
+   "thr": 0.1,
+   "dogs_only": false,
+   "n": 0,
+   "wins": NaN,
+   "losses": NaN,
+   "units": NaN,
+   "roi": NaN,
+   "p_value": NaN,
+   "roi_ci": NaN,
+   "avg_dec": NaN
+  }
+ ],
+ "results": [
+  {
+   "market": "ats",
+   "signal": "a_cons_ats",
+   "thr": 0.04,
+   "dogs_only": false,
+   "dev_n": 448,
+   "dev_roi": 0.12222265352701697,
+   "dev_p": 0.0056,
+   "hold": {
+    "n": 298,
+    "wins": 145,
+    "losses": 144,
+    "units": -1.1388982029207781,
+    "roi": -0.0038218060500697254,
+    "p_value": 0.5198,
+    "roi_ci": [
+     -0.11543739120785108,
+     0.10798326518810185
+    ],
+    "avg_dec": 1.988030966367942
+   },
+   "proven": false
+  },
+  {
+   "market": "ats",
+   "signal": "a_vcons_ats",
+   "thr": 0.02,
+   "dogs_only": false,
+   "dev_n": 724,
+   "dev_roi": 0.08651961052458841,
+   "dev_p": 0.0112,
+   "hold": {
+    "n": 379,
+    "wins": 178,
+    "losses": 189,
+    "units": -7.748272672906509,
+    "roi": -0.020443991221389207,
+    "p_value": 0.6567,
+    "roi_ci": [
+     -0.11841459436780125,
+     0.0800744988028047
+    ],
+    "avg_dec": 2.0208827500866966
+   },
+   "proven": false
+  },
+  {
+   "market": "ml",
+   "signal": "a_cons_ml",
+   "thr": 0.04,
+   "dogs_only": false,
+   "dev_n": 342,
+   "dev_roi": 0.07601561623680211,
+   "dev_p": 0.1383,
+   "hold": {
+    "n": 260,
+    "wins": 113,
+    "losses": 147,
+    "units": 6.225261875024749,
+    "roi": 0.023943314903941342,
+    "p_value": 0.388,
+    "roi_ci": [
+     -0.13446210815932194,
+     0.18642012148824302
+    ],
+    "avg_dec": 2.6481712284478336
+   },
+   "proven": false
+  }
+ ]
+}

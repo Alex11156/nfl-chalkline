@@ -29,6 +29,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from nfl_engine.config import REPORTS
+from nfl_engine.config import RESEARCH
 from nfl_engine.models.game_models import (PARAMS_MARGIN, TEST_SEASONS,
                                            feature_cols, load_features,
                                            season_weights)
@@ -145,7 +146,7 @@ if __name__ == "__main__":
                   flush=True)
             res[f"ensemble_top{n}"] = dict(mae=round(mae, 4), su=round(su, 4),
                                            ats=round(ats, 4), members=cols_)
-        (REPORTS / "experiment_game.json").write_text(json.dumps(res, indent=2))
+        (RESEARCH / "experiment_game.json").write_text(json.dumps(res, indent=2))
         P.assign(**{c: base[c] for c in base.columns}).to_parquet(
-            REPORTS / "experiment_game_preds.parquet")
+            RESEARCH / "experiment_game_preds.parquet")
     print(f"\nelapsed {time.time()-t0:.0f}s", flush=True)

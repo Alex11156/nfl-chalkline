@@ -1,0 +1,16 @@
+event_id,commence,home,away,market,player,player_id,team,line,side,best_price,p_model,p_market,ev,books
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,player_pass_attempts,Daniel Jones,00-0035710,IND,31.5,under,100.0,0.577,0.467367144877753,0.15399999999999997,2
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,player_pass_completions,Joe Burrow,00-0036442,CIN,27.5,under,-123.0,0.624,0.519675254742772,0.1313170731707317,1
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,player_pass_yds,Jayden Daniels,00-0039910,WAS,219.5,over,-112.0,0.596,0.5,0.128142857142857,1
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,player_pass_attempts,Brock Purdy,00-0037834,SF,30.5,under,100.0,0.544,0.47171414669871936,0.08800000000000002,2
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,player_pass_completions,Jayden Daniels,00-0039910,WAS,19.5,over,-122.0,0.592,0.517591059602649,0.0772459016393442,1
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,player_pass_yds,Daniel Jones,00-0035710,IND,180.5,over,-115.0,0.571,0.5,0.06752173913043463,2
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,player_pass_completions,Brock Purdy,00-0037834,SF,20.5,under,-133.0,0.609,0.5379917512690355,0.06689473684210523,1
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,player_pass_attempts,C.J. Stroud,00-0039163,HOU,32.5,over,-115.0,0.563,0.508224023402851,0.05256521739130415,4
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,player_pass_yds,Joe Burrow,00-0036442,CIN,301.5,under,-112.0,0.55,0.5,0.04107142857142859,2
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,player_pass_completions,C.J. Stroud,00-0039163,HOU,21.5,over,109.0,0.498,0.4563241669493957,0.04081999999999997,4
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,player_pass_completions,Daniel Jones,00-0035710,IND,19.5,under,-126.0,0.5720000000000001,0.5273940874163923,0.025968253968253918,3
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,player_pass_attempts,Kirk Cousins,00-0029604,MIN,34.5,over,-105.0,0.524,0.4815161181522039,0.02304761904761904,2
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,player_pass_completions,Kirk Cousins,00-0029604,MIN,22.5,over,-103.0,0.518,0.47823563551944287,0.020912621359223338,1
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,player_pass_yds,C.J. Stroud,00-0039163,HOU,257.5,over,-115.0,0.543,0.5,0.01517391304347826,2
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,player_pass_attempts,Jayden Daniels,00-0039910,WAS,31.5,over,-117.0,0.546,0.5094197437829692,0.01266666666666677,1

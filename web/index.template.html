@@ -264,9 +264,13 @@ function poisOver(line, lam){ // P(X > floor(line))
   const k=Math.floor(line); let p=Math.exp(-lam), cdf=p;
   for(let i=1;i<=k;i++){p*=lam/i; cdf+=p;}
   return Math.max(0.001, Math.min(0.999, 1-cdf));}
-function qOver(line, q){ // P(X > line) from quantiles [p10,p25,p50,p75,p90]
-  const ps=[.1,.25,.5,.75,.9], sd=Math.max((q[4]-q[0])/2.563,1e-6);
-  if(line<=q[0]||line>=q[4]) return Math.max(.001,Math.min(.999,1-ncdf(line,q[2],sd)));
+function qOver(line, q, split){ // P(X > line) from quantiles [p10,p25,p50,p75,p90]
+  const ps=[.1,.25,.5,.75,.9];
+  if(line<=q[0]||line>=q[4]){
+    // beyond the 10th-90th range: a normal tail around the median. Lopsided stats
+    // (split) get the width of that side of the range, the rest the average width.
+    const w = split ? (line<=q[0] ? q[2]-q[0] : q[4]-q[2])/1.2816 : (q[4]-q[0])/2.563;
+    return Math.max(.001,Math.min(.999,1-ncdf(line,q[2],Math.max(w,1e-6))));}
   let i=0; while(q[i+1]<line) i++;
   const f=ps[i]+(ps[i+1]-ps[i])*(line-q[i])/(q[i+1]-q[i]||1e-9);
   return Math.max(.001,Math.min(.999,1-f));}
@@ -333,7 +337,8 @@ const GLOSS={
  total:['Total','Projected combined points scored by both teams.'],
  wf:['Walk-forward out-of-sample','The honest way to test a model: train only on past seasons, predict the next one, repeat. Every accuracy number here comes from games the model had never seen when it predicted them.'],
  sharpe:['Sharpe ratio','Expected profit divided by the standard deviation of that profit — return per unit of risk. Higher means a better reward-to-volatility trade-off. For single game bets the ranking tracks the size of the edge closely, because every bet has roughly the same variance; it becomes more useful when comparing bets at very different odds.'],
- ev:['EV — Expected Value','Average profit per 1 unit staked if the model\'s probability were exactly right. +0.05 means five cents expected profit per dollar. It is only as good as the probability behind it.'],
+ blend:['Priced probability','The probability bets are actually priced on: the market\'s de-vigged probability, nudged toward the model\'s by the weight the model has earned in the backtest (about 5-18% of the log-odds). On held-out seasons the raw model is less accurate than the market on every bet type, so pricing on it alone overstated edges five- to ten-fold.'],
+ ev:['EV — Expected Value','Average profit per 1 unit staked at the priced probability. +0.05 means five cents expected profit per dollar. It is only as good as the probability behind it.'],
  kelly:['Kelly / suggested stake','The Kelly criterion gives the bankroll fraction that maximises long-run growth — but only if your probability is correct. Because this model\'s edge is not statistically established, the site shows a QUARTER-Kelly stake capped at 2% of bankroll. Full Kelly on an overestimated edge is how bankrolls die.'],
  devig:['Market probability (de-vigged)','The sportsbook\'s implied probability with its built-in margin removed. Both sides of a market add up to more than 100% — that excess is the book\'s fee. Removing it proportionally gives the market\'s true estimate, which is what the model is measured against.'],
  hist:['Historical hit rate','How picks in this same edge range actually performed across the 2010-2025 backtest. This is the honest track record for this kind of pick — not a projection for this specific game.'],
@@ -565,7 +570,7 @@ function propCard(p,stat,line,q,wk){
   let over, extra='';
   if(prop.lam!==undefined){over=poisOver(line,prop.lam);
     extra=`model mean ${prop.lam}`;}
-  else{over=qOver(line,prop.q);
+  else{over=qOver(line,prop.q,(D.splitTails||[]).includes(stat));
     extra=`mean ${prop.m} · p10–p90 ${prop.q[0]}–${prop.q[4]}`;}
   const lean=over>.55?['over','LEAN OVER']:over<.45?['under','LEAN UNDER']:['none','NO STRONG LEAN'];
   const c=card(`<h2>${p.n} — ${D.stats[stat]} over ${line}<span class="note" style="font-size:13px">${oppTxt}</span></h2>
@@ -786,8 +791,27 @@ $('t-out').appendChild(trendCard('new_coach'));
                          .sort((a,b)=>b.s-a.s).slice(0,12);
     const box=$('picks-out'); box.innerHTML='';
     if(!picks.length){
-      box.innerHTML='<p class="note">No odds posted for this week yet — '
-        +'picks appear once the market opens. The full slate is below.</p>';
+      const wkPicks = S.picks.filter(k=>k.wk===cur);
+      if(!wkPicks.length){
+        box.innerHTML='<p class="note">No odds posted for this week yet — '
+          +'picks appear once the market opens. The full slate is below.</p>';
+      } else {
+        // Nothing clears the vig once the model is weighted against the
+        // market. Show the largest disagreements as leans, clearly labelled.
+        const leans = wkPicks.filter(k=>k.pm>k.pk)
+          .sort((a,b)=>(b.pm-b.pk)-(a.pm-a.pk)).slice(0,5);
+        box.innerHTML='<p class="note"><b>No bets this week.</b> Once the model is '
+          +'weighted against the market by what it has earned in the backtest, no '
+          +'line has positive expected value after the bookmaker\'s margin. That is '
+          +'the normal state: closing lines are very efficient. The biggest '
+          +'disagreements are listed as <i>leans</i> — not recommended bets.</p>'
+          +leans.map(k=>{const g=S.games.find(x=>x.id===k.g);
+            return `<div class="pickrow"><div><div class="pickname">${k.l}
+              <span class="tag ${k.m}">${k.m==='moneyline'?'ML':k.m.toUpperCase()}</span>
+              <span class="note" style="font-size:12.5px">${g?g.a+' @ '+g.h:''} · lean</span></div>
+              <div class="pickmeta">raw model <b>${(k.pm*100).toFixed(1)}%</b> vs market
+              <b>${(k.pk*100).toFixed(1)}%</b> · priced EV <b>${(k.ev*100).toFixed(1)}%</b></div></div></div>`;}).join('');
+      }
     }
     for(const k of picks){
       const hist = k.hn ? (k.hroi!=null
@@ -802,7 +826,9 @@ $('t-out').appendChild(trendCard('new_coach'));
             <span class="note" style="font-size:12.5px">${g?g.a+' @ '+g.h:''}</span></div>
           <div class="pickmeta">
             odds <b>${k.o>0?'+':''}${k.o}</b> ·
-            model <b>${(k.pm*100).toFixed(1)}%</b> vs
+            model <b>${(k.pm*100).toFixed(1)}%</b> →
+            <span class="dfn" tabindex="0" data-g="blend">priced</span>
+            <b>${((k.pb??k.pm)*100).toFixed(1)}%</b> vs
             <span class="dfn" tabindex="0" data-g="devig">market</span>
             <b>${(k.pk*100).toFixed(1)}%</b> ·
             <span class="dfn" tabindex="0" data-g="ev">EV</span> <b>${k.ev>0?'+':''}${(k.ev*100).toFixed(1)}%</b> ·
@@ -815,13 +841,14 @@ $('t-out').appendChild(trendCard('new_coach'));
 
     const gs = S.games.filter(g=>g.wk===cur);
     const rows = gs.map(g=>{
-      const mk = D.matchups.preds[`${g.a}@${g.h}`];
+      // scheduled-game prediction (real rest/venue/weather) when exported
+      const mk = g.pm!=null ? [g.pm, g.pt, g.pp] : D.matchups.preds[`${g.a}@${g.h}`];
       const mLine = mk ? (-mk[0]).toFixed(1) : '—';
       const mTot  = mk ? mk[1].toFixed(1) : '—';
       const p = mk ? (mk[2]*100).toFixed(0)+'%' : '—';
       return `<tr><td class="num">${g.d.slice(5)}</td>
         <td><b>${g.a}</b> @ <b>${g.h}</b></td>
-        <td class="r num">${g.sp==null?'—':(g.sp>0?'+':'')+g.sp}</td>
+        <td class="r num">${g.sp==null?'—':(g.sp<0?'+':'')+(-g.sp)}</td>
         <td class="r num">${mLine}</td>
         <td class="r num">${g.tl==null?'—':g.tl}</td>
         <td class="r num">${mTot}</td>
@@ -837,6 +864,26 @@ $('t-out').appendChild(trendCard('new_coach'));
   }
   render();
 })();
+
+function seasonTrack(S,f){
+  const c=S.card;
+  return `<h3>${S.season} so far — weeks 1–${S.weeks} (${S.games} games)</h3>
+  <p class="note">Same walk-forward protocol as the backtest: each week predicted
+  with form updated through the week before. Six weeks is a small sample — one
+  standard error on straight-up accuracy is about ±5 points.</p>
+  <div class="tblwrap"><table><thead><tr><th></th><th class="r">${dfn('su','Straight-up')}</th>
+  <th class="r">${dfn('mae','Margin MAE')}</th><th class="r">${dfn('ats','ATS')}</th>
+  <th class="r">${dfn('ou','O/U')}</th></tr></thead><tbody>
+  <tr><td>Engine</td><td class="r">${f(S.wf.su)}</td><td class="r">${S.wf.mae.toFixed(2)}</td>
+    <td class="r">${f(S.wf.ats)}</td><td class="r">${f(S.wf.ou)}</td></tr>
+  <tr><td>Vegas closing line</td><td class="r">${f(S.wf.vegas_su)}</td>
+    <td class="r">${S.wf.vegas_mae.toFixed(2)}</td><td class="r">—</td><td class="r">—</td></tr>
+  </tbody></table></div>
+  <p class="note">Fantasy (PPR) MAE this season: model <b>${S.players.mae.toFixed(2)}</b>
+  vs naive <b>${S.players.naive_mae.toFixed(2)}</b>.
+  ${c&&c.n?`Betting card as published: <b>${c.wins}–${c.losses}${c.pushes?'–'+c.pushes:''}</b>,
+  <b>${c.units>0?'+':''}${c.units.toFixed(1)} units</b> at 1 unit per pick.`:''}</p>`;
+}
 
 (function report(){
   const P=D.report.pure,M=D.report.mkt;
@@ -857,6 +904,7 @@ $('t-out').appendChild(trendCard('new_coach'));
     <tr><td>Vegas closing line</td><td class="r">${f(P.vegas_su)}</td>
       <td class="r">${P.vegas_mae.toFixed(2)}</td><td class="r">50% by definition</td>
       <td class="r">—</td><td class="r">—</td></tr></tbody></table></div>
+    ${D.report.season?seasonTrack(D.report.season,f):''}
     <h3>Straight-up accuracy by season</h3><div id="rep-chart"></div>
     <h3>Player models vs naive rolling average (2016–2025)</h3>
     <div class="tblwrap"><table><thead><tr><th>Stat</th>

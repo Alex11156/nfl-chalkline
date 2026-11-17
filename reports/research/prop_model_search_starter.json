@@ -1,0 +1,163 @@
+{
+ "passing_yards": {
+  "new": {
+   "dev": {
+    "n": 2618,
+    "mae_base": 61.07673909324302,
+    "mae_cand": 59.368581186376666,
+    "gain_pct": 2.796740514025464,
+    "p_better": 1.0,
+    "side_lift_base": 0.0818146568437379,
+    "side_lift_cand": 0.08646762310973255
+   },
+   "confirm": {
+    "n": 1328,
+    "mae_base": 59.10189900515688,
+    "mae_cand": 57.93228147524001,
+    "gain_pct": 1.9789846851026138,
+    "p_better": 0.998,
+    "side_lift_base": 0.07463823305407469,
+    "side_lift_cand": 0.07083015993907082
+   },
+   "adopt": true
+  }
+ },
+ "attempts": {
+  "new": {
+   "dev": {
+    "n": 2618,
+    "mae_base": 7.050303788160213,
+    "mae_cand": 6.76873084810041,
+    "gain_pct": 3.9937703185592754,
+    "p_better": 1.0,
+    "side_lift_base": 0.06591702210158978,
+    "side_lift_cand": 0.07793718495540913
+   },
+   "confirm": {
+    "n": 1328,
+    "mae_base": 6.75102591990741,
+    "mae_cand": 6.624472590359551,
+    "gain_pct": 1.8745792276501083,
+    "p_better": 0.9825,
+    "side_lift_base": 0.08149276466108146,
+    "side_lift_cand": 0.09977151561309971
+   },
+   "adopt": true
+  }
+ },
+ "completions": {
+  "new": {
+   "dev": {
+    "n": 2618,
+    "mae_base": 5.011065414659221,
+    "mae_cand": 4.821915817410144,
+    "gain_pct": 3.774638357259208,
+    "p_better": 1.0,
+    "side_lift_base": 0.058549825513764975,
+    "side_lift_cand": 0.07212097712291587
+   },
+   "confirm": {
+    "n": 1328,
+    "mae_base": 4.706120420202181,
+    "mae_cand": 4.6126733866364935,
+    "gain_pct": 1.9856490106913371,
+    "p_better": 0.99375,
+    "side_lift_base": 0.05940594059405935,
+    "side_lift_cand": 0.06626047220106623
+   },
+   "adopt": true
+  }
+ },
+ "rushing_yards": {
+  "new": {
+   "dev": {
+    "n": 13586,
+    "mae_base": 8.294555203183279,
+    "mae_cand": 8.262680443844395,
+    "gain_pct": 0.38428533607987037,
+    "p_better": 1.0,
+    "side_lift_base": 0.007306603342771112,
+    "side_lift_cand": 0.009315919262033123
+   },
+   "confirm": {
+    "n": 11704,
+    "mae_base": 8.099209020970314,
+    "mae_cand": 8.071359519114665,
+    "gain_pct": 0.34385458855971107,
+    "p_better": 1.0,
+    "side_lift_base": 0.009422975119110721,
+    "side_lift_cand": 0.01334039174166235
+   },
+   "adopt": true
+  }
+ },
+ "receiving_yards": {
+  "new": {
+   "dev": {
+    "n": 15196,
+    "mae_base": 15.966637465728583,
+    "mae_cand": 15.963546381753334,
+    "gain_pct": 0.019359642766891838,
+    "p_better": 0.685,
+    "side_lift_base": 0.007965938744677992,
+    "side_lift_cand": 0.006249141601428421
+   },
+   "confirm": {
+    "n": 13258,
+    "mae_base": 15.028885697952104,
+    "mae_cand": 15.0262804564124,
+    "gain_pct": 0.017334894895504327,
+    "p_better": 0.66825,
+    "side_lift_base": 0.009525321479599946,
+    "side_lift_cand": 0.00785839022066992
+   },
+   "adopt": false
+  }
+ },
+ "receptions": {
+  "new": {
+   "dev": {
+    "n": 15196,
+    "mae_base": 1.2574682548786655,
+    "mae_cand": 1.2568707804591923,
+    "gain_pct": 0.0475140757752901,
+    "p_better": 0.8265,
+    "side_lift_base": 0.03262061403508765,
+    "side_lift_cand": 0.030153508771929793
+   },
+   "confirm": {
+    "n": 13258,
+    "mae_base": 1.1787191298741644,
+    "mae_cand": 1.1798192581433384,
+    "gain_pct": -0.0933325201306845,
+    "p_better": 0.035,
+    "side_lift_base": 0.027511297867279683,
+    "side_lift_cand": 0.02640133195908978
+   },
+   "adopt": false
+  }
+ },
+ "fantasy_points_ppr": {
+  "new": {
+   "dev": {
+    "n": 17110,
+    "mae_base": 4.469723618016241,
+    "mae_cand": 4.440277673875747,
+    "gain_pct": 0.6587866869845138,
+    "p_better": 1.0,
+    "side_lift_base": -0.03765513917339436,
+    "side_lift_cand": -0.0354862031570069
+   },
+   "confirm": {
+    "n": 14900,
+    "mae_base": 4.318259103546291,
+    "mae_cand": 4.291071642971875,
+    "gain_pct": 0.6295930818993267,
+    "p_better": 1.0,
+    "side_lift_base": -0.04234278153074722,
+    "side_lift_cand": -0.03586600738212964
+   },
+   "adopt": true
+  }
+ }
+}

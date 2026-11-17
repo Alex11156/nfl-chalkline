@@ -5,7 +5,8 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw"
 PROCESSED = ROOT / "data" / "processed"
 MODELS_STORE = ROOT / "models_store"
-REPORTS = ROOT / "reports"
+REPORTS = ROOT / "reports"            # backtests the pipeline reads/writes
+RESEARCH = REPORTS / "research"      # outputs of one-off experiments (research/)
 DB_PATH = ROOT / "data" / "nfl.duckdb"
 
 import datetime as _dt

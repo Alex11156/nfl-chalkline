@@ -13,6 +13,7 @@ import lightgbm as lgb
 import optuna
 
 from nfl_engine.config import REPORTS
+from nfl_engine.config import RESEARCH
 from nfl_engine.models.player_models import load, subset
 
 TARGET = "fantasy_points_ppr"
@@ -50,7 +51,7 @@ def main(n_trials=30):
     res = dict(best_params=study.best_params, val_mae=study.best_value,
                naive_mae=naive)
     print(json.dumps(res, indent=2))
-    (REPORTS / "tune_player.json").write_text(json.dumps(res, indent=2))
+    (RESEARCH / "tune_player.json").write_text(json.dumps(res, indent=2))
 
 
 if __name__ == "__main__":

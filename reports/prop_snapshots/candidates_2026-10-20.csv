@@ -1,0 +1,15 @@
+event_id,commence,home,away,market,player,player_id,team,line,side,best_price,p_model,p_market,ev,books
+f3992ad4496724baf7dcd1ef58245d6b,2026-10-25T17:00:00Z,Minnesota Vikings,Indianapolis Colts,player_pass_yds,Kyler Murray,00-0035228,MIN,203.5,over,-111.0,0.61,0.49744030783919624,0.15954954954954959,2
+f7679cf18454e4d88a8f2b990c3f08ac,2026-10-25T20:25:00Z,Las Vegas Raiders,Los Angeles Rams,player_pass_yds,Matthew Stafford,00-0026498,LA,270.5,over,-114.0,0.617,0.5,0.1582280701754386,1
+f7679cf18454e4d88a8f2b990c3f08ac,2026-10-25T20:25:00Z,Las Vegas Raiders,Los Angeles Rams,player_pass_yds,Kirk Cousins,00-0029604,LV,236.5,over,-114.0,0.608,0.5,0.1413333333333333,1
+176d474ed8b2bbf1eb4d7e9c56b4bf22,2026-10-26T00:20:00Z,Seattle Seahawks,Kansas City Chiefs,player_pass_yds,Patrick Mahomes,00-0033873,KC,220.5,over,-113.0,0.601,0.5007019612798158,0.13285840707964602,3
+4853610e63c246f2027a6a248e642c9a,2026-10-27T00:15:00Z,Philadelphia Eagles,Dallas Cowboys,player_pass_yds,Tanner McKee,00-0038400,PHI,209.5,over,-115.0,0.596,0.5,0.1142608695652173,1
+f3992ad4496724baf7dcd1ef58245d6b,2026-10-25T17:00:00Z,Minnesota Vikings,Indianapolis Colts,player_pass_yds,Daniel Jones,00-0035710,IND,198.5,under,-113.0,0.569,0.49954619167864367,0.07253982300884959,2
+2e710ea5a306b614f0f966e3d78732f8,2026-10-25T13:30:00Z,New Orleans Saints,Pittsburgh Steelers,player_pass_yds,Tyler Shough,00-0040743,NO,234.5,under,-112.0,0.5660000000000001,0.4984727907894888,0.07135714285714284,4
+b1be064fb52a198a62109c279e7ab24c,2026-10-25T17:00:00Z,Atlanta Falcons,San Francisco 49ers,player_pass_yds,Brock Purdy,00-0037834,SF,240.5,over,-114.0,0.566,0.5,0.062491228070175375,1
+ffebea881c1d7b2dfb85b3e590c35985,2026-10-23T00:15:00Z,Chicago Bears,New England Patriots,player_pass_yds,Caleb Williams,00-0039918,CHI,245.5,over,-114.0,0.561,0.5,0.05310526315789488,2
+4853610e63c246f2027a6a248e642c9a,2026-10-27T00:15:00Z,Philadelphia Eagles,Dallas Cowboys,player_pass_yds,Dak Prescott,00-0033077,DAL,263.5,under,-114.0,0.552,0.4969864995178399,0.036210526315789526,1
+e8e5715eefb6a9ce64765e9ddf49c0cc,2026-10-25T20:25:00Z,Detroit Lions,Green Bay Packers,player_pass_yds,Jordan Love,00-0036264,GB,279.5,over,-112.0,0.546,0.5,0.03350000000000003,3
+5dce18baccec5d3ad5fb3a3ce52f7619,2026-10-25T17:00:00Z,Tennessee Titans,Cleveland Browns,player_pass_yds,Deshaun Watson,00-0033537,CLE,200.5,under,-112.0,0.542,0.5,0.025928571428571412,1
+b1be064fb52a198a62109c279e7ab24c,2026-10-25T17:00:00Z,Atlanta Falcons,San Francisco 49ers,player_pass_yds,Michael Penix Jr.,00-0039917,ATL,227.5,over,-114.0,0.543,0.5,0.01931578947368434,1
+550ec5290f935d311995affbcb0b5c79,2026-10-25T17:00:00Z,Baltimore Ravens,Cincinnati Bengals,player_pass_yds,Joe Burrow,00-0036442,CIN,259.5,under,-111.0,0.5329999999999999,0.49789411616055257,0.013180180180180134,1

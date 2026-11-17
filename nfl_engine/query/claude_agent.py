@@ -7,19 +7,22 @@ the local parser uses, and writes a grounded, narrated answer.
 import json
 import os
 
+from nfl_engine.config import CURRENT_SEASON
 from nfl_engine.query.tools import TOOL_SPECS, call_tool
 
-MODEL = "claude-opus-5"
+MODEL = "claude-opus-5-5"
+EFFORT = "high"  # this model defaults to medium; tool-grounded analysis benefits from more
 
-SYSTEM = """You are an NFL prediction assistant backed by a statistical engine
-trained on play-by-play data from 1999-2025 (walk-forward validated). Use the
+SYSTEM = f"""You are an NFL prediction assistant backed by a statistical engine
+trained on play-by-play data from 1999 through the current {CURRENT_SEASON}
+season to date (walk-forward validated). Use the
 tools to ground every number you state — never invent statistics or
 predictions. The engine's honest accuracy: ~65% straight-up winners (Vegas
 closing lines hit ~66%), ~51% against the spread, fantasy PPR MAE ~4.6 points.
 Convey genuine uncertainty; a 55% edge is meaningful but not a lock, and no
 model reliably beats the closing line. For situational/historical questions
-prefer situational_query or a sql_query over guessing. Current data runs
-through the 2025 season (2026 season has not started). Keep answers concise
+prefer situational_query or a sql_query over guessing. Projections reflect
+data through the most recent completed week. Keep answers concise
 and quantitative, and mention floors/ceilings when projecting players."""
 
 
@@ -49,9 +52,13 @@ def answer(question: str, history: list[dict] | None = None) -> dict:
     tool_calls = []
 
     for _ in range(12):  # hard cap on loop iterations
-        response = client.messages.create(
+        # fallbacks="default": if a safety classifier declines, the API re-runs
+        # the request on a suitable fallback model within the same call
+        response = client.beta.messages.create(
             model=MODEL, max_tokens=16000, system=SYSTEM,
             tools=_api_tools(), messages=messages,
+            output_config={"effort": EFFORT},
+            betas=["server-side-fallback-2026-07-01"], fallbacks="default",
         )
         if response.stop_reason == "refusal":
             return {"text": "The model declined to answer that question.",

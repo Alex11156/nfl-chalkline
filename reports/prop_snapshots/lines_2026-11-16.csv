@@ -1,0 +1,525 @@
+event_id,commence,home,away,book,market,player,side,point,price,captured_at
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_attempts,C.J. Stroud,Over,32.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_attempts,C.J. Stroud,Under,32.5,-106,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_attempts,Daniel Jones,Over,32.5,-102,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_attempts,Daniel Jones,Under,32.5,-124,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_completions,C.J. Stroud,Over,21.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_completions,C.J. Stroud,Under,21.5,-133,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_completions,Daniel Jones,Over,19.5,-101,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_completions,Daniel Jones,Under,19.5,-126,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_yds,C.J. Stroud,Over,260.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_yds,C.J. Stroud,Under,260.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_yds,Daniel Jones,Over,184.5,-113,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_pass_yds,Daniel Jones,Under,184.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Nico Collins,Over,66.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Nico Collins,Under,66.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Tyler Warren,Over,42.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Tyler Warren,Under,42.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Dalton Schultz,Over,30.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Dalton Schultz,Under,30.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Laquon Treadwell,Over,28.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Laquon Treadwell,Under,28.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Anthony Gould,Over,23.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Anthony Gould,Under,23.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Jonathan Taylor,Over,19.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Jonathan Taylor,Under,19.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Ashton Dulin,Over,16.5,-116,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Ashton Dulin,Under,16.5,-108,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Deion Burks,Over,14.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_reception_yds,Deion Burks,Under,14.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Tyler Warren,Over,5.5,118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Tyler Warren,Under,5.5,-151,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Nico Collins,Over,4.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Nico Collins,Under,4.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Dalton Schultz,Over,3.5,106,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Dalton Schultz,Under,3.5,-135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Jonathan Taylor,Over,2.5,-173,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Jonathan Taylor,Under,2.5,135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Laquon Treadwell,Over,2.5,-119,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Laquon Treadwell,Under,2.5,-108,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Anthony Gould,Over,2.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Anthony Gould,Under,2.5,-122,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Deion Burks,Over,1.5,-129,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Deion Burks,Under,1.5,101,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Ashton Dulin,Over,1.5,138,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_receptions,Ashton Dulin,Under,1.5,-176,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,Jonathan Taylor,Over,51.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,Jonathan Taylor,Under,51.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,Seth McGowan,Over,27.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,Seth McGowan,Under,27.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,C.J. Stroud,Over,10.5,-117,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,C.J. Stroud,Under,10.5,-107,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,Daniel Jones,Over,7.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,draftkings,player_rush_yds,Daniel Jones,Under,7.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_pass_yds,Daniel Jones,Over,181.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_pass_yds,Daniel Jones,Under,181.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_pass_yds,C.J. Stroud,Over,263.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_pass_yds,C.J. Stroud,Under,263.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Anthony Gould,Over,23.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Anthony Gould,Under,23.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Laquon Treadwell,Over,29.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Laquon Treadwell,Under,29.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Jonathan Taylor,Over,19.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Jonathan Taylor,Under,19.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Deion Burks,Over,15.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Deion Burks,Under,15.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Nico Collins,Over,67.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Nico Collins,Under,67.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Ashton Dulin,Over,16.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Ashton Dulin,Under,16.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Dalton Schultz,Over,29.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Dalton Schultz,Under,29.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Tyler Warren,Over,40.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_reception_yds,Tyler Warren,Under,40.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Nico Collins,Over,4.5,-122,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Nico Collins,Under,4.5,-108,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Anthony Gould,Over,2.5,-102,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Anthony Gould,Under,2.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Tyler Warren,Over,5.5,112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Tyler Warren,Under,5.5,-148,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Deion Burks,Over,1.5,-148,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Deion Burks,Under,1.5,112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Jonathan Taylor,Over,3.5,116,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Jonathan Taylor,Under,3.5,-154,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Ashton Dulin,Over,1.5,122,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Ashton Dulin,Under,1.5,-162,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Dalton Schultz,Over,3.5,-102,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Dalton Schultz,Under,3.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Laquon Treadwell,Over,2.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_receptions,Laquon Treadwell,Under,2.5,-102,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,Daniel Jones,Over,7.5,-104,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,Daniel Jones,Under,7.5,-125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,C.J. Stroud,Over,10.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,C.J. Stroud,Under,10.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,Seth McGowan,Over,27.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,Seth McGowan,Under,27.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,Jonathan Taylor,Over,50.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,fanduel,player_rush_yds,Jonathan Taylor,Under,50.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_attempts,C.J. Stroud,Over,32.5,-118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_attempts,C.J. Stroud,Under,32.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_attempts,Daniel Jones,Over,31.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_attempts,Daniel Jones,Under,31.5,100,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_completions,Daniel Jones,Over,19.5,-102,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_completions,Daniel Jones,Under,19.5,-127,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_completions,C.J. Stroud,Over,21.5,109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_completions,C.J. Stroud,Under,21.5,-141,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_yds,Daniel Jones,Over,181.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_yds,Daniel Jones,Under,181.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_yds,C.J. Stroud,Over,262.5,-118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_pass_yds,C.J. Stroud,Under,262.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Dalton Schultz,Over,29.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Dalton Schultz,Under,29.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Jonathan Taylor,Over,19.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Jonathan Taylor,Under,19.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Ashton Dulin,Over,16.5,-116,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Ashton Dulin,Under,16.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Laquon Treadwell,Over,28.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Laquon Treadwell,Under,28.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Tyler Warren,Over,40.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Tyler Warren,Under,40.5,-116,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Deion Burks,Over,14.5,-116,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Deion Burks,Under,14.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Nico Collins,Over,67.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Nico Collins,Under,67.5,-119,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Anthony Gould,Over,23.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_reception_yds,Anthony Gould,Under,23.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Nico Collins,Over,4.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Nico Collins,Under,4.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Seth McGowan,Over,0.5,-123,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Seth McGowan,Under,0.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Deion Burks,Over,1.5,-139,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Deion Burks,Under,1.5,107,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Tyler Warren,Over,5.5,113,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Tyler Warren,Under,5.5,-147,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Ashton Dulin,Over,1.5,130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Ashton Dulin,Under,1.5,-169,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Jonathan Taylor,Over,3.5,128,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Jonathan Taylor,Under,3.5,-167,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Dalton Schultz,Over,3.5,104,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Dalton Schultz,Under,3.5,-135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Laquon Treadwell,Over,2.5,-118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Laquon Treadwell,Under,2.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Anthony Gould,Over,2.5,-102,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_receptions,Anthony Gould,Under,2.5,-127,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,Seth McGowan,Over,27.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,Seth McGowan,Under,27.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,Jonathan Taylor,Over,50.5,-119,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,Jonathan Taylor,Under,50.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,David Montgomery,Over,59.5,103,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,David Montgomery,Under,59.5,-133,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,Daniel Jones,Over,7.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,Daniel Jones,Under,7.5,-118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,C.J. Stroud,Over,10.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betonlineag,player_rush_yds,C.J. Stroud,Under,10.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_pass_completions,C.J. Stroud,Over,20.5,-139,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_pass_completions,Daniel Jones,Over,19.5,-124,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_pass_yds,Daniel Jones,Over,180.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_pass_yds,Daniel Jones,Under,180.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_pass_yds,C.J. Stroud,Over,257.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_pass_yds,C.J. Stroud,Under,257.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Deion Burks,Over,16.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Deion Burks,Under,16.5,-117,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Dalton Schultz,Over,30.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Dalton Schultz,Under,30.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Anthony Gould,Over,22.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Anthony Gould,Under,22.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Laquon Treadwell,Over,30.5,-113,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Laquon Treadwell,Under,30.5,-118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Jonathan Taylor,Over,19.5,-112,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Jonathan Taylor,Under,19.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Nico Collins,Over,65.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Nico Collins,Under,65.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Tyler Warren,Over,42.5,-117,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_reception_yds,Tyler Warren,Under,42.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Dalton Schultz,Over,3.5,-103,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Deion Burks,Over,1.5,-139,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Nico Collins,Over,4.5,-122,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Laquon Treadwell,Over,2.5,-132,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Anthony Gould,Over,2.5,104,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Jonathan Taylor,Over,3.5,125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_receptions,Tyler Warren,Over,5.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,C.J. Stroud,Over,11.5,-114,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,C.J. Stroud,Under,11.5,-117,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,Daniel Jones,Over,7.5,-122,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,Daniel Jones,Under,7.5,-109,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,Jonathan Taylor,Over,50.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,Jonathan Taylor,Under,50.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,Seth McGowan,Over,27.5,-118,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betrivers,player_rush_yds,Seth McGowan,Under,27.5,-113,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_attempts,Daniel Jones,Over,31.5,-135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_attempts,Daniel Jones,Under,31.5,100,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_attempts,C.J. Stroud,Over,32.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_attempts,C.J. Stroud,Under,32.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_completions,C.J. Stroud,Over,21.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_completions,C.J. Stroud,Under,21.5,-140,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_yds,C.J. Stroud,Over,257.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_yds,C.J. Stroud,Under,257.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_yds,Daniel Jones,Over,180.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_pass_yds,Daniel Jones,Under,180.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Nico Collins,Over,65.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Nico Collins,Under,65.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Deion Burks,Over,15.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Deion Burks,Under,15.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Tyler Warren,Over,40.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Tyler Warren,Under,40.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Jonathan Taylor,Over,18.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Jonathan Taylor,Under,18.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Dalton Schultz,Over,32.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Dalton Schultz,Under,32.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Anthony Gould,Over,22.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Anthony Gould,Under,22.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Laquon Treadwell,Over,28.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_reception_yds,Laquon Treadwell,Under,28.5,-111,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Deion Burks,Over,1.5,-150,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Deion Burks,Under,1.5,110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Anthony Gould,Over,2.5,100,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Anthony Gould,Under,2.5,-135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Jonathan Taylor,Over,3.5,125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Jonathan Taylor,Under,3.5,-165,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Laquon Treadwell,Over,2.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Laquon Treadwell,Under,2.5,-125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Tyler Warren,Over,5.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Tyler Warren,Under,5.5,-140,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Nico Collins,Over,4.5,-125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Nico Collins,Under,4.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Dalton Schultz,Over,3.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_receptions,Dalton Schultz,Under,3.5,-140,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_rush_yds,Jonathan Taylor,Over,51.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_rush_yds,Jonathan Taylor,Under,51.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_rush_yds,Seth McGowan,Over,28.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_rush_yds,Seth McGowan,Under,28.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_rush_yds,Daniel Jones,Over,8.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,betmgm,player_rush_yds,Daniel Jones,Under,8.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_attempts,C.J. Stroud,Over,32.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_attempts,C.J. Stroud,Under,32.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_attempts,Daniel Jones,Over,32.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_attempts,Daniel Jones,Under,32.5,-125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_completions,C.J. Stroud,Over,21.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_completions,C.J. Stroud,Under,21.5,-135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_completions,Daniel Jones,Over,19.5,100,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_completions,Daniel Jones,Under,19.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_yds,C.J. Stroud,Over,260.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_yds,C.J. Stroud,Under,260.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_yds,Daniel Jones,Over,184.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_pass_yds,Daniel Jones,Under,184.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Anthony Gould,Over,23.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Anthony Gould,Under,23.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Ashton Dulin,Over,16.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Ashton Dulin,Under,16.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Dalton Schultz,Over,30.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Dalton Schultz,Under,30.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Deion Burks,Over,14.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Deion Burks,Under,14.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Jonathan Taylor,Over,19.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Jonathan Taylor,Under,19.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Laquon Treadwell,Over,28.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Laquon Treadwell,Under,28.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Nico Collins,Over,66.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Nico Collins,Under,66.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Tyler Warren,Over,42.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_reception_yds,Tyler Warren,Under,42.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Anthony Gould,Over,2.5,-105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Anthony Gould,Under,2.5,-125,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Ashton Dulin,Over,1.5,135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Ashton Dulin,Under,1.5,-180,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Dalton Schultz,Over,3.5,105,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Dalton Schultz,Under,3.5,-135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Deion Burks,Over,1.5,-130,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Deion Burks,Under,1.5,100,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Jonathan Taylor,Over,2.5,-180,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Jonathan Taylor,Under,2.5,135,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Laquon Treadwell,Over,2.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Laquon Treadwell,Under,2.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Nico Collins,Over,4.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Nico Collins,Under,4.5,-115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Tyler Warren,Over,5.5,115,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_receptions,Tyler Warren,Under,5.5,-150,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,C.J. Stroud,Over,10.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,C.J. Stroud,Under,10.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,Daniel Jones,Over,7.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,Daniel Jones,Under,7.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,Jonathan Taylor,Over,51.5,-120,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,Jonathan Taylor,Under,51.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,Seth McGowan,Over,27.5,-110,2026-11-16T22:31
+66f9e83cf025d58acee12bce18661fb3,2026-11-20T01:15:00Z,Houston Texans,Indianapolis Colts,bovada,player_rush_yds,Seth McGowan,Under,27.5,-120,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_pass_yds,Josh Allen,Over,231.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_pass_yds,Josh Allen,Under,231.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_pass_yds,Kyle McCord,Over,185.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_pass_yds,Kyle McCord,Under,185.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_rush_yds,James Cook,Over,97.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_rush_yds,James Cook,Under,97.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_rush_yds,Ollie Gordon II,Over,65.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_rush_yds,Ollie Gordon II,Under,65.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_rush_yds,Josh Allen,Over,29.5,-114,2026-11-16T22:31
+4c5b1c0843a260278e95eb93e7787576,2026-11-22T18:00:00Z,Buffalo Bills,Miami Dolphins,fanduel,player_rush_yds,Josh Allen,Under,29.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_attempts,Kirk Cousins,Over,34.5,-105,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_attempts,Kirk Cousins,Under,34.5,-121,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_attempts,Brock Purdy,Over,30.5,-126,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_attempts,Brock Purdy,Under,30.5,-101,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_completions,Kirk Cousins,Over,22.5,-103,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_completions,Kirk Cousins,Under,22.5,-124,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_completions,Brock Purdy,Over,20.5,104,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_completions,Brock Purdy,Under,20.5,-133,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_yds,Brock Purdy,Over,244.5,-112,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_yds,Brock Purdy,Under,244.5,-112,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_yds,Kirk Cousins,Over,232.5,-113,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_pass_yds,Kirk Cousins,Under,232.5,-111,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,Justin Jefferson,Over,82.5,-113,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,Justin Jefferson,Under,82.5,-111,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,George Kittle,Over,64.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,George Kittle,Under,64.5,-110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,Christian McCaffrey,Over,33.5,-109,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,Christian McCaffrey,Under,33.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,Aaron Jones,Over,9.5,-113,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_reception_yds,Aaron Jones,Under,9.5,-111,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,Justin Jefferson,Over,7.5,113,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,Justin Jefferson,Under,7.5,-144,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,George Kittle,Over,5.5,-108,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,George Kittle,Under,5.5,-118,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,Christian McCaffrey,Over,3.5,-125,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,Christian McCaffrey,Under,3.5,-102,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,Aaron Jones,Over,1.5,-152,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_receptions,Aaron Jones,Under,1.5,119,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Christian McCaffrey,Over,49.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Christian McCaffrey,Under,49.5,-110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Jordan Mason,Over,46.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Jordan Mason,Under,46.5,-109,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Aaron Jones,Over,31.5,-112,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Aaron Jones,Under,31.5,-112,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Brock Purdy,Over,16.5,-112,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Brock Purdy,Under,16.5,-112,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Kirk Cousins,Over,2.5,-103,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,draftkings,player_rush_yds,Kirk Cousins,Under,2.5,-121,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_pass_yds,Brock Purdy,Over,246.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_pass_yds,Brock Purdy,Under,246.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_pass_yds,Kirk Cousins,Over,232.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_pass_yds,Kirk Cousins,Under,232.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_reception_yds,Justin Jefferson,Over,82.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_reception_yds,Justin Jefferson,Under,82.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_reception_yds,George Kittle,Over,64.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_reception_yds,George Kittle,Under,64.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_reception_yds,Christian McCaffrey,Over,33.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_reception_yds,Christian McCaffrey,Under,33.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_receptions,George Kittle,Over,5.5,-106,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_receptions,George Kittle,Under,5.5,-125,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_receptions,Justin Jefferson,Over,6.5,-158,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_receptions,Justin Jefferson,Under,6.5,118,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_receptions,Christian McCaffrey,Over,3.5,-132,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_receptions,Christian McCaffrey,Under,3.5,100,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Brock Purdy,Over,16.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Brock Purdy,Under,16.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Kirk Cousins,Over,1.5,-138,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Kirk Cousins,Under,1.5,106,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Aaron Jones,Over,30.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Aaron Jones,Under,30.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Jordan Mason,Over,46.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Jordan Mason,Under,46.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Christian McCaffrey,Over,49.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Christian McCaffrey,Under,49.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Kaelon Black,Over,26.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,fanduel,player_rush_yds,Kaelon Black,Under,26.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_pass_completions,Brock Purdy,Over,20.5,100,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_pass_completions,Kirk Cousins,Over,22.5,-104,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_pass_yds,Kirk Cousins,Over,232.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_pass_yds,Kirk Cousins,Under,232.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_pass_yds,Brock Purdy,Over,240.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_pass_yds,Brock Purdy,Under,240.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_reception_yds,George Kittle,Over,65.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_reception_yds,George Kittle,Under,65.5,-117,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_reception_yds,Justin Jefferson,Over,83.5,-117,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_reception_yds,Justin Jefferson,Under,83.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_reception_yds,Christian McCaffrey,Over,34.5,-113,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_reception_yds,Christian McCaffrey,Under,34.5,-118,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_receptions,Justin Jefferson,Over,6.5,-152,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_receptions,George Kittle,Over,5.5,102,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_receptions,Christian McCaffrey,Over,3.5,-139,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Aaron Jones,Over,30.5,-113,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Aaron Jones,Under,30.5,-118,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Jordan Mason,Over,47.5,-117,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Jordan Mason,Under,47.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Brock Purdy,Over,16.5,-110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Brock Purdy,Under,16.5,-121,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Christian McCaffrey,Over,49.5,-117,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,betrivers,player_rush_yds,Christian McCaffrey,Under,49.5,-114,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_attempts,Brock Purdy,Over,30.5,-130,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_attempts,Brock Purdy,Under,30.5,100,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_attempts,Kirk Cousins,Over,34.5,-105,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_attempts,Kirk Cousins,Under,34.5,-125,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_yds,Brock Purdy,Over,244.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_yds,Brock Purdy,Under,244.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_yds,Kirk Cousins,Over,232.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_pass_yds,Kirk Cousins,Under,232.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,Aaron Jones,Over,9.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,Aaron Jones,Under,9.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,Christian McCaffrey,Over,33.5,-110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,Christian McCaffrey,Under,33.5,-120,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,George Kittle,Over,64.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,George Kittle,Under,64.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,Justin Jefferson,Over,82.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_reception_yds,Justin Jefferson,Under,82.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,Aaron Jones,Over,1.5,-160,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,Aaron Jones,Under,1.5,120,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,Christian McCaffrey,Over,3.5,-125,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,Christian McCaffrey,Under,3.5,-105,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,George Kittle,Over,5.5,-110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,George Kittle,Under,5.5,-120,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,Justin Jefferson,Over,7.5,110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_receptions,Justin Jefferson,Under,7.5,-145,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Aaron Jones,Over,31.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Aaron Jones,Under,31.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Brock Purdy,Over,16.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Brock Purdy,Under,16.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Christian McCaffrey,Over,49.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Christian McCaffrey,Under,49.5,-115,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Jordan Mason,Over,46.5,-120,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Jordan Mason,Under,46.5,-110,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Kirk Cousins,Over,2.5,-105,2026-11-16T22:31
+60e1d27b083a335b722c2c852ea85612,2026-11-23T01:20:00Z,San Francisco 49ers,Minnesota Vikings,bovada,player_rush_yds,Kirk Cousins,Under,2.5,-125,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_attempts,Joe Burrow,Over,37.5,-116,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_attempts,Joe Burrow,Under,37.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_attempts,Jayden Daniels,Over,31.5,-117,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_attempts,Jayden Daniels,Under,31.5,-108,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_completions,Joe Burrow,Over,27.5,-104,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_completions,Joe Burrow,Under,27.5,-123,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_completions,Jayden Daniels,Over,19.5,-122,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_completions,Jayden Daniels,Under,19.5,-105,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_yds,Joe Burrow,Over,301.5,-112,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_yds,Joe Burrow,Under,301.5,-112,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_yds,Jayden Daniels,Over,219.5,-112,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_pass_yds,Jayden Daniels,Under,219.5,-112,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Ja'Marr Chase,Over,94.5,-113,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Ja'Marr Chase,Under,94.5,-111,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Tee Higgins,Over,74.5,-111,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Tee Higgins,Under,74.5,-113,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Stefon Diggs,Over,43.5,-111,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Stefon Diggs,Under,43.5,-113,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Chig Okonkwo,Over,40.5,-109,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Chig Okonkwo,Under,40.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Antonio Williams,Over,33.5,-109,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Antonio Williams,Under,33.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Chase Brown,Over,27.5,-111,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Chase Brown,Under,27.5,-113,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Mike Gesicki,Over,24.5,-109,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_reception_yds,Mike Gesicki,Under,24.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Ja'Marr Chase,Over,8.5,109,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Ja'Marr Chase,Under,8.5,-139,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Tee Higgins,Over,5.5,-112,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Tee Higgins,Under,5.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Chase Brown,Over,4.5,-116,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Chase Brown,Under,4.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Stefon Diggs,Over,4.5,110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Stefon Diggs,Under,4.5,-140,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Chig Okonkwo,Over,4.5,125,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Chig Okonkwo,Under,4.5,-159,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Antonio Williams,Over,3.5,105,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Antonio Williams,Under,3.5,-134,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Mike Gesicki,Over,2.5,113,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_receptions,Mike Gesicki,Under,2.5,-144,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Chase Brown,Over,43.5,-111,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Chase Brown,Under,43.5,-113,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Jayden Daniels,Over,35.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Jayden Daniels,Under,35.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Samaje Perine,Over,20.5,-109,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Samaje Perine,Under,20.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Joe Burrow,Over,7.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,draftkings,player_rush_yds,Joe Burrow,Under,7.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_pass_yds,Jayden Daniels,Over,220.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_pass_yds,Jayden Daniels,Under,220.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_pass_yds,Joe Burrow,Over,300.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_pass_yds,Joe Burrow,Under,300.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Ja'Marr Chase,Over,93.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Ja'Marr Chase,Under,93.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Mike Gesicki,Over,24.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Mike Gesicki,Under,24.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Chase Brown,Over,25.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Chase Brown,Under,25.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Stefon Diggs,Over,42.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Stefon Diggs,Under,42.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Tee Higgins,Over,74.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Tee Higgins,Under,74.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Antonio Williams,Over,35.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Antonio Williams,Under,35.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Chig Okonkwo,Over,40.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_reception_yds,Chig Okonkwo,Under,40.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Chase Brown,Over,4.5,-102,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Chase Brown,Under,4.5,-130,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Stefon Diggs,Over,4.5,110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Stefon Diggs,Under,4.5,-146,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Antonio Williams,Over,3.5,-108,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Antonio Williams,Under,3.5,-122,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Tee Higgins,Over,5.5,-102,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Tee Higgins,Under,5.5,-130,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Mike Gesicki,Over,2.5,116,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Mike Gesicki,Under,2.5,-154,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Ja'Marr Chase,Over,8.5,116,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Ja'Marr Chase,Under,8.5,-154,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Chig Okonkwo,Over,4.5,112,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_receptions,Chig Okonkwo,Under,4.5,-148,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Joe Burrow,Over,7.5,-108,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Joe Burrow,Under,7.5,-120,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Jayden Daniels,Over,35.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Jayden Daniels,Under,35.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Chase Brown,Over,43.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Chase Brown,Under,43.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Samaje Perine,Over,20.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,fanduel,player_rush_yds,Samaje Perine,Under,20.5,-114,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_pass_attempts,Joe Burrow,Over,37.5,-120,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_pass_attempts,Joe Burrow,Under,37.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_pass_yds,Joe Burrow,Over,301.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_pass_yds,Joe Burrow,Under,301.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Chase Brown,Over,27.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Chase Brown,Under,27.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Ja'Marr Chase,Over,94.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Ja'Marr Chase,Under,94.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Mike Gesicki,Over,24.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Mike Gesicki,Under,24.5,-120,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Tee Higgins,Over,74.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_reception_yds,Tee Higgins,Under,74.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Chase Brown,Over,4.5,-120,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Chase Brown,Under,4.5,-110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Ja'Marr Chase,Over,8.5,110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Ja'Marr Chase,Under,8.5,-145,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Mike Gesicki,Over,2.5,110,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Mike Gesicki,Under,2.5,-145,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Tee Higgins,Over,5.5,-115,2026-11-16T22:31
+3a60ed1d20004aa4d4772b2c1a2272e7,2026-11-24T01:15:00Z,Washington Commanders,Cincinnati Bengals,bovada,player_receptions,Tee Higgins,Under,5.5,-115,2026-11-16T22:31

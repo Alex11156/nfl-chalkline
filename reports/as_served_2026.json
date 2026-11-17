@@ -1,0 +1,72 @@
+{
+ "season": 2026,
+ "weeks": [
+  1,
+  10
+ ],
+ "players": {
+  "fantasy_points_ppr": {
+   "n": 3087,
+   "served": 4.325452027340079,
+   "training": 4.350265124879349,
+   "naive": 4.519334698683374,
+   "starter_known": null
+  },
+  "passing_yards": {
+   "n": 279,
+   "served": 59.108149589815646,
+   "training": 58.27509221755174,
+   "naive": 62.42517895777709,
+   "starter_known": 58.529974782339316
+  },
+  "attempts": {
+   "n": 279,
+   "served": 6.855219256793597,
+   "training": 6.58422230091753,
+   "naive": 7.260061682838961,
+   "starter_known": 6.6928484416734975
+  },
+  "rushing_yards": {
+   "n": 2381,
+   "served": 8.274700476133852,
+   "training": 8.348457692284894,
+   "naive": 8.677937687977469,
+   "starter_known": null
+  },
+  "receiving_yards": {
+   "n": 2767,
+   "served": 16.22123564906377,
+   "training": 16.28233920551114,
+   "naive": 16.717405311518565,
+   "starter_known": null
+  },
+  "receptions": {
+   "n": 2767,
+   "served": 1.2130074689262498,
+   "training": 1.2193965114927714,
+   "naive": 1.2468453112762452,
+   "starter_known": null
+  }
+ },
+ "games": {
+  "result": {
+   "n": 149,
+   "served": 9.872650240505306,
+   "training": 9.78840969164485,
+   "winners_served": 0.6644295302013423,
+   "winners_training": 0.6711409395973155
+  },
+  "total": {
+   "n": 149,
+   "served": 10.86081460423054,
+   "training": 10.830063948115649
+  }
+ },
+ "parity": {
+  "exact_game_inputs": 134,
+  "exact_player_inputs": 82,
+  "differing": 0,
+  "games_served": 149,
+  "player_games_served": 3087
+ }
+}

@@ -1,0 +1,7 @@
+event_id,commence,home,away,market,player,player_id,team,line,side,best_price,p_model,p_market,ev,books
+b8c10fdf1e0ac4e13deee7f7c0af0b0b,2026-11-15T14:30:00Z,Detroit Lions,New England Patriots,player_pass_completions,Drake Maye,00-0039851,NE,20.5,over,-131.0,0.626,0.5385046665806801,0.10386259541984727,3
+b8c10fdf1e0ac4e13deee7f7c0af0b0b,2026-11-15T14:30:00Z,Detroit Lions,New England Patriots,player_pass_yds,Jared Goff,00-0033106,DET,266.5,over,-113.0,0.571,0.501733740066444,0.07630973451327427,3
+74d39e19225caf211ad2c8eb4110179f,2026-11-13T01:15:00Z,New York Giants,Washington Commanders,player_pass_yds,J.J. McCarthy,00-0039923,NYG,209.5,over,-113.0,0.561,0.5010529419197237,0.05746017699115058,2
+74d39e19225caf211ad2c8eb4110179f,2026-11-13T01:15:00Z,New York Giants,Washington Commanders,player_pass_completions,J.J. McCarthy,00-0039923,NYG,18.5,over,-118.0,0.563,0.5328121502171783,0.04011864406779647,3
+74d39e19225caf211ad2c8eb4110179f,2026-11-13T01:15:00Z,New York Giants,Washington Commanders,player_pass_attempts,Jayden Daniels,00-0039910,WAS,31.5,under,-102.0,0.522,0.4825443549543893,0.03376470588235303,3
+74d39e19225caf211ad2c8eb4110179f,2026-11-13T01:15:00Z,New York Giants,Washington Commanders,player_pass_attempts,J.J. McCarthy,00-0039923,NYG,31.5,under,-110.0,0.528,0.49182206427251707,0.008000000000000063,2

@@ -17,6 +17,7 @@ import pandas as pd
 import xgboost as xgb
 
 from nfl_engine.config import REPORTS
+from nfl_engine.config import RESEARCH
 from nfl_engine.models.game_models import load_features, feature_cols
 
 VAL_SEASONS = list(range(2010, 2018))
@@ -98,4 +99,4 @@ if __name__ == "__main__":
         res["test_su_blend"] = float((np.sign(blend) == np.sign(p[target])).mean())
         res["test_vegas_su"] = float((np.sign(line) == np.sign(p[target])).mean())
     print(json.dumps(res, indent=2))
-    (REPORTS / f"tune_game_{target}.json").write_text(json.dumps(res, indent=2))
+    (RESEARCH / f"tune_game_{target}.json").write_text(json.dumps(res, indent=2))

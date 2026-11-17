@@ -15,8 +15,9 @@ import pandas as pd
 from scipy import stats
 
 from nfl_engine.config import MODELS_STORE, RAW, REPORTS
+from nfl_engine.config import RESEARCH
 from nfl_engine.io_utils import read_parquet
-from nfl_engine.picks import american_to_decimal, devig
+from nfl_engine.odds import american_to_decimal, devig
 
 import joblib
 from scipy.stats import norm
@@ -67,4 +68,4 @@ print(f"  t-test vs zero profit: p={t.pvalue:.3f} -> "
       f"{'SIGNIFICANT' if t.pvalue < 0.05 else 'NOT significant'}")
 out["all"] = dict(n=int(len(bets)), hit=round(float(bets.won.mean()), 4),
                   roi=round(float(allroi), 4), p=round(float(t.pvalue), 4))
-(REPORTS / "moneyline_history.json").write_text(json.dumps(out, indent=2))
+(RESEARCH / "moneyline_history.json").write_text(json.dumps(out, indent=2))

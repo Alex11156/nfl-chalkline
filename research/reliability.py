@@ -7,7 +7,7 @@ from scipy import stats
 from scipy.stats import norm
 from nfl_engine.config import MODELS_STORE, RAW, REPORTS
 from nfl_engine.io_utils import read_parquet
-from nfl_engine.picks import american_to_decimal, devig, bet_metrics
+from nfl_engine.odds import american_to_decimal, devig, bet_metrics
 
 p = read_parquet(REPORTS / "game_preds_margin_pure.parquet").dropna(subset=["home_win"])
 meta = json.loads((MODELS_STORE / "game_meta_pure.json").read_text())

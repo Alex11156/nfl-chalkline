@@ -8,6 +8,10 @@ For every game, builds leak-free features from prior games only:
   - QB: rolling efficiency/tendency profile of the starter, QB-change flags
   - Elo rating (also a standalone baseline)
 
+Referee tendencies were dropped on 2026-11-12: the referee is not announced
+before kickoff, so the live system could never use them, and removing them
+changes the backtest by less than 0.02 points either way.
+
 Outputs data/processed/game_features.parquet plus "current snapshot" tables
 used to predict future (not yet played) matchups.
 """
@@ -27,12 +31,17 @@ MINP = 3
 FORM_METRICS = ["epa_play", "pass_epa", "rush_epa", "success_rate",
                 "explosive_rate", "sack_rate", "to_rate", "third_down_rate",
                 "early_pass_epa", "early_rush_epa", "st_epa", "points_for",
-                "plays"]
+                "plays", "pass_rate"]
 QB_METRICS = ["epa_dropback", "cpoe", "sack_rate", "deep_rate",
               "scramble_rate", "adot"]
 
 
-def _load():
+def known_before(d: pd.DataFrame, asof: tuple[int, int]) -> pd.Series:
+    """Rows from games played before week `asof[1]` of season `asof[0]`."""
+    return (d["season"] < asof[0]) | ((d["season"] == asof[0]) & (d["week"] < asof[1]))
+
+
+def _load(asof: tuple[int, int] | None = None):
     con = connect()
     games = con.execute("SELECT * FROM games ORDER BY gameday, game_id").df()
     tg = con.execute("""
@@ -41,10 +50,15 @@ def _load():
           ON t.game_id = f.game_id AND t.team = f.team
     """).df()
     qb = con.execute("SELECT * FROM qb_game").df()
-    pen = con.execute("SELECT * FROM game_penalties").df()
     con.close()
     games["gameday"] = pd.to_datetime(games["gameday"])
-    return games, tg, qb, pen
+    if asof is not None:
+        # rebuild the world as it stood before that week: later games become
+        # unplayed schedule rows and their play-by-play disappears
+        future = ~known_before(games, asof)
+        games.loc[future, ["home_score", "away_score", "result", "total", "overtime"]] = np.nan
+        tg, qb = tg[known_before(tg, asof)], qb[known_before(qb, asof)]
+    return games, tg, qb
 
 
 def build_team_rows(games: pd.DataFrame, tg: pd.DataFrame) -> pd.DataFrame:
@@ -88,12 +102,16 @@ def opponent_adjust(rows: pd.DataFrame) -> pd.DataFrame:
         rows[f"pre_off_{m}"] = g[m].transform(
             lambda s: s.shift(1).ewm(halflife=EWM_HALFLIFE, min_periods=MINP).mean())
 
-    # League baseline per date (expanding mean over prior 365 days).
-    day = rows.sort_values("gameday").set_index("gameday")
+    # League baseline per date: the mean over the 365 days up to and
+    # including it. Same-day games are fair to use: the baseline only adjusts
+    # stats that feed LATER games. It is aggregated per day so the result does
+    # not depend on the order of same-day rows (a row-wise rolling mean did,
+    # which made as-of rebuilds differ from the full build in the 4th decimal).
+    daily = rows.groupby("gameday")[FORM_METRICS].agg(["sum", "count"]).sort_index()
     for m in FORM_METRICS:
-        lg = day[m].rolling("365D", min_periods=50).mean().shift(1)
-        lg = lg.groupby(level=0).last()
-        rows[f"lg_{m}"] = rows["gameday"].map(lg)
+        tot = daily[(m, "sum")].rolling("365D").sum()
+        cnt = daily[(m, "count")].rolling("365D").sum()
+        rows[f"lg_{m}"] = rows["gameday"].map((tot / cnt).where(cnt >= 50))
 
     # Join opponent's pregame strength onto each row.
     opp = rows[["game_id", "team"] + [f"pre_allowed_{m}" for m in FORM_METRICS]
@@ -150,6 +168,8 @@ def rolling_form(rows: pd.DataFrame) -> pd.DataFrame:
     rows["games_played_season"] = sg.cumcount()
     rows["off_epa_std"] = sg["epa_play"].transform(lambda s: s.shift(1).expanding(min_periods=1).mean())
     rows["allowed_epa_std"] = sg["allowed_epa_play"].transform(lambda s: s.shift(1).expanding(min_periods=1).mean())
+    rows["off_epa_std_cur"] = sg["epa_play"].transform(lambda s: s.expanding(min_periods=1).mean())
+    rows["allowed_epa_std_cur"] = sg["allowed_epa_play"].transform(lambda s: s.expanding(min_periods=1).mean())
     feat_cols += ["off_epa_l4", "allowed_epa_l4", "games_played_season",
                   "off_epa_std", "allowed_epa_std"]
     return rows, feat_cols
@@ -209,20 +229,28 @@ def starter_features(games: pd.DataFrame) -> pd.DataFrame:
     return rows[["game_id", "team", "qb_new", "qb_starts_team"]]
 
 
-def referee_features(games: pd.DataFrame, pen: pd.DataFrame) -> pd.DataFrame:
-    """Rolling penalties-per-game of the assigned referee (prior games only)."""
-    g = games[["game_id", "gameday", "referee"]].merge(pen, on="game_id", how="left")
-    g = g.sort_values("gameday").reset_index(drop=True)
-    gr = g.groupby("referee", sort=False)
-    g["ref_penalty_rate"] = gr["penalties"].transform(
-        lambda s: s.shift(1).ewm(halflife=15, min_periods=5).mean())
-    g["ref_penalty_yards"] = gr["penalty_yards"].transform(
-        lambda s: s.shift(1).ewm(halflife=15, min_periods=5).mean())
-    return g[["game_id", "ref_penalty_rate", "ref_penalty_yards"]]
+def venue_flags(games: pd.DataFrame) -> pd.DataFrame:
+    """is_dome / is_turf per game. nflverse fills in `surface` (and for
+    future games `roof`) weeks late; a blank takes the stadium's most recent
+    known value, then the home team's. Reading a blank surface as "not grass"
+    had marked every recent game as turf."""
+    g = games.sort_values(["gameday", "game_id"])[
+        ["game_id", "stadium", "home_team", "roof", "surface"]].copy()
+    for c in ("roof", "surface"):
+        v = g[c].replace("", np.nan)
+        v = v.fillna(v.groupby(g["stadium"]).ffill())
+        g[c] = v.fillna(v.groupby(g["home_team"]).ffill())
+    g["is_dome"] = g["roof"].isin(["dome", "closed"]).astype(int)
+    g["is_turf"] = (~g["surface"].fillna("grass").str.contains("grass")).astype(int)
+    return g[["game_id", "is_dome", "is_turf"]]
 
 
-def build(save: bool = True):
-    games, tg, qb, pen = _load()
+def build(save: bool = True, asof: tuple[int, int] | None = None, out_dir=PROCESSED):
+    """Build game features and the team/QB snapshots used to predict future
+    games. With `asof=(season, week)` the build sees only games played before
+    that week and writes to `out_dir` — the state the live system would have
+    had then (used by tests/test_parity.py)."""
+    games, tg, qb = _load(asof)
 
     rows = build_team_rows(games, tg)
     rows = opponent_adjust(rows)
@@ -257,16 +285,15 @@ def build(save: bool = True):
     out["away_tz_diff"] = [
         tz_diff(at, ht, s) for at, ht, s in zip(out.away_team, out.home_team, out.season)]
 
-    # Referee tendencies + venue/schedule flags
-    out = out.merge(referee_features(games, pen), on="game_id", how="left")
+    # Venue/schedule flags
     out["is_denver"] = (out["home_team"] == "DEN").astype(int)
     out["is_thursday"] = (out["weekday"] == "Thursday").astype(int)
     out["is_monday"] = (out["weekday"] == "Monday").astype(int)
     out["is_primetime"] = (out["gametime"].fillna("13:00") >= "20:00").astype(int)
 
-    # Weather/venue
-    out["is_dome"] = out["roof"].isin(["dome", "closed"]).astype(int)
-    out["is_turf"] = (~out["surface"].fillna("grass").str.contains("grass")).astype(int)
+    # Weather/venue (temp and wind stay missing when nflverse has not
+    # published them: unknown, not "average")
+    out = out.merge(venue_flags(games), on="game_id", how="left")
     out["temp_f"] = np.where(out["is_dome"] == 1, 70.0, out["temp"])
     out["wind_mph"] = np.where(out["is_dome"] == 1, 0.0, out["wind"])
     out["rest_diff"] = out["home_rest"] - out["away_rest"]
@@ -284,21 +311,23 @@ def build(save: bool = True):
     out["is_playoff"] = (out["game_type"] != "REG").astype(int)
 
     if save:
-        PROCESSED.mkdir(parents=True, exist_ok=True)
-        safe_to_parquet(out, PROCESSED / "game_features.parquet")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        safe_to_parquet(out, out_dir / "game_features.parquet")
         # Current snapshots for predicting future matchups
         cur_cols = [c for c in rows.columns if c.endswith("_cur")]
         snap = (rows.sort_values("gameday").groupby("team")
                 .tail(1)[["team", "season", "gameday"] + cur_cols])
         snap.columns = [c.replace("_cur", "") if c.endswith("_cur") else c
                         for c in snap.columns]
-        safe_to_parquet(snap, PROCESSED / "team_current.parquet")
+        safe_to_parquet(snap, out_dir / "team_current.parquet")
         qsnap_cols = ["qb_id", "qb_name", "team", "gameday", "dropbacks"] + \
                      [f"qb_{m}_ewm_cur" for m in QB_METRICS]
         qsnap = (qbp.sort_values("gameday").groupby("qb_id").tail(1)[qsnap_cols])
         qsnap["career_dropbacks"] = qbp.groupby("qb_id")["dropbacks"].sum().reindex(qsnap.qb_id).values
+        # qualifying games so far = the qb_games value of his next game
+        qsnap["qb_games"] = qbp.groupby("qb_id").size().reindex(qsnap.qb_id).values
         qsnap.columns = [c.replace("_ewm_cur", "") for c in qsnap.columns]
-        safe_to_parquet(qsnap, PROCESSED / "qb_current.parquet")
+        safe_to_parquet(qsnap, out_dir / "qb_current.parquet")
         print(f"game_features: {out.shape}, team_current: {snap.shape}, qb_current: {qsnap.shape}")
     return out
 

@@ -2,7 +2,9 @@
 
 Play-by-play per season (resilient to partial failures), plus schedules,
 weekly player stats, rosters, snap counts, injuries, depth charts.
-Re-runnable: skips season files that already exist unless --refresh.
+Re-runnable: skips files that already exist. --refresh re-pulls the
+season-spanning tables and the current season's play-by-play (completed
+seasons are immutable); --full also re-pulls every historical season.
 """
 import sys
 import time
@@ -21,12 +23,12 @@ def save(df, path: Path):
     df.write_parquet(path)
     print(f"  wrote {path.relative_to(ROOT)} ({df.height:,} rows)", flush=True)
 
-def download_pbp(refresh=False):
+def download_pbp(full=False):
     out_dir = RAW / "pbp"
     for season in SEASONS:
         out = out_dir / f"pbp_{season}.parquet"
         # completed seasons are immutable; only re-pull the current one
-        if out.exists() and not refresh and season < CURRENT_SEASON:
+        if out.exists() and not full and season < CURRENT_SEASON:
             print(f"pbp {season}: cached, skipping", flush=True)
             continue
         for attempt in range(3):
@@ -76,7 +78,8 @@ def download_misc(refresh=False):
             print(f"{name}: FAILED after 3 attempts", flush=True)
 
 if __name__ == "__main__":
-    refresh = "--refresh" in sys.argv
+    full = "--full" in sys.argv
+    refresh = full or "--refresh" in sys.argv
     download_misc(refresh)
-    download_pbp(refresh)
+    download_pbp(full)
     print("DONE", flush=True)

@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 
 from nfl_engine.config import REPORTS
+from nfl_engine.config import RESEARCH
 from nfl_engine.models.game_models import (PARAMS_MARGIN, TEST_SEASONS,
                                            feature_cols, load_features)
 
@@ -97,5 +98,5 @@ if __name__ == "__main__":
     res.update(direct_margin=direct_m, direct_total=direct_t,
                derived_margin=dm, derived_total=dt)
 
-    (REPORTS / "experiment_game2.json").write_text(json.dumps(res, indent=2))
+    (RESEARCH / "experiment_game2.json").write_text(json.dumps(res, indent=2))
     print(f"\nelapsed {time.time()-t0:.0f}s", flush=True)

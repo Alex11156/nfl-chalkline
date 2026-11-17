@@ -1,89 +1,119 @@
-# NFL Prediction Engine
+# Chalkline — NFL Prediction Engine
 
-Ask-anything NFL prediction system for fantasy football and betting analysis,
-trained on 27 seasons (1999–2025) of nflverse play-by-play data.
+Predicts NFL games (winner, margin, total) and player stat lines (fantasy
+points and props) from 27 seasons of public play-by-play data, answers
+questions in plain English, publishes a static website, and grades itself
+against real results and real sportsbook lines.
 
-## Launch
+**New here? Read these in order:**
+1. This file — what is where and how to run it.
+2. [reports/Chalkline_Codebase_Guide.pdf](reports/Chalkline_Codebase_Guide.pdf) —
+   a walkthrough of every part and *why* it is built that way: which kinds of
+   model were tried, which inputs matter, and how the live system is checked
+   against the tested one.
+3. [MODEL.md](MODEL.md) — the full technical reference: every design decision,
+   measured number and rejected idea.
 
-```bash
-/opt/anaconda3/envs/nfl/bin/python -m streamlit run app/app.py
+## What it can and cannot do
+
+Measured on games never seen in training (walk-forward, 2010 – 2026 week 10):
+
+| Measure | Engine | Benchmark |
+|---|---|---|
+| Winners picked | 65.7% (66.2% given Vegas lines) | Vegas favourite 66.2% · Elo 64.3% |
+| Margin error | 10.25 pts (10.17 given lines) | Vegas spread 10.04 |
+| Against the spread | 50.8% | 52.4% needed to profit |
+| Fantasy PPR error | 4.51 | player's own average 4.68 |
+| Passing yards / attempts / completions (games the QB started) | +9.2% / +11.4% / +10.6% better than the player's average | — |
+| Rushing / receiving yards | +3.1% / +1.7% better | — |
+
+- **Trust it for:** calibrated win probabilities, expected scores, and player
+  projections with realistic floors and ceilings.
+- **Do not trust it for:** beating closing game lines (120 strategies tested;
+  none survived fresh data) or touchdown props.
+- **Open question:** quarterback volume props vs real sportsbooks — being
+  graded weekly by `scripts/props.py`; nothing is proven yet.
+
+## Where everything is
+
+```
+nfl_engine/            the engine (a Python package) — everything else calls it
+  config.py              paths, team names, current season
+  data/store.py          raw files -> DuckDB analytical tables
+  features/              model inputs, built without peeking at the future
+    elo.py                 team strength rating (baseline + input)
+    game_features.py       one row per game: form, QB, coach, rest, weather
+    player_features.py     one row per player-game: role, production, matchup
+    stadiums.py            travel distance and time zones
+  models/
+    folds.py               the walk-forward backtest (with a cache of finished seasons)
+    game_models.py         margin + total: LightGBM, averaged with an additive model
+    player_models.py       14 player stats as ranges (quantiles / Poisson),
+                           and the math that turns them into projections and odds
+  calibration.py         honest win %s, the real pattern of final margins,
+                         how much to trust model vs market
+  query/                 predicting FUTURE games and answering questions
+    serving.py             builds the inputs for upcoming games
+    tools.py               the list of things the engine can be asked
+    parser.py              free, offline plain-English question matcher
+    claude_agent.py        optional Claude-powered answers (needs an API key)
+  picks.py               weekly betting card: model vs market, EV, stake
+  odds.py                odds arithmetic shared by everything that prices a bet
+
+scripts/               the things you run
+  refresh_data.py        THE weekly command — runs the whole pipeline
+  download_data.py       pull nflverse data
+  season_eval.py         grade this season so far
+  build_site.py          export model outputs, build docs/index.html
+  props.py               sportsbook prop tracker: `snapshot` and `grade`
+  report_*.py            rebuild the PDF reports
+  deploy_github.sh       one-time GitHub Pages setup
+
+research/              one-off experiments (not part of the pipeline);
+                       research/README.md lists each question and verdict
+tests/
+  test_questions.py      40 plain-English questions that must answer correctly
+  test_parity.py         the live system must feed the models exactly what
+                         they were trained on
+app/app.py             local Streamlit app
+web/  docs/            website template + data  /  the published site
+reports/               PDFs, backtest results, saved sportsbook lines
+  research/ logs/ figures/   experiment outputs, run logs, report charts
+  prop_snapshots/ line_snapshots/   lines saved before kickoff, for grading
+data/  models_store/   downloaded data and trained models (not in git)
+Makefile               every routine command by name
 ```
 
-Optional: `export ANTHROPIC_API_KEY=...` before launching to enable the
-Claude-powered free-form question mode (the local parser works without it).
+## Running it
 
-## What it does
+Run from this folder. `make` on its own lists the commands; each is one line of
+Python, using the project's environment (`/opt/anaconda3/envs/nfl/bin/python`,
+shown as `python` below) when it exists.
 
-- **Game predictions** — win probability, projected margin/total/score for any
-  matchup (LightGBM on opponent-adjusted EPA form, coaching, QB profiles,
-  rest/travel/weather, Elo).
-- **Player props** — P(over/under) for any line: passing/rushing/receiving
-  yards, receptions, TDs, INTs (quantile-distribution models).
-- **Fantasy** — weekly projections with floor/median/ceiling (PPR, half, standard),
-  start/sit comparisons, top-20 boards.
-- **Situational trends** — 20 years of history behind questions like "how do
-  new head coaches do ATS?" (DuckDB over the full dataset).
-- **Ask Anything** — chat interface; local pattern parser (free) or Claude
-  tool-use mode (API key).
+| When | Command | What it does |
+|---|---|---|
+| Tuesday | `make publish` · `python scripts/refresh_data.py --publish` | New data, backtest, retrain, grade last week, rebuild and push the site. `make refresh` keeps it local. |
+| Saturday | `make props` · `python scripts/props.py snapshot` | Save sportsbook prop lines + the model's probabilities (free Odds API key in `~/.config/chalkline/odds_api_key`) |
+| Any time | `make grade` · `python scripts/props.py grade` | The running prop record vs real books |
+| Any time | `make app` · `python -m streamlit run app/app.py` | Local app (set `ANTHROPIC_API_KEY` for Claude-powered answers) |
+| After code changes | `make test` | 40-question check, and train/serve parity for the last finished week |
+| Any time | `make models` · `make site` | Retrain on the data already downloaded · rebuild the site |
+| Any time | `make guide` | Rebuild the codebase guide PDF from the saved results |
 
-## Honest performance (walk-forward out-of-sample, 2010–2025)
+First-time setup: `pip install -r requirements.txt`; for the public site,
+`gh auth login`, then `bash scripts/deploy_github.sh` (serves `docs/` via
+GitHub Pages).
 
-| Metric | Engine (no market) | Engine (with market) | Benchmark |
-|---|---|---|---|
-| Straight-up winners | 65.4% | 66.1% | Vegas favorites 66.1% |
-| Margin MAE | 10.29 | 10.18 | Vegas closing spread 10.05 |
-| Against the spread | 50.9% | 51.4% | 52.4% = breakeven |
-| Over/under | 51.9% | 52.2% | 52.4% = breakeven |
-| Fantasy PPR MAE | 4.53 | — | naive rolling avg 4.69 |
-| Passing-yards MAE | 61.6 (+10.1% vs naive) | — | naive 68.5 |
+## Changing the model
 
-No model reliably beats closing lines. Use it for calibrated probabilities,
-matchup magnitude, and floors/ceilings — not guaranteed edges.
+Any change to inputs, model type or settings must:
 
-## Public website (Chalkline)
-
-The engine deploys as a static site — all model outputs precomputed, all
-probability math client-side — served from `docs/` via GitHub Pages.
-
-One-time setup:
-```bash
-/opt/anaconda3/envs/nfl/bin/gh auth login     # browser login, ~1 min
-bash scripts/deploy_github.sh                  # creates repo + enables Pages
-# → https://<your-username>.github.io/nfl-chalkline/
-```
-
-## In-season weekly refresh
-
-Run after each week's games (Tuesday morning is ideal — stats are final):
-
-```bash
-# pulls new data, rebuilds features, retrains + recalibrates all models,
-# rebuilds the site, and pushes it live (~25 min)
-/opt/anaconda3/envs/nfl/bin/python scripts/refresh_data.py --publish
-```
-
-Season boundaries are automatic: the current season is derived from the
-date (`nfl_engine/config.py`), new-season play-by-play starts downloading
-as soon as games are played, completed seasons stay cached, and the
-walk-forward evaluation extends itself. Recency weighting (4-season
-halflife) means new games immediately carry the most training influence.
-
-Occasionally (once or twice a season) re-run the hyperparameter searches —
-`scripts/tune_game.py` and `scripts/tune_player.py` — and update the
-params in the model files if validation clearly improves.
-
-## How the model works
-
-See **[MODEL.md](MODEL.md)** — the full reference on architecture, features,
-math, validation methodology, current measured performance, and the change log.
-That file is kept up to date with every model change.
-
-## Layout
-
-- `nfl_engine/data` — nflverse download + DuckDB store (`data/nfl.duckdb`)
-- `nfl_engine/features` — leak-free feature pipelines (game + player)
-- `nfl_engine/models` — LightGBM models, walk-forward evaluation
-- `nfl_engine/query` — serving layer, tool registry, NL parser, Claude agent
-- `app/app.py` — Streamlit UI
-- `reports/` — evaluation JSONs and logs
-- `models_store/` — trained model artifacts
+1. be tested by a rule written down first — win walk-forward on the seasons
+   used to choose it **and** hold on later seasons that were not
+   (`research/model_types_props.py` and `research/prop_model_search.py` are
+   the templates);
+2. be wired into training and serving together, with `make test` still
+   passing (`tests/test_parity.py` fails if the live system would feed a model
+   anything different from what it was trained on);
+3. be recorded in [MODEL.md](MODEL.md) with its numbers — including when it
+   fails.

@@ -1,0 +1,100 @@
+{
+ "passing_yards": {
+  "new": {
+   "confirm": {
+    "n": 989,
+    "mae_base": 56.452793266199635,
+    "mae_cand": 55.84396168601482,
+    "gain_pct": 1.0784791060982624,
+    "p_better": 1.0,
+    "side_lift_base": 0.11855670103092786,
+    "side_lift_cand": 0.12061855670103094
+   },
+   "adopt": false
+  }
+ },
+ "attempts": {
+  "new": {
+   "confirm": {
+    "n": 989,
+    "mae_base": 6.775322170538239,
+    "mae_cand": 6.735577529646216,
+    "gain_pct": 0.5866088710120398,
+    "p_better": 0.97525,
+    "side_lift_base": 0.1103092783505154,
+    "side_lift_cand": 0.11546391752577323
+   },
+   "adopt": false
+  }
+ },
+ "completions": {
+  "new": {
+   "confirm": {
+    "n": 989,
+    "mae_base": 4.5679454668624615,
+    "mae_cand": 4.529662524756248,
+    "gain_pct": 0.8380779145445438,
+    "p_better": 0.98625,
+    "side_lift_base": 0.1556701030927835,
+    "side_lift_cand": 0.14536082474226808
+   },
+   "adopt": false
+  }
+ },
+ "rushing_yards": {
+  "new": {
+   "confirm": {
+    "n": 7156,
+    "mae_base": 7.8567904794743875,
+    "mae_cand": 7.815939951370333,
+    "gain_pct": 0.5199391304983259,
+    "p_better": 0.9975,
+    "side_lift_base": 0.007858889276982195,
+    "side_lift_cand": 0.010827803003842118
+   },
+   "adopt": false
+  }
+ },
+ "receiving_yards": {
+  "new": {
+   "confirm": {
+    "n": 8164,
+    "mae_base": 14.842361317552438,
+    "mae_cand": 14.783768645084622,
+    "gain_pct": 0.39476651466855417,
+    "p_better": 1.0,
+    "side_lift_base": 0.0068519715578539975,
+    "side_lift_cand": 0.008403361344537896
+   },
+   "adopt": false
+  }
+ },
+ "receptions": {
+  "new": {
+   "confirm": {
+    "n": 8164,
+    "mae_base": 1.1553504267521446,
+    "mae_cand": 1.1503915236086102,
+    "gain_pct": 0.4292120406684363,
+    "p_better": 0.99775,
+    "side_lift_base": 0.02387712958182764,
+    "side_lift_cand": 0.027103768714507037
+   },
+   "adopt": false
+  }
+ },
+ "fantasy_points_ppr": {
+  "new": {
+   "confirm": {
+    "n": 9153,
+    "mae_base": 4.291630104835622,
+    "mae_cand": 4.233129604740337,
+    "gain_pct": 1.3631300616837594,
+    "p_better": 1.0,
+    "side_lift_base": -0.0498750284026358,
+    "side_lift_cand": -0.03169734151329251
+   },
+   "adopt": false
+  }
+ }
+}
