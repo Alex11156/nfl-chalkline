@@ -7,11 +7,13 @@ against real results and real sportsbook lines.
 
 **New here? Read these in order:**
 1. This file — what is where and how to run it.
-2. [reports/Chalkline_Codebase_Guide.pdf](reports/Chalkline_Codebase_Guide.pdf) —
-   a walkthrough of every part and *why* it is built that way: which kinds of
-   model were tried, which inputs matter, and how the live system is checked
-   against the tested one.
-3. [MODEL.md](MODEL.md) — the full technical reference: every design decision,
+2. [reports/Chalkline_Model_Report.pdf](reports/Chalkline_Model_Report.pdf) —
+   three pages: which model makes each prediction, how accurate it is, and
+   why it was chosen over the alternatives.
+3. [reports/Chalkline_Codebase_Guide.pdf](reports/Chalkline_Codebase_Guide.pdf) —
+   a walkthrough of every part of the code and how it fits together, including
+   how the live system is checked against the tested one.
+4. [MODEL.md](MODEL.md) — the full technical reference: every design decision,
    measured number and rejected idea.
 
 ## What it can and cannot do
@@ -77,7 +79,7 @@ tests/
                          they were trained on
 app/app.py             local Streamlit app
 web/  docs/            website template + data  /  the published site
-reports/               PDFs, backtest results, saved sportsbook lines
+reports/               the two PDF reports, backtest results, saved sportsbook lines
   research/ logs/ figures/   experiment outputs, run logs, report charts
   prop_snapshots/ line_snapshots/   lines saved before kickoff, for grading
 data/  models_store/   downloaded data and trained models (not in git)
@@ -98,7 +100,7 @@ shown as `python` below) when it exists.
 | Any time | `make app` · `python -m streamlit run app/app.py` | Local app (set `ANTHROPIC_API_KEY` for Claude-powered answers) |
 | After code changes | `make test` | 40-question check, and train/serve parity for the last finished week |
 | Any time | `make models` · `make site` | Retrain on the data already downloaded · rebuild the site |
-| Any time | `make guide` | Rebuild the codebase guide PDF from the saved results |
+| Any time | `make report` · `make guide` | Rebuild the model report or the codebase guide PDF from the saved results |
 
 First-time setup: `pip install -r requirements.txt`; for the public site,
 `gh auth login`, then `bash scripts/deploy_github.sh` (serves `docs/` via

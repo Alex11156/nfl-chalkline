@@ -2,7 +2,7 @@
 # Uses the project's conda env when it exists; override with `make PY=python ...`.
 PY ?= $(shell [ -x /opt/anaconda3/envs/nfl/bin/python ] && echo /opt/anaconda3/envs/nfl/bin/python || echo python)
 
-.PHONY: help refresh publish models site props grade app test guide importance
+.PHONY: help refresh publish models site props grade app test report guide importance
 .DEFAULT_GOAL := help
 
 help:      ## list these commands
@@ -36,6 +36,9 @@ test:      ## 40 plain-English questions + train/serve parity for the last finis
 
 importance: ## which inputs matter most (reports/research/feature_importance.json)
 	$(PY) research/feature_importance.py
+
+report:    ## rebuild reports/Chalkline_Model_Report.pdf: which model does what, how accurate, and why
+	$(PY) scripts/report_model.py
 
 guide:     ## rebuild reports/Chalkline_Codebase_Guide.pdf from the saved results
 	$(PY) scripts/report_codebase_guide.py

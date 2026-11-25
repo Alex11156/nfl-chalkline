@@ -1,6 +1,6 @@
 # Model Reference — Chalkline NFL Prediction Engine
 
-**Last updated:** 2026-11-16 · **Trained through:** 2026 week 10 (13 of 14 games)
+**Last updated:** 2026-11-24 · **Trained through:** 2026 week 10 (13 of 14 games)
 
 > **Maintenance rule:** this file is the source of truth for how the model works.
 > Update it in the same commit as any change to features, model type,
@@ -229,7 +229,8 @@ LightGBM) from a paired bootstrap:
 | **50/50 average** | 10.463 | 10.088 | 0.89 | 0.99 |
 
 **How it was adopted — read this before citing it.** The average was the best
-candidate on both periods but missed the pre-stated bar on dev (P =
+candidate on dev and held on confirm (where only the EBM alone, level with
+LightGBM on dev, had a lower MAE), but missed the pre-stated bar on dev (P =
 0.89 < 0.95). It was then put to a second test that was
 written down only *after* those results were seen: one paired test over all
 17 walk-forward seasons, Bonferroni-corrected for the 9 margin candidates
@@ -428,7 +429,8 @@ implementations agree to 1e-5 on random inputs for both tail shapes (checked
   it (same sign for inputs and settings; P ≥ 0.90 for the prop model-type
   bake-off, whose confirmation seasons had already been consulted).
 - **One disclosed exception** (2026-11-16). The game LightGBM + EBM blend was
-  the best candidate on both periods but missed the development bar. It was
+  the best candidate on development and held on confirmation, but missed the
+  development bar. It was
   given a second test, written down only *after* its first results had been
   seen: every walk-forward season pooled, with the threshold
   Bonferroni-corrected for all candidates tried in that bake-off (§4). It is
@@ -792,15 +794,16 @@ until shown otherwise.
 ### 2026, weeks 1–10 (149 games)
 | | Straight-up | Margin MAE | ATS | O/U | PPR MAE (naive) |
 |---|---|---|---|---|---|
-| As published (the site, last pushed Sep 5; 149 games since) | 59.1% | 10.11 | 48.9% | 49.2% | 4.96 (4.42) |
+| As published (the Sep 5 snapshot; 149 games since) | 59.1% | 10.11 | 48.9% | 49.2% | 4.96 (4.42) |
 | Walk-forward, no market info (LightGBM + EBM) | 67.1% | 9.79 | 50.0% | 51.6% | 4.33 (4.50) |
 | Walk-forward, with market | 68.5% | 9.70 | 47.7% | 44.2% | — |
 | Vegas closing line | 68.5% | 9.58 | — | — | — |
 | History, same weeks 2010–2025 (no market info) | 64.2% | 10.33 | — | — | — |
 
-The site itself has not been pushed since Sep 5, so "as published" is still
-that snapshot: its card (priced on the raw model) is 40–49, −9.0 units on 89
-picks. Everything rebuilt since then is local until it is committed and pushed.
+Until 2026-11-17 the public site was still the Sep 5 snapshot, so "as
+published" grades that snapshot: its card (priced on the raw model) is 40–49,
+−9.0 units on 89 picks. The rebuilt site (data through week 10) went live on
+2026-11-17.
 
 Prop tracker (`scripts/props.py`, primary strategy: QB volume props, model
 side, +EV at the best price): 9–11, -3.12 units on 20 graded bets. The
@@ -809,6 +812,39 @@ reached; this is too few to mean anything. A snapshot of the lines posted on
 2026-11-16 (15 primary candidates) is saved and ungraded.
 
 ## 13. Change log
+
+### 2026-11-24
+- **Housekeeping, keeping only current material:** removed
+  `reports/research/tune_game.json`, the first game-tuning run (Aug 20,
+  depth-8 trees). The next day's `tune_game_result.json` and
+  `tune_game_total.json` replaced it, and their settings are the ones in use.
+  The `web/preview_*.png` screenshots and run logs from before the Nov 16
+  retrain are gone too (both were git-ignored). No model change.
+
+### 2026-11-21
+- **Model report cut to three pages:** which model makes each prediction,
+  how accurate it is, why it was chosen, and what it cannot do. The full
+  evidence stays here and in the codebase guide.
+- **Wording corrected** (§4, the §6 adoption rule, and the guide):
+  the LightGBM + EBM average was the best candidate on the development
+  seasons and held on confirmation, not "best on both periods". On
+  confirmation the EBM alone had the lower MAE (10.077 against 10.088),
+  though it was only level with LightGBM on development. No model change.
+- **Superseded reports removed:** `Chalkline_Summary.pdf` (an earlier copy of
+  the mentor summary), `Chalkline_Mentor_Summary.pdf`,
+  `Chalkline_Plain_Report.pdf` and `Chalkline_Props_Report.pdf` were all
+  written on data through week 6, and the model report replaces them. Also
+  removed: `scripts/report_mentor_summary.py`. The reports are now just the
+  model report (`make report`) and the codebase guide (`make guide`). The
+  removed files remain in git history (commit 0a75203).
+
+### 2026-11-19
+- **Model report** (`reports/Chalkline_Model_Report.pdf`, `make report`,
+  `scripts/report_model.py`): current accuracy and the evidence behind every
+  model choice, for readers who want the *why* without the code walkthrough.
+  The report builders now share `scripts/report_common.py` (data, charts,
+  styles); the codebase guide's output is unchanged (verified page by page).
+  No model change.
 
 ### 2026-11-16
 - **Data refreshed** through 2026 Week 10 (13 of 14 games); all models retrained
